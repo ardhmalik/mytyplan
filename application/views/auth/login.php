@@ -1,6 +1,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-7 col-lg-5">
+            <?= $this->session->flashdata('message') ?>
             <div class="card">
                 <div class="card-header">
                     <h4 class="text-center">
@@ -18,6 +19,9 @@
                             <input type="password" class="form-control" id="password" name="password" placeholder="Must include string and numbers" aria-describedby="passHelp">
                         </div>
                         <div class="d-flex bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="reset" class="btn btn-light btn-outline-secondary">Cancel</button>
+                            </div>
                             <div class="ms-auto p-2 bd-highlight">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
