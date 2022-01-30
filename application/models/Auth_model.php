@@ -24,16 +24,33 @@ class Auth_model extends CI_Model
             [
                 'field'=>'username',
                 'label'=>'Username',
-                'rules'=>'required|trim'
+                'rules'=>'required|trim|is_unique[users.username]',
+                'errors'=>[
+                    'is_unique'=>'Try another username'
+                ]
             ], [
                 'field'=>'email',
                 'label'=>'Email',
-                'rules'=>'required|trim|valid_email'
+                'rules'=>'required|trim|valid_email|is_unique[users.email]',
+                'errors'=>[
+                    'is_unique'=>'Email has already registered, try another email'
+                ]
             ], [
                 'field'=>'password',
                 'label'=>'Password',
-                'rules'=>'required|min_length[5]|trim'
+                'rules'=>'required|min_length[5]|trim',
+                'errors'=>[
+                    'min_length'=>'Password must have 5 character or more!'
+                ]
             ]
         ];
+    }
+
+    public function createUser($data)
+    {
+        $sql = 'CALL addUser(?, ?, ?)';
+        $query = $this->db->query($sql, [$data['email'], $data['username'], $data['password']]);
+
+        return $query;
     }
 }
