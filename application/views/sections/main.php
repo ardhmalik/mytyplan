@@ -1,16 +1,22 @@
 <!-- Route main page -->
 <?php
 # variable to pass data to another page
-$data = [
-    'title'=>$title,
-    'months'=>$months,
-    'plans'=>$plans
-];
+// $data = [
+//     'title'=>$title,
+//     'user'=>$user,
+//     'months'=>$months,
+//     'labels'=>$labels,
+//     'plans'=>$plans
+// ];
+
+$this->load->view('sections/navbar');
 
 switch ($title) {
     case 'Dashboard':
-        $this->load->view('sections/navbar', $data);
-        $this->load->view('pages/dashboard', $data);
+        $this->load->view('pages/dashboard');
+        break;
+    case 'Add Plan':
+        $this->load->view('pages/addPlan');
         break;
     default:
         redirect('auth/login');
