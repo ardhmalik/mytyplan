@@ -7,6 +7,7 @@ class Plans extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('auth_model', 'amodel');
+		$this->load->model('plans_model', 'pmodel');
 	}
 
 	public function dashboard()
@@ -15,14 +16,16 @@ class Plans extends CI_Controller
 			'email'=>$this->session->userdata('email'),
 			'username'=>$this->session->userdata('username')
 		];
+		$user = $this->amodel->getUser($sessions['email']);
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Dashboard',
-			'user'=>$this->amodel->getUser($sessions['email'])
+			'user'=>$user,
+			'months'=>$this->pmodel->getMonths(),
+			'plans'=>$this->pmodel->getPlans($user['id_user']),
 		];
 
 		$this->load->view('sections/header', $data);
-        $this->load->view('sections/navbar', $data);
 		$this->load->view('sections/main', $data);
 		$this->load->view('sections/footer');
 	}
