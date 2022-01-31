@@ -53,4 +53,12 @@ class Auth_model extends CI_Model
 
         return $query;
     }
+    
+    public function getUser($email)
+    {
+        $sql = $this->db->get_where('users', ['email'=>$email]);
+        $query = $sql->row_array();
+
+        return $query;
+    }
 }
