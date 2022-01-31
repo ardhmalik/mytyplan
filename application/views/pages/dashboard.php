@@ -53,7 +53,9 @@
                                             <div class="fw-bold">
                                                 <?= $pl['plan'] ?>
                                             </div>
-                                            <?= $pl['description'] ?>
+                                            <span class="text-muted fst-italic">
+                                                <?= $pl['description'] ?>
+                                            </span>
                                         </div>
                                         <?php
                                             $bg = '';
