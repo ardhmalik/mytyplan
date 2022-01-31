@@ -15,3 +15,6 @@
     </div>
 </nav>
 <!-- End Navbar -->
+
+<!-- Main Content -->
+<div class="container">
