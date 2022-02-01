@@ -157,4 +157,41 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Move -->
+<div class="modal fade" id="planMove<?= $pl['id_plan'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="planMove" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="planMove">Move Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form action="<?= site_url('plans/move') ?>" method="post">                       
+                        <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
+                        <div class="mb-3 form-floating">
+                            <select class="form-select" name="month" id="month" aria-label="Default select example">
+                                <?php foreach ($months as $mn) : ?>
+                                    <option value="<?= $mn['id_month'] ?>" <?= ($mn['month']==$pl['month'] ? 'selected' : '') ?> ><?= $mn['month_name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                            <label for="month" class="form-label">Month</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expired" class="form-label">Expired</label>
+                            <input type="date" class="form-control" name="expired" id="expired" min="2022-01-01" max="2022-12-30" value="<?= date('Y-m-d', strtotime($pl['expired'])) ?>" required>
+                        </div>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">Cancel</button>
+                            <input type="submit" class="btn btn-primary" value="Move"></input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <?php endforeach ?>

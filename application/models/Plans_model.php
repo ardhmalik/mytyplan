@@ -73,4 +73,12 @@ class Plans_model extends CI_Model
 
         return $query;
     }
+    
+    public function movePlan($data)
+    {
+        $sql = 'SELECT movePlan(?, ?, ?)';
+        $query = $this->db->query($sql, $data);
+
+        return $query;
+    }
 }

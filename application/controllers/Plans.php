@@ -155,4 +155,26 @@ class Plans extends CI_Controller
 		);
 		redirect('plans/dashboard');
 	}
+	
+	public function move()
+	{
+		$input = $this->input;
+		$data = [
+			'id_plan'=>$input->post('id_plan'),
+			'id_month'=>$input->post('month'),
+			'expired'=>$input->post('expired') . " 23:59:59"
+		];
+		
+		// var_dump($data);
+		// die;
+		
+		$this->pmodel->movePlan($data);
+		$this->session->set_flashdata(
+			'message',
+			'<div class="alert alert-success" role="alert">
+			Move plan successfully..
+			</div>'
+		);
+		redirect('plans/dashboard');
+	}
 }
