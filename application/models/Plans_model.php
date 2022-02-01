@@ -57,4 +57,20 @@ class Plans_model extends CI_Model
 
         return $query;
     }
+    
+    public function successMark($data)
+    {
+        $sql = 'SELECT successPlan(?)';
+        $query = $this->db->query($sql, $data)->result_array();
+
+        return $query;
+    }
+    
+    public function failMark($data)
+    {
+        $sql = 'SELECT failPlan(?)';
+        $query = $this->db->query($sql, $data)->result_array();
+
+        return $query;
+    }
 }

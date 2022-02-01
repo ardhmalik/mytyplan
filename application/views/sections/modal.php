@@ -134,21 +134,25 @@
                     <i class="fas fa-trash"></i> | Delete
                 </a>
                 <?php
-                    # Percabangan if untuk tampilan button Mark as success
+                    # Percabangan if untuk tampilan button Mark as success & form action
+                    $formUrl = '';
                     $btn = '';
                     $textBtn = '';
 
                     if ($pl['status'] == 0) {
+                        $formUrl = 'plans/successPlan';
                         $btn = 'btn btn-success';
-                        $textBtn = '<i class="fas fa-check-circle"></i> | Mark as success';
+                        $textBtn = 'Mark as success';
                     } elseif ($pl['status'] == 1) {
+                        $formUrl = 'plans/failPlan';
                         $btn = 'btn btn-danger';
-                        $textBtn = '<i class="fas fa-times-circle"></i> | Back to fail';
+                        $textBtn = 'Back to fail';
                     }
                 ?>
-                <a type="button" class="<?= $btn ?>">
-                    <?= $textBtn ?>
-                </a>
+                <form action="<?= site_url($formUrl) ?>" method="post">
+                    <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
+                    <input type="submit" class="<?= $btn ?>" value="<?= $textBtn ?>">
+                </form>
             </div>
         </div>
     </div>

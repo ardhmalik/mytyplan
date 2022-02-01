@@ -75,7 +75,7 @@ class Plans extends CI_Controller
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-success" role="alert">
-				Succes to create a new plan..
+				Success to create a new plan..
 				</div>'
 			);
 			redirect('plans/dashboard');
@@ -112,7 +112,45 @@ class Plans extends CI_Controller
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-success" role="alert">
-			Succes to edit plan..
+			Success to edit plan..
+			</div>'
+		);
+		redirect('plans/dashboard');
+	}
+
+	public function successPlan()
+	{
+		$data = [
+			'id_plan'=>$this->input->post('id_plan')
+		];
+
+		// var_dump($data);
+		// die;
+
+		$this->pmodel->successMark($data);
+		$this->session->set_flashdata(
+			'message',
+			'<div class="alert alert-success" role="alert">
+			Done, marking a successful plan..
+			</div>'
+		);
+		redirect('plans/dashboard');
+	}
+	
+	public function failPlan()
+	{
+		$data = [
+			'id_plan'=>$this->input->post('id_plan')
+		];
+		
+		// var_dump($data);
+		// die;
+
+		$this->pmodel->failMark($data);
+		$this->session->set_flashdata(
+			'message',
+			'<div class="alert alert-success" role="alert">
+			Done, marks the plan failed..
 			</div>'
 		);
 		redirect('plans/dashboard');
