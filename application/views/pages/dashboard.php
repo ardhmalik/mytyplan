@@ -98,7 +98,11 @@
                                                     $status = 'fas fa-check-circle text-success';
                                                 }
                                             } else {
-                                                $bgStatus = 'd-none';
+                                                if ($pl['status'] == 0) {
+                                                    $bgStatus = 'd-none';
+                                                } elseif ($pl['status'] == 1) {
+                                                    $status = 'fas fa-check-circle text-success';
+                                                }
                                             }
                                         ?>
                                         <div>
