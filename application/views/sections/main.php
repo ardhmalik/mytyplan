@@ -14,6 +14,7 @@ $this->load->view('sections/navbar');
 switch ($title) {
     case 'Dashboard':
         $this->load->view('pages/dashboard');
+        $this->load->view('sections/modal');
         break;
     case 'Add Plan':
         $this->load->view('pages/addPlan');

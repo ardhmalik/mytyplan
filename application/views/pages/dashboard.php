@@ -14,7 +14,10 @@
     // $new = [1, 2, 4, 5];
     // $jml = $pl;
     // $brp = count([$jml]);
-    // var_dump($plans); 
+    // $datetime = time();
+    // $result = date('d-m-Y H:i:s', $datetime);
+    // $result = strtotime($datetime);
+    // var_dump($result); 
     // die; 
     ?>
 
@@ -47,8 +50,16 @@
                     <?php foreach ($plans as $pl) : ?>
                         <?php if (intval($pl['month']) == $mn['id_month']) : ?>
                             <ol class="list-group">
-                                <a href="#" class="text-decoration-none">
-                                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                                <a type="button" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">
+                                    <?php
+                                        $bgList = '';
+                                        $now = time();
+                                        $exp = strtotime($pl['expired']);
+                                        if ($exp < $now) {
+                                            $bgList = 'bg-secondary bg-opacity-10';
+                                        }
+                                    ?>
+                                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start <?= $bgList ?>">
                                         <div class="ms-2 me-auto">
                                             <div class="fw-bold">
                                                 <?= $pl['plan'] ?>
@@ -58,25 +69,50 @@
                                             </span>
                                         </div>
                                         <?php
-                                            $bg = '';
+                                            $bgBadge = '';
                                             switch ($pl['label']) {
                                                 case 'Very Important':
-                                                    $bg = 'bg-danger';
+                                                    $bgBadge = 'bg-danger';
                                                     break;
                                                 case 'Important':
-                                                    $bg = 'bg-warning';
+                                                    $bgBadge = 'bg-warning';
                                                     break;
                                                 case 'Normal':
-                                                    $bg = 'bg-primary';
+                                                    $bgBadge = 'bg-primary';
                                                     break;
                                                 default:
-                                                    $bg;
+                                                    $bgBadge;
                                                     break;
                                             }
+
+                                            # Percabangan if untuk tampilan status
+                                            $bgStatus = '';
+                                            $status = '';
+                                            $now = time();
+                                            $exp = strtotime($pl['expired']);
+                                            if ($exp < $now) {
+                                                $bgStatus = 'bg-none';
+                                                if ($pl['status'] == 0) {
+                                                    $status = 'fas fa-times-circle text-danger';
+                                                } elseif ($pl['status'] == 1) {
+                                                    $status = 'fas fa-check-circle text-success';
+                                                }
+                                            } else {
+                                                $bgStatus = 'd-none';
+                                            }
                                         ?>
-                                        <span class="badge <?= $bg ?> rounded-pill">
-                                            <?= $pl['label'] ?>
-                                        </span>
+                                        <div>
+                                            <div class="float-end">
+                                                <span class="badge <?= $bgBadge ?> rounded-pill">
+                                                    <?= $pl['label'] ?>
+                                                </span>
+                                            </div>
+                                            <div class="float-end">
+                                                <span class="badge-lg <?= $bgStatus ?> rounded-pill">
+                                                    <i class="<?= $status ?>"></i>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </li>
                                 </a>
                             </ol>
