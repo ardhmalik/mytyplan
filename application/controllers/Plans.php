@@ -13,6 +13,7 @@ class Plans extends CI_Controller
 
 	public function dashboard()
 	{
+		$pmodel = $this->pmodel;
 		$sessions = [
 			'email'=>$this->session->userdata('email'),
 			'username'=>$this->session->userdata('username')
@@ -22,8 +23,9 @@ class Plans extends CI_Controller
 			'project'=>'My This Year Plan',
 			'title'=>'Dashboard',
 			'user'=>$user,
-			'months'=>$this->pmodel->getMonths(),
-			'plans'=>$this->pmodel->getPlans($user['id_user']),
+			'months'=>$pmodel->getMonths(),
+			'labels'=>$pmodel->getLabels(),
+			'plans'=>$pmodel->getPlans($user['id_user']),
 		];
 
 		$this->load->view('sections/header', $data);
@@ -91,5 +93,28 @@ class Plans extends CI_Controller
 		}
 
 		return $status;
+	}
+
+	public function edit()
+	{
+		$input = $this->input;
+		$data = [
+			'id_plan'=>$input->post('id_plan'),
+			'plan'=>$input->post('plan'),
+			'description'=>$input->post('description'),
+			'id_label'=>$input->post('label')
+		];
+		
+		// var_dump($data);
+		// die;
+
+		$this->pmodel->updatePlan($data);
+		$this->session->set_flashdata(
+			'message',
+			'<div class="alert alert-success" role="alert">
+			Succes to edit plan..
+			</div>'
+		);
+		redirect('plans/dashboard');
 	}
 }

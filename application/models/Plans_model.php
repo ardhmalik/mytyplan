@@ -49,4 +49,12 @@ class Plans_model extends CI_Model
 
         return $query;
     }
+    
+    public function updatePlan($data)
+    {
+        $sql = 'SELECT editPlan(?, ?, ?, ?)';
+        $query = $this->db->query($sql, $data)->result_array();
+
+        return $query;
+    }
 }
