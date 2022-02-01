@@ -17,15 +17,15 @@
     // $datetime = time();
     // $result = date('d-m-Y H:i:s', $datetime);
     // $result = strtotime($datetime);
-    // var_dump($result); 
+    // var_dump($plans); 
     // die; 
     ?>
 
     <!-- Button Add New Plan -->
     <div class="d-flex flex-row-reverse mb-3">
-        <a href="<?= site_url('plans/add') ?>" type="button" value="submit" class="btn btn-primary">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planAdd">
             New Plan
-        </a>
+        </button>
     </div>
     <!-- End Button Add New Plan -->
     

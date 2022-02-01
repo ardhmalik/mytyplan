@@ -28,58 +28,39 @@ class Plans extends CI_Controller
 			'plans'=>$pmodel->getPlans($user['id_user']),
 		];
 
-		$this->load->view('sections/header', $data);
 		$this->load->view('sections/main', $data);
-		$this->load->view('sections/footer');
 	}
 	
 	public function add()
 	{
-		$amodel = $this->amodel;
+		$input = $this->input;
 		$pmodel = $this->pmodel;
-		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
-		];
-		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Add Plan',
-			'user'=>$amodel->getUser($sessions['email']),
-			'months'=>$pmodel->getMonths(),
-			'labels'=>$pmodel->getLabels(),
-		];
+		$status = $this->_statusCheck();
 
 		$validation = $this->form_validation;
 		$validation->set_rules($pmodel->add_rules());
 
-		if ($validation->run() == FALSE) {
-			$this->load->view('sections/header', $data);
-			$this->load->view('sections/main', $data);
-			$this->load->view('sections/footer');
-		} else {
-			$status = $this->_statusCheck();
-			$input = $this->input;
-			$data = [
-				'id_user'=>$input->post('id_user'),
-				'plan'=>$input->post('plan'),
-				'description'=>$input->post('description'),
-				'expired'=>$input->post('expired') . " 23:59:59",
-				'status'=>$status,
-				'id_label'=>$input->post('label'),
-				'id_month'=>$input->post('month')
-			];
+		$data = [
+			'id_user'=>$input->post('id_user'),
+			'plan'=>$input->post('plan'),
+			'description'=>$input->post('description'),
+			'expired'=>$input->post('expired') . " 23:59:59",
+			'status'=>$status,
+			'id_label'=>$input->post('label'),
+			'id_month'=>$input->post('month')
+		];
 
-			var_dump($data);
+		// var_dump($data);
+		// die;
 
-			$pmodel->createPlan($data);
-			$this->session->set_flashdata(
-				'message',
-				'<div class="alert alert-success" role="alert">
-				Success to create a new plan..
-				</div>'
-			);
-			redirect('plans/dashboard');
-		}
+		$pmodel->createPlan($data);
+		$this->session->set_flashdata(
+			'message',
+			'<div class="alert alert-success" role="alert">
+			Success to create a new plan..
+			</div>'
+		);
+		redirect('plans/dashboard');
 	}
 
 	private function _statusCheck()
