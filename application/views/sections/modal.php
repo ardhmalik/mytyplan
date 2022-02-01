@@ -130,9 +130,9 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">Back</button>
-                <a type="button" class="btn btn-outline-danger">
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#planDel<?= $pl['id_plan'] ?>">
                     <i class="fas fa-trash"></i> | Delete
-                </a>
+                </button>
                 <?php
                     # Percabangan if untuk tampilan button Mark as success & form action
                     $formUrl = '';
@@ -187,6 +187,38 @@
                         <div class="float-end">
                             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">Cancel</button>
                             <input type="submit" class="btn btn-primary" value="Move"></input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="planDel<?= $pl['id_plan'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="planDel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="planDel">Delete Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <h5 class="text-center text-bold mb-5">
+                        Are you sure?
+                    </h5>
+                    <form action="<?= site_url('plans/delete') ?>" method="post">
+                        <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
+                        <div class="d-flex bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">No</button>
+                            </div>
+                            <div class="ms-auto p-2 bd-highlight">
+                                <input type="submit" class="btn btn-primary" value="Yes, delete it">
+                            </div>
                         </div>
                     </form>
                 </div>

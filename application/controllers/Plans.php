@@ -177,4 +177,24 @@ class Plans extends CI_Controller
 		);
 		redirect('plans/dashboard');
 	}
+	
+	public function delete()
+	{
+		$input = $this->input;
+		$data = [
+			'id_plan'=>$input->post('id_plan')
+		];
+
+		// var_dump($data);
+		// die;
+
+		$this->pmodel->delPlan($data);
+		$this->session->set_flashdata(
+			'message',
+			'<div class="alert alert-success" role="alert">
+			Delete plan successfully..
+			</div>'
+		);
+		redirect('plans/dashboard');
+	}
 }
