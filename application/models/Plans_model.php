@@ -89,4 +89,12 @@ class Plans_model extends CI_Model
 
         return $query;
     }
+
+    public function getLogs($id)
+    {
+        $sql = $this->db->get_where('logs', ['id_user'=>$id]);
+        $query = $sql->result_array();
+
+        return $query;
+    }
 }

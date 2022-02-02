@@ -28,6 +28,9 @@ class Plans extends CI_Controller
 			'plans'=>$pmodel->getPlans($user['id_user']),
 		];
 
+		// var_dump($user);
+		// die;
+
 		$this->load->view('sections/main', $data);
 	}
 	
@@ -177,5 +180,26 @@ class Plans extends CI_Controller
 			</div>'
 		);
 		redirect('plans/dashboard');
+	}
+
+	public function userLogs()
+	{
+		$pmodel = $this->pmodel;
+		$sessions = [
+			'email'=>$this->session->userdata('email'),
+			'username'=>$this->session->userdata('username')
+		];
+		$user = $this->amodel->getUser($sessions['email']);
+		$data = [
+			'project'=>'My This Year Plan',
+			'title'=>'Logs',
+			'user'=>$user,
+			'logs'=>$pmodel->getLogs($user['id_user'])
+		];
+
+		// var_dump($user);
+		// die;
+
+		$this->load->view('sections/main', $data);
 	}
 }
