@@ -50,6 +50,10 @@
                                             <div class="fw-bold">
                                                 <?= $pl['plan'] ?>
                                             </div>
+                                            <small class="font-monospace text-light fw-bold bg-secondary opacity-50 rounded">
+                                                Exp.<?= $pl['expired'] ?>
+                                            </small>
+                                            <br>
                                             <span class="text-muted fst-italic">
                                                 <?= $pl['description'] ?>
                                             </span>
