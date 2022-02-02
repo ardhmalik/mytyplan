@@ -188,6 +188,52 @@ class Plans extends CI_Controller
 		redirect('plans/dashboard');
 	}
 
+	public function getSuccess()
+	{
+		$pmodel = $this->pmodel;
+		$sessions = [
+			'email'=>$this->session->userdata('email'),
+			'username'=>$this->session->userdata('username')
+		];
+		$user = $this->amodel->getUser($sessions['email']);
+		$data = [
+			'project'=>'My This Year Plan',
+			'title'=>'Success Plan',
+			'user'=>$user,
+			'months'=>$pmodel->getMonths(),
+			'labels'=>$pmodel->getLabels(),
+			'splans'=>$pmodel->getSplans($user['id_user'])
+		];
+
+		// var_dump($user);
+		// die;
+
+		$this->load->view('sections/main', $data);
+	}
+	
+	public function getFail()
+	{
+		$pmodel = $this->pmodel;
+		$sessions = [
+			'email'=>$this->session->userdata('email'),
+			'username'=>$this->session->userdata('username')
+		];
+		$user = $this->amodel->getUser($sessions['email']);
+		$data = [
+			'project'=>'My This Year Plan',
+			'title'=>'Fail Plan',
+			'user'=>$user,
+			'months'=>$pmodel->getMonths(),
+			'labels'=>$pmodel->getLabels(),
+			'fplans'=>$pmodel->getFplans($user['id_user'])
+		];
+
+		// var_dump($user);
+		// die;
+
+		$this->load->view('sections/main', $data);
+	}
+
 	public function userLogs()
 	{
 		$pmodel = $this->pmodel;

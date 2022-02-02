@@ -90,6 +90,22 @@ class Plans_model extends CI_Model
         return $query;
     }
 
+    public function getSplans($id)
+    {
+        $sql = 'CALL viewSuccessPlan(?)';
+        $query = $this->db->query($sql, $id)->result_array();
+
+        return $query;
+    }
+    
+    public function getFplans($id)
+    {
+        $sql = 'CALL viewFailPlan(?)';
+        $query = $this->db->query($sql, $id)->result_array();
+
+        return $query;
+    }
+
     public function getLogs($id)
     {
         $sql = $this->db->get_where('logs', ['id_user'=>$id]);

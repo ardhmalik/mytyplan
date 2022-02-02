@@ -7,6 +7,12 @@ switch ($title) {
         $this->load->view('pages/dashboard');
         $this->load->view('sections/modal');
         break;
+    case 'Success Plan':
+        $this->load->view('pages/successp');
+        break;
+    case 'Fail Plan':
+        $this->load->view('pages/failp');
+        break;
     case 'Logs':
         $this->load->view('pages/logs');
         break;

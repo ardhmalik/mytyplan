@@ -12,6 +12,12 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="actionDropdown">
                         <li>
+                            <a href="<?= site_url('plans/getsuccess') ?>" class="dropdown-item">Success plan</a>
+                        </li>
+                        <li>
+                            <a href="<?= site_url('plans/getfail') ?>" class="dropdown-item">Fail Plan</a>
+                        </li>
+                        <li>
                             <a href="<?= site_url('plans/userlogs') ?>" class="dropdown-item">Logs</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
