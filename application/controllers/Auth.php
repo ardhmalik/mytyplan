@@ -53,8 +53,9 @@ class Auth extends CI_Controller
 			} else {
 				$this->session->set_flashdata(
 					'message',
-					'<div class="alert alert-danger alert-message" role="alert">
+					'<div class="alert alert-danger alert-dismissible fade show" role="alert">
 						Wrong password bro, try again!
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>'
 				);
 				redirect('auth/login');
@@ -62,8 +63,9 @@ class Auth extends CI_Controller
 		} else {
 			$this->session->set_flashdata(
 				'message',
-				'<div class="alert alert-danger alert-message" role="alert">
+				'<div class="alert alert-danger alert-dismissible fade show" role="alert">
 					Email isn`t registered, please 
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					<a href="'.site_url('auth/register').'">Register here</a>
 				</div>'
 			);
@@ -105,8 +107,9 @@ class Auth extends CI_Controller
 			$auth->createUser($input);
 			$sessions->set_flashdata(
 				'message',
-				'<div class="alert alert-success alert-message" role="alert">
-				Your account has been registered, Please Login...
+				'<div class="alert alert-success alert-dismissible fade show" role="alert">
+					Your account has been registered, Please Login...
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
 			redirect('auth/login');
@@ -121,8 +124,9 @@ class Auth extends CI_Controller
 
 		$sessions->set_flashdata(
 			'message',
-			'<div class="alert alert-info alert-message" role="alert">
-			You have been logout, Please Login...
+			'<div class="alert alert-info alert-dismissible fade show" role="alert">
+				You have been logout, Please Login...
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
 		redirect('auth/login');

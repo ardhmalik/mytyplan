@@ -147,9 +147,26 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">
                     <i class="fas fa-edit"></i> | Edit Plan
                 </button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#planMove<?= $pl['id_plan'] ?>">
-                    <i class="fas fa-arrows-alt"></i> | Move Plan
-                </button>
+                <?php
+                    # Percabangan if untuk tampilan button Mark as success & form action
+                    $formUrl = '';
+                    $btn = '';
+                    $textBtn = '';
+
+                    if ($pl['status'] == 0) {
+                        $formUrl = 'plans/successPlan';
+                        $btn = 'btn btn-success';
+                        $textBtn = 'Mark as success';
+                    } elseif ($pl['status'] == 1) {
+                        $formUrl = 'plans/failPlan';
+                        $btn = 'btn btn-danger';
+                        $textBtn = 'Back to fail';
+                    }
+                ?>
+                <form action="<?= site_url($formUrl) ?>" method="post">
+                    <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
+                    <input type="submit" class="<?= $btn ?>" value="<?= $textBtn ?>">
+                </form>
             </div>
         </div>
     </div>
@@ -200,26 +217,9 @@
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#planDel<?= $pl['id_plan'] ?>">
                     <i class="fas fa-trash"></i> | Delete
                 </button>
-                <?php
-                    # Percabangan if untuk tampilan button Mark as success & form action
-                    $formUrl = '';
-                    $btn = '';
-                    $textBtn = '';
-
-                    if ($pl['status'] == 0) {
-                        $formUrl = 'plans/successPlan';
-                        $btn = 'btn btn-success';
-                        $textBtn = 'Mark as success';
-                    } elseif ($pl['status'] == 1) {
-                        $formUrl = 'plans/failPlan';
-                        $btn = 'btn btn-danger';
-                        $textBtn = 'Back to fail';
-                    }
-                ?>
-                <form action="<?= site_url($formUrl) ?>" method="post">
-                    <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
-                    <input type="submit" class="<?= $btn ?>" value="<?= $textBtn ?>">
-                </form>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#planMove<?= $pl['id_plan'] ?>">
+                    <i class="fas fa-arrows-alt"></i> | Move Plan
+                </button>
             </div>
         </div>
     </div>
