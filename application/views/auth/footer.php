@@ -1,7 +1,7 @@
 <!-- Footer -->
 <footer class="text-center py-3 mt-5">
-    <a href="https://github.com/ardhmalik/sertifikasi-si">
-        <i class="bi bi-github"></i>@ardhmalik
+    <a target="blank" href="https://github.com/ardhmalik/mytyplan" class="text-dark">
+        <i class="bi bi-github"></i> @ardhmalik
     </a>
     <br>
     <span>Made with <i class="bi bi-heart-fill" style="color:red"></i> from ardhmalik's home</span>
