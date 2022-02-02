@@ -53,7 +53,7 @@ class Auth extends CI_Controller
 			} else {
 				$this->session->set_flashdata(
 					'message',
-					'<div class="alert alert-danger" role="alert">
+					'<div class="alert alert-danger alert-message" role="alert">
 						Wrong password bro, try again!
 					</div>'
 				);
@@ -62,7 +62,7 @@ class Auth extends CI_Controller
 		} else {
 			$this->session->set_flashdata(
 				'message',
-				'<div class="alert alert-danger" role="alert">
+				'<div class="alert alert-danger alert-message" role="alert">
 					Email isn`t registered, please 
 					<a href="'.site_url('auth/register').'">Register here</a>
 				</div>'
@@ -105,7 +105,7 @@ class Auth extends CI_Controller
 			$auth->createUser($input);
 			$sessions->set_flashdata(
 				'message',
-				'<div class="alert alert-success" role="alert">
+				'<div class="alert alert-success alert-message" role="alert">
 				Your account has been registered, Please Login...
 				</div>'
 			);
@@ -121,7 +121,7 @@ class Auth extends CI_Controller
 
 		$sessions->set_flashdata(
 			'message',
-			'<div class="alert alert-info" role="alert">
+			'<div class="alert alert-info alert-message" role="alert">
 			You have been logout, Please Login...
 			</div>'
 		);

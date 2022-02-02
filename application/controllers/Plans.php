@@ -59,8 +59,9 @@ class Plans extends CI_Controller
 		$pmodel->createPlan($data);
 		$this->session->set_flashdata(
 			'message',
-			'<div class="alert alert-success" role="alert">
+			'<div class="alert alert-success alert-dismissible fade show" role="alert">
 			Success to create a new plan..
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
 		redirect('plans/dashboard');
@@ -95,8 +96,9 @@ class Plans extends CI_Controller
 		$this->pmodel->updatePlan($data);
 		$this->session->set_flashdata(
 			'message',
-			'<div class="alert alert-success" role="alert">
+			'<div class="alert alert-success alert-dismissible fade show" role="alert">
 			Success to edit plan..
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
 		redirect('plans/dashboard');
@@ -114,8 +116,9 @@ class Plans extends CI_Controller
 		$this->pmodel->successMark($data);
 		$this->session->set_flashdata(
 			'message',
-			'<div class="alert alert-success" role="alert">
+			'<div class="alert alert-success alert-dismissible fade show" role="alert">
 			Done, marking a successful plan..
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
 		redirect('plans/dashboard');
@@ -133,8 +136,9 @@ class Plans extends CI_Controller
 		$this->pmodel->failMark($data);
 		$this->session->set_flashdata(
 			'message',
-			'<div class="alert alert-success" role="alert">
+			'<div class="alert alert-success alert-dismissible fade show" role="alert">
 			Done, marks the plan failed..
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
 		redirect('plans/dashboard');
@@ -155,8 +159,9 @@ class Plans extends CI_Controller
 		$this->pmodel->movePlan($data);
 		$this->session->set_flashdata(
 			'message',
-			'<div class="alert alert-success" role="alert">
+			'<div class="alert alert-success alert-dismissible fade show" role="alert">
 			Move plan successfully..
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
 		redirect('plans/dashboard');
@@ -175,8 +180,9 @@ class Plans extends CI_Controller
 		$this->pmodel->delPlan($data);
 		$this->session->set_flashdata(
 			'message',
-			'<div class="alert alert-success" role="alert">
+			'<div class="alert alert-success alert-dismissible fade show" role="alert">
 			Delete plan successfully..
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
 		redirect('plans/dashboard');
