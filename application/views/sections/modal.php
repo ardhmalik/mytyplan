@@ -156,16 +156,16 @@
                     if ($pl['status'] == 0) {
                         $formUrl = 'plans/successPlan';
                         $btn = 'btn btn-success';
-                        $textBtn = 'Mark as success';
+                        $textBtn = '<i class="far fa-check-circle"></i> | Mark as success';
                     } elseif ($pl['status'] == 1) {
                         $formUrl = 'plans/failPlan';
                         $btn = 'btn btn-danger';
-                        $textBtn = 'Back to fail';
+                        $textBtn = '<i class="far fa-times-circle"></i> | Back to fail';
                     }
                 ?>
                 <form action="<?= site_url($formUrl) ?>" method="post">
                     <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
-                    <input type="submit" class="<?= $btn ?>" value="<?= $textBtn ?>">
+                    <button type="submit" class="<?= $btn ?>"><?= $textBtn ?></button>
                 </form>
             </div>
         </div>
@@ -205,7 +205,9 @@
                             <label for="label" class="form-label">Label</label>
                         </div>
                         <div class="float-end">
-                            <input type="submit" class="btn btn-primary" value="Save"></input>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="far fa-save"></i> | Save
+                            </button>
                         </div>
                     </form>
                     <!-- End Form Edit -->
@@ -252,7 +254,7 @@
                             <input type="date" class="form-control" name="expired" id="expired" min="2022-01-01" max="2022-12-30" value="<?= date('Y-m-d', strtotime($pl['expired'])) ?>" required>
                         </div>
                         <div class="float-end">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">Back</button>
                             <input type="submit" class="btn btn-primary" value="Move"></input>
                         </div>
                     </form>
@@ -281,10 +283,10 @@
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">No</button>
+                                <button type="button" class="btn btn-light btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">No</button>
                             </div>
                             <div class="ms-auto p-2 bd-highlight">
-                                <input type="submit" class="btn btn-primary" value="Yes, delete it">
+                                <input type="submit" class="btn btn-danger fw-bold" value="Yes, delete it">
                             </div>
                         </div>
                     </form>
