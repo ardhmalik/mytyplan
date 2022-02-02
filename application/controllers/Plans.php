@@ -230,6 +230,21 @@ class Plans extends CI_Controller
 		// var_dump($user);
 		// die;
 
+		$this->session->set_flashdata(
+			'sMessage',
+			'<div class="alert alert-info alert-dismissible fade show" role="alert">
+				<h4 class="alert-heading">You`re Amazing!</h4>
+				<p>Don`t be <span class="fw-bold">complacent</span> with your success, keep <span class="fw-bold">going</span> and <span class="fw-bold">focus</span> on your goals this year.</p>
+				<hr>
+				<figure class="text-end">
+					<blockquote class="blockquote">Hope you can finish this year with happiness</blockquote>
+					<figcaption class="blockquote-footer">
+						Developer on <cite title="Source Title">Earth</cite>
+				</figure>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>'
+		);
+
 		$this->load->view('sections/main', $data);
 	}
 	
@@ -263,6 +278,21 @@ class Plans extends CI_Controller
 
 		// var_dump($user);
 		// die;
+
+		$this->session->set_flashdata(
+			'fMessage',
+			'<div class="alert alert-info alert-dismissible fade show" role="alert">
+				<h4 class="alert-heading">Finish it!</h4>
+				<p>You have other plans to complete, stay <span class="fw-bold">motivated</span> and <span class="fw-bold">focused</span> on your goals!</p>
+				<hr>
+				<figure class="text-end">
+					<blockquote class="blockquote">Failure is the beginning of success</blockquote>
+					<figcaption class="blockquote-footer">
+						Writer on <cite title="Source Title">Earth</cite>
+				</figure>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>'
+		);
 
 		$this->load->view('sections/main', $data);
 	}

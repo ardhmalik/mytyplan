@@ -21,6 +21,12 @@
     // die; 
     ?>
 
+    <!-- Message from action add, edit and delete plan -->
+    <div class="col-12">
+        <?= $this->session->flashdata('fMessage') ?>
+    </div>
+    <!-- End Message -->
+
     <!-- Content -->
     <?php foreach ($months as $mn) : ?>
         <!-- Months Card -->
