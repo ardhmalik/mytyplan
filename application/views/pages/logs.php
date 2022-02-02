@@ -12,7 +12,7 @@
                     List of <?= $user['username'] ?> Logs
                 </caption>
                 <thead class="text-center">
-                    <tr>
+                    <tr class="table-dark">
                         <th scope="col">Times</th>
                         <th scope="col">Action</th>
                         <th scope="col">Content</th>
