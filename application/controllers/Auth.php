@@ -12,10 +12,22 @@ class Auth extends CI_Controller
 
 	public function login()
 	{
+		
 		$auth = $this->auth_model;
 		$validation = $this->form_validation;
 		$validation->set_rules($auth->login_rules());
 		
+		if ($this->session->userdata('email')) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-info alert-dismissible fade show" role="alert">
+					You are still logged in, please <a href="'. site_url('auth/logout') .'" class="alert-link">Logout</a>..
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+			redirect('plans/dashboard');
+		}
+
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Login'
@@ -75,10 +87,22 @@ class Auth extends CI_Controller
 	
 	public function register()
 	{
+		
 		$auth = $this->auth_model;
 		$validation = $this->form_validation;
 		$validation->set_rules($auth->reg_rules());
 		$sessions = $this->session;
+		
+		if ($this->session->userdata('email')) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-info alert-dismissible fade show" role="alert">
+					You are still logged in, please <a href="'. site_url('auth/login') .'" class="alert-link">Logout</a>..
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+			redirect('plans/dashboard');
+		}
 
 		$data = [
 			'project'=>'My This Year Plan',

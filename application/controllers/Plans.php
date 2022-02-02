@@ -28,6 +28,17 @@ class Plans extends CI_Controller
 			'plans'=>$pmodel->getPlans($user['id_user']),
 		];
 
+		if (!$this->session->userdata('email')) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-info alert-dismissible fade show" role="alert">
+					You are still not logged in, please Login..
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+			redirect('auth/login');
+		}
+
 		// var_dump($user);
 		// die;
 
@@ -205,6 +216,17 @@ class Plans extends CI_Controller
 			'splans'=>$pmodel->getSplans($user['id_user'])
 		];
 
+		if (!$this->session->userdata('email')) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-info alert-dismissible fade show" role="alert">
+					You are still not logged in, please Login..
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+			redirect('auth/login');
+		}
+
 		// var_dump($user);
 		// die;
 
@@ -228,6 +250,17 @@ class Plans extends CI_Controller
 			'fplans'=>$pmodel->getFplans($user['id_user'])
 		];
 
+		if (!$this->session->userdata('email')) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-info alert-dismissible fade show" role="alert">
+					You are still not logged in, please Login..
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+			redirect('auth/login');
+		}
+
 		// var_dump($user);
 		// die;
 
@@ -249,6 +282,17 @@ class Plans extends CI_Controller
 			'logs'=>$pmodel->getLogs($user['id_user'])
 		];
 
+		if (!$this->session->userdata('email')) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-info alert-dismissible fade show" role="alert">
+					You are still not logged in, please Login..
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+			redirect('auth/login');
+		}
+		
 		// var_dump($user);
 		// die;
 
