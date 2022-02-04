@@ -7,13 +7,13 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('auth_model');
+		$this->load->model('auth_model', 'amodel');
 	}
 
 	public function login()
 	{
 		
-		$auth = $this->auth_model;
+		$auth = $this->amodel;
 		$validation = $this->form_validation;
 		$validation->set_rules($auth->login_rules());
 		
@@ -48,7 +48,7 @@ class Auth extends CI_Controller
 			'email'=>$this->input->post('email'),
 			'password'=>$this->input->post('password')
 		];
-		$user = $this->auth_model->getUser($data['email']);
+		$user = $this->amodel->getUser($data['email']);
 
 		// var_dump($user);
 		// die;
@@ -88,7 +88,7 @@ class Auth extends CI_Controller
 	public function register()
 	{
 		
-		$auth = $this->auth_model;
+		$auth = $this->amodel;
 		$validation = $this->form_validation;
 		$validation->set_rules($auth->reg_rules());
 		$sessions = $this->session;
