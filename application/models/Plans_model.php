@@ -200,6 +200,7 @@ class Plans_model extends CI_Model
      */
     public function getLogs($id)
     {
+        $this->db->order_by('times', 'DESC');
         $sql = $this->db->get_where('logs', ['id_user'=>$id]);
         $query = $sql->result_array();
 
