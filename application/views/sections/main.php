@@ -1,7 +1,9 @@
 <?php
+# Load header & navbar sections
 $this->load->view('sections/header');
 $this->load->view('sections/navbar');
 
+# SWITCH statement to load appropriate files
 switch ($title) {
     case 'Dashboard':
         $this->load->view('pages/dashboard');
@@ -21,6 +23,7 @@ switch ($title) {
         break;
 }
 
+# Load footer section
 $this->load->view('sections/footer');
 
 ?>

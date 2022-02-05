@@ -1,4 +1,4 @@
-<!-- Modal Add -->
+<!-- Modal Add Plan -->
 <div class="modal fade" id="planAdd" tabindex="-1" aria-labelledby="planAdd" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -7,9 +7,12 @@
                 <h5 class="modal-title" id="planAdd">Add Plan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- End Modal Header -->
+            
             <!-- Modal Body -->
             <div class="modal-body">
                 <div class="container-fluid">
+                    <!-- Form Add Plan -->
                     <form action="<?= site_url('plans/add') ?>" method="post" class="mx-3 my-3">
                         <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
                         <div class="mb-3 form-floating">
@@ -58,15 +61,19 @@
                             </div>
                         </div>
                     </form>
+                    <!-- End Form Add Plan -->
                 </div>
             </div>
         </div>
+        <!-- End Modal Body -->
     </div>
 </div>
-<!-- Modal Add -->
-    
+<!-- End Modal Add Plan -->
+
+<!-- Foreach loop to print data plans in modal -->
 <?php foreach ($plans as $pl) : ?>
-<!-- Modal Details -->
+
+<!-- Modal Details Plan -->
 <div class="modal fade" id="plan<?= $pl['id_plan'] ?>" tabindex="-1" aria-labelledby="planDetails" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -75,6 +82,8 @@
                 <h5 class="modal-title" id="planDetails">Detail Plan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- End Modal Header -->
+
             <!-- Modal Body -->
             <div class="modal-body">
                 <div class="container-fluid">
@@ -83,8 +92,9 @@
                             <h5 class="text-bold">
                                 <?= $pl['plan'] ?>
                                 <?php
-                                    # Percabangan switch untuk background label
+                                    # $bgLabel variable to store background class for label
                                     $bgLabel = '';
+                                    # Switch statement to specify background label
                                     switch ($pl['label']) {
                                         case 'Very Important':
                                             $bgLabel = 'bg-danger';
@@ -100,32 +110,44 @@
                                             break;
                                     }
 
-                                    # Percabangan if untuk tampilan status
+                                    # $bgStatus variable to save background class for status
                                     $bgStatus = '';
+                                    # $status variable to save icon for status
                                     $status = '';
+                                    # $now to save current time
                                     $now = time();
+                                    # $exp to store the expired value which has been converted to the time data type
                                     $exp = strtotime($pl['expired']);
+                                    # If condition to compare expired with current time
                                     if ($exp < $now) {
-                                        $bgStatus = 'bg-none';
                                         if ($pl['status'] == 0) {
+                                            # If status value is 0, then display times icon and red color
                                             $status = 'fas fa-times-circle text-danger';
                                         } elseif ($pl['status'] == 1) {
+                                            # If status value is 1, then display check icon dan green color
                                             $status = 'fas fa-check-circle text-success';
                                         }
                                     } else {
                                         if ($pl['status'] == 0) {
+                                            # If status value is 0, then status isn't displayed
                                             $bgStatus = 'd-none';
                                         } elseif ($pl['status'] == 1) {
+                                            # If status value is 1, then display check icon dan green color
                                             $status = 'fas fa-check-circle text-success';
                                         }
                                     }
                                 ?>
+                                <!-- Label Badge -->
                                 <span class="badge <?= $bgLabel ?> rounded-pill">
                                     <?= $pl['label'] ?>
                                 </span>
+                                <!-- End Label Badge -->
+
+                                <!-- Status Badge -->
                                 <span class="badge-lg <?= $bgStatus ?> rounded-pill">
                                     <i class="<?= $status ?>"></i>
                                 </span>
+                                <!-- End Status Badge -->
                             </h5>
                         </div>
                         <div class="col-12">
@@ -141,6 +163,8 @@
                     </div>
                 </div>
             </div>
+            <!-- End Modal Body -->
+
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -148,32 +172,40 @@
                     <i class="fas fa-edit"></i> | Edit Plan
                 </button>
                 <?php
-                    # Percabangan if untuk tampilan button Mark as success & form action
+                    # $formUrl to save url text
                     $formUrl = '';
+                    # $btn to save button class
                     $btn = '';
+                    # $textBtn to save button values
                     $textBtn = '';
 
+                    # If condition for display button Mark as success & form action
                     if ($pl['status'] == 0) {
+                        # If TRUE, then display button change mark to success plan
                         $formUrl = 'plans/successPlan';
                         $btn = 'btn btn-success';
                         $textBtn = '<i class="far fa-check-circle"></i> | Mark as success';
                     } elseif ($pl['status'] == 1) {
+                        # If FALSE, then display button change mark to failed plan
                         $formUrl = 'plans/failPlan';
                         $btn = 'btn btn-danger';
                         $textBtn = '<i class="far fa-times-circle"></i> | Back to fail';
                     }
                 ?>
+                <!-- Form Mark -->
                 <form action="<?= site_url($formUrl) ?>" method="post">
                     <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                     <button type="submit" class="<?= $btn ?>"><?= $textBtn ?></button>
                 </form>
+                <!-- End Form Mark -->
             </div>
+            <!-- End Modal Footer -->
         </div>
     </div>
 </div>
 <!-- End Modal Details -->
 
-<!-- Modal Edit -->
+<!-- Modal Edit Plan -->
 <div class="modal fade" id="planEdit<?= $pl['id_plan'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="planEdit" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -182,6 +214,8 @@
                 <h5 class="modal-title" id="planEdit">Edit Plan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- End Modal Header -->
+
             <!-- Modal Body -->
             <div class="modal-body">
                 <div class="container-fluid">
@@ -210,9 +244,11 @@
                             </button>
                         </div>
                     </form>
-                    <!-- End Form Edit -->
+                    <!-- End Form Edit Plan -->
                 </div>
             </div>
+            <!-- End Modal Body -->
+
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">Back</button>
@@ -223,11 +259,13 @@
                     <i class="fas fa-arrows-alt"></i> | Move Plan
                 </button>
             </div>
+            <!-- End Modal Footer -->
         </div>
     </div>
 </div>
+<!-- Modal Edit Plan -->
 
-<!-- Modal Move -->
+<!-- Modal Move plan -->
 <div class="modal fade" id="planMove<?= $pl['id_plan'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="planMove" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -236,9 +274,12 @@
                 <h5 class="modal-title" id="planMove">Move Plan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- End Modal Header -->
+
             <!-- Modal Body -->
             <div class="modal-body">
                 <div class="container-fluid">
+                    <!-- Form Move Plan -->
                     <form action="<?= site_url('plans/move') ?>" method="post">                       
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="mb-3 form-floating">
@@ -258,13 +299,16 @@
                             <input type="submit" class="btn btn-primary" value="Move"></input>
                         </div>
                     </form>
+                    <!-- End Form Move Plan -->
                 </div>
             </div>
+            <!-- End Modal Body -->
         </div>
     </div>
 </div>
+<!-- End Modal Move plan -->
 
-<!-- Modal Edit -->
+<!-- Modal Delete Plan -->
 <div class="modal fade" id="planDel<?= $pl['id_plan'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="planDel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -273,12 +317,15 @@
                 <h5 class="modal-title" id="planDel">Delete Plan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- End Modal Header -->
+
             <!-- Modal Body -->
             <div class="modal-body">
                 <div class="container-fluid">
                     <h5 class="text-center text-bold mb-5">
                         Are you sure?
                     </h5>
+                    <!-- Form Delete Plan -->
                     <form action="<?= site_url('plans/delete') ?>" method="post">
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="d-flex bd-highlight">
@@ -290,9 +337,13 @@
                             </div>
                         </div>
                     </form>
+                    <!-- End Form Delete Plan -->
                 </div>
             </div>
+            <!-- End Modal Body -->
         </div>
     </div>
 </div>
+<!-- End Modal Delete Plan -->
+
 <?php endforeach ?>

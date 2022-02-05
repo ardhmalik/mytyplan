@@ -1,9 +1,13 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
+        <!-- Navbar Brand-->
         <a href="<?= site_url('plans/dashboard') ?>" class="navbar-brand">
             <?= $project ?>
         </a>
+        <!-- End Navbar Brand-->
+        
+        <!-- Navbar Dropdown Menu -->
         <div class="d-flex" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
@@ -25,10 +29,11 @@
                         <li>
                             <a href="<?= site_url('auth/logout') ?>" class="dropdown-item">Logout</a>
                         </li>
-                  </ul>
+                    </ul>
                 </li>
             </ul>
         </div>
+        <!-- End Navbar Dropdown Menu -->
     </div>
 </nav>
 <!-- End Navbar -->
