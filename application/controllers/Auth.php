@@ -1,8 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Auth is child of CI_Controller
+ * @author Malik Ardhiansyah
+ * @description This controller acts as a link between models and views
+ * @return functions Used by view
+ */
 class Auth extends CI_Controller
 {
+	/**
+	 * @todo initialize all function needed
+	 * @access public
+	 * @description This function used to load library 'form_validation' and load model 'Auth_model' as 'amodel'
+	 * @see https://codeigniter.com/userguide3/general/creating_libraries.html?highlight=construct
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -10,14 +22,24 @@ class Auth extends CI_Controller
 		$this->load->model('auth_model', 'amodel');
 	}
 
+	/**
+	 * Navigate to login page
+	 * @access public
+	 * @description Show login page if don't have 'email' session saved
+	 * @return view login page
+	 */
 	public function login()
 	{
-		
+		# $amodel variable to shorten model call 'amodel'
 		$auth = $this->amodel;
+		# $validation variable to shorten form_validation library
 		$validation = $this->form_validation;
+		# Initialize login rules with login_rules()
 		$validation->set_rules($auth->login_rules());
 		
+		# IF condition to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
+			# If TRUE, add an wrong password alert message to session
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -25,44 +47,63 @@ class Auth extends CI_Controller
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
+			# It will be returned to dashboard page
 			redirect('plans/dashboard');
 		}
 
+		# $data variable to store array of data passed to login page
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Login'
 		];
 		
+		# IF condition to check form_validation not running
 		if ($validation->run() == FALSE) {
+			# If TRUE, it will be load login page
 			$this->load->view('auth/header', $data);
 			$this->load->view('auth/login', $data);
 			$this->load->view('auth/footer');
 		} else {
+			# If FALSE, it will be load private function _login()
 			$this->_login();
 		}
 	}
 
+	/**
+	 * Process of login
+	 * @todo Processing login account
+	 * @access private
+	 * @return view dashboard and return login page if login failed
+	 */
 	private function _login()
 	{
+		# $session variable to save field email & username from user
 		$data = [
 			'email'=>$this->input->post('email'),
 			'password'=>$this->input->post('password')
 		];
+		# $user variable returns user row array data value as per email in the stored session
 		$user = $this->amodel->getUser($data['email']);
 
 		// var_dump($user);
 		// die;
 		
+		# IF condition to check if user data exists
 		if ($user) {
+			# IF condition to check whether entered password matches user data
 			if (password_verify($data['password'], $user['password'])) {
+				# $data variable to save field email & username from $user
 				$data = [
 					'email'=>$user['email'],
 					'username'=>$user['username']
 				];
 
+				# Add $data values to session
 				$this->session->set_userdata($data);
+				# It will be returned to dashboard page
 				redirect('plans/dashboard');
 			} else {
+				# If password is not matches, will be send wrong password message
 				$this->session->set_flashdata(
 					'message',
 					'<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -70,9 +111,11 @@ class Auth extends CI_Controller
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>'
 				);
+				# It will be returned to login page
 				redirect('auth/login');
 			}
 		} else {
+			# If there is no user data, will be send email isn't registered message
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -81,19 +124,31 @@ class Auth extends CI_Controller
 					<a href="'.site_url('auth/register').'">Register here</a>
 				</div>'
 			);
+			# It will be returned to login page
 			redirect('auth/login');
 		}
 	}
 	
+	/**
+	 * Navigate to register page
+	 * @access public
+	 * @description Loading register page
+	 * @return view register
+	 */
 	public function register()
 	{
-		
+		# $amodel variable to shorten model call 'amodel'
 		$auth = $this->amodel;
-		$validation = $this->form_validation;
-		$validation->set_rules($auth->reg_rules());
+		# $sessions variable to shorten session method
 		$sessions = $this->session;
+		# $validation variable to shorten form_validation library
+		$validation = $this->form_validation;
+		# Initialize registration rules with reg_rules()
+		$validation->set_rules($auth->reg_rules());
 		
+		# IF condition to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
+			# If TRUE, add an alert message to session
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -101,23 +156,28 @@ class Auth extends CI_Controller
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
+			# It will be returned to dashboard page
 			redirect('plans/dashboard');
 		}
 
+		# $data variable to store array of data passed to register page
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Register'
 		];
 
+		# IF condition to check form_validation not running
 		if ($validation->run() == FALSE) {
 			$this->load->view('auth/header', $data);
 			$this->load->view('auth/register', $data);
 			$this->load->view('auth/footer');
 		} else {
 			/**
-			 * add true in post param to avoid XSS attack
-			 * add htmlspecialchars() for change character to HTML entity
-			 * add password_hash() for hash password
+			 * If form_validation runs, it will save input data to variable $input
+			 * $input variable to store array of data passed to 'Auth_model'
+			 * Add @param true in post() method to avoid XSS attack
+			 * Add htmlspecialchars() method for change character to HTML entity
+			 * Add password_hash() method to create a password hash
 			 *  */ 
 			$input = [
 				'email'=>htmlspecialchars($this->input->post('email', true)),
@@ -128,7 +188,9 @@ class Auth extends CI_Controller
 			// var_dump($input);
 			// die;
 
+			# Passing $input as a parameter of createUser() function to execute adding data to database
 			$auth->createUser($input);
+			# Add an alert message to session if createUser() process is successful
 			$sessions->set_flashdata(
 				'message',
 				'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -136,16 +198,27 @@ class Auth extends CI_Controller
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
+			# It will be returned to login page
 			redirect('auth/login');
 		}
 	}
 
+	/**
+	 * Process of logout
+	 * @todo Processing logout account and unset userdata on session
+	 * @access public
+	 * @return view login page
+	 */
 	public function logout()
 	{
+		# $sessions variable to shorten session method
 		$sessions = $this->session;
+		# $data variable to store array of data sessions
 		$data = ['email', 'username'];
+		# Process to unset all userdata 'email' and 'password' from session
 		$sessions->unset_userdata($data);
 
+		# Add an alert message to session if unset_userdata() process is successful
 		$sessions->set_flashdata(
 			'message',
 			'<div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -153,6 +226,7 @@ class Auth extends CI_Controller
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>'
 		);
+		# It will be returned to login page
 		redirect('auth/login');
 	}
 }
