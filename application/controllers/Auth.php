@@ -31,11 +31,11 @@ class Auth extends CI_Controller
 	public function login()
 	{
 		# $amodel variable to shorten model call 'amodel'
-		$auth = $this->amodel;
+		$amodel = $this->amodel;
 		# $validation variable to shorten form_validation library
 		$validation = $this->form_validation;
 		# Initialize login rules with login_rules()
-		$validation->set_rules($auth->login_rules());
+		$validation->set_rules($amodel->login_rules());
 		
 		# IF condition to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
@@ -138,13 +138,13 @@ class Auth extends CI_Controller
 	public function register()
 	{
 		# $amodel variable to shorten model call 'amodel'
-		$auth = $this->amodel;
+		$amodel = $this->amodel;
 		# $sessions variable to shorten session method
 		$sessions = $this->session;
 		# $validation variable to shorten form_validation library
 		$validation = $this->form_validation;
 		# Initialize registration rules with reg_rules()
-		$validation->set_rules($auth->reg_rules());
+		$validation->set_rules($amodel->reg_rules());
 		
 		# IF condition to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
@@ -189,7 +189,7 @@ class Auth extends CI_Controller
 			// die;
 
 			# Passing $input as a parameter of createUser() function to execute adding data to database
-			$auth->createUser($input);
+			$amodel->createUser($input);
 			# Add an alert message to session if createUser() process is successful
 			$sessions->set_flashdata(
 				'message',
