@@ -58,48 +58,42 @@
                                         </span>
                                     </div>
                                     <?php
-                                        # $bgBadge to save badge background class
-                                        $bgBadge = '';
+                                        # $bgLabel to save badge background class
+                                        $bgLabel = '';
                                         # Switch statement to specify badge background
                                         switch ($pl['label']) {
                                             case 'Very Important':
-                                                $bgBadge = 'bg-danger';
+                                                $bgLabel = 'bg-danger';
                                                 break;
                                             case 'Important':
-                                                $bgBadge = 'bg-warning';
+                                                $bgLabel = 'bg-warning';
                                                 break;
                                             case 'Normal':
-                                                $bgBadge = 'bg-primary';
+                                                $bgLabel = 'bg-primary';
                                                 break;
                                             default:
-                                                $bgBadge;
+                                                $bgLabel;
                                                 break;
                                         }
     
                                         # Percabangan if untuk tampilan status
                                         $bgStatus = '';
+                                        # $status variable to save icon for status
                                         $status = '';
+                                        # $now to save current time
                                         $now = time();
+                                        # $exp to store the expired value which has been converted to the time data type
                                         $exp = strtotime($pl['expired']);
-                                        if ($exp < $now) {
-                                            $bgStatus = 'bg-none';
-                                            if ($pl['status'] == 0) {
-                                                $status = 'fas fa-times-circle text-danger';
-                                            } elseif ($pl['status'] == 1) {
-                                                $status = 'fas fa-check-circle text-success';
-                                            }
-                                        } else {
-                                            if ($pl['status'] == 0) {
-                                                $bgStatus = 'd-none';
-                                            } elseif ($pl['status'] == 1) {
-                                                $status = 'fas fa-check-circle text-success';
-                                            }
+                                        # If condition to compare expired with current time
+                                        if ($exp > $now) {
+                                            # If TRUE, then status didn't display
+                                            $bgStatus = 'd-none';
                                         }
                                     ?>
                                     <div>
                                         <!-- Label Badge -->
                                         <div class="float-end">
-                                            <span class="badge <?= $bgBadge ?> rounded-pill">
+                                            <span class="badge <?= $bgLabel ?> rounded-pill">
                                                 <?= $pl['label'] ?>
                                             </span>
                                         </div>
@@ -108,7 +102,7 @@
                                         <!-- Status Badge -->
                                         <div class="float-end">
                                             <span class="badge-lg <?= $bgStatus ?> rounded-pill">
-                                                <i class="<?= $status ?>"></i>
+                                                <i class="fas fa-times-circle text-danger"></i>
                                             </span>
                                         </div>
                                         <!-- End Status Badge -->
