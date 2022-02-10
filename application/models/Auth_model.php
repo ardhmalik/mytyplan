@@ -74,7 +74,7 @@ class Auth_model extends CI_Model
     public function createUser($data)
     {
         $sql = 'CALL addUser(?, ?, ?)';
-        $query = $this->db->query($sql, [$data['email'], $data['username'], $data['password']]);
+        $query = $this->db->query($sql, $data);
 
         return $query;
     }
