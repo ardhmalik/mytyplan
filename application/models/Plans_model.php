@@ -60,7 +60,8 @@ class Plans_model extends CI_Model
      * Finds and returns plans by id_user
      * @access public
      * @param string $idUser Contains id_user
-     * @description A function that executes a query with a SQL procedure 'viewAllPlan(id_user_param)'
+     * @description A function that executes a query with a SQL procedure 
+     * 'viewAllPlan(id_user_param)'
      * @return array plans data value
      */
     public function getPlans($idUser)
@@ -75,7 +76,8 @@ class Plans_model extends CI_Model
      * Create and insert a new plan
      * @access public
      * @param string $data Containing an array of id_user, plan, description, expired, status, id_label, id_month
-     * @description A function that executes a query with a custom SQL function 'addPlan(id_user_param, plan_param, desc_param, exp_param, status_param, id_label_param, id_month_param)'
+     * @description A function that executes a query with a custom SQL function 
+     * 'addPlan(id_user_param, plan_param, desc_param, exp_param, status_param, id_label_param, id_month_param)'
      * @return int 1 if the query insert is successful
      */
     public function createPlan($data)
@@ -90,7 +92,8 @@ class Plans_model extends CI_Model
      * Finds and update a plan by id_plan
      * @access public
      * @param string $data Containing an array of id_plan, plan, description, id_label
-     * @description A function that executes a query with a custom SQL function 'editPlan(id_plan_param, plan_param, desc_param, id_label_param)'
+     * @description A function that executes a query with a custom SQL function 
+     * 'editPlan(id_plan_param, plan_param, desc_param, id_label_param)'
      * @return int 1 if the query update is successful
      */
     public function updatePlan($data)
@@ -105,7 +108,8 @@ class Plans_model extends CI_Model
      * Finds and mark success plan
      * @access public
      * @param string $idPlan Contains id_plan
-     * @description A function that executes a query with a custom SQL function 'successPlan(id_plan_param)'
+     * @description A function that executes a query with a custom SQL function 
+     * 'successPlan(id_plan_param)'
      * @return int 1 if the query update is successful
      */
     public function successMark($idPlan)
@@ -120,7 +124,8 @@ class Plans_model extends CI_Model
      * Finds and mark fail plan
      * @access public
      * @param string $idPlan Contains id_plan
-     * @description A function that executes a query with a custom SQL function 'failPlan(id_plan_param)'
+     * @description A function that executes a query with a custom SQL function 
+     * 'failPlan(id_plan_param)'
      * @return int 1 if the query update is successful
      */
     public function failMark($idPlan)
@@ -135,7 +140,8 @@ class Plans_model extends CI_Model
      * Finds and move plan to other month
      * @access public
      * @param string $data Containing an array of id_plan, month, expired
-     * @description A function that executes a query with a custom SQL function 'movePlan(id_plan_param, month_param, exp_param)'
+     * @description A function that executes a query with a custom SQL function 
+     * 'movePlan(id_plan_param, month_param, exp_param)'
      * @return int 1 if the query update is successful
      */
     public function movePlan($data)
@@ -150,7 +156,8 @@ class Plans_model extends CI_Model
      * Finds and delete a plan
      * @access public
      * @param string $idPlan Contains id_plan
-     * @description A function that executes a query with a custom SQL function 'delPlan(id_plan_param)'
+     * @description A function that executes a query with a custom SQL function 
+     * 'delPlan(id_plan_param)'
      * @return int 1 if the query delete is successful
      */
     public function delPlan($idPlan)
@@ -165,7 +172,8 @@ class Plans_model extends CI_Model
      * Finds and returns a list of successful plans by id_user
      * @access public
      * @param string $idUser Contains id_user
-     * @description A function that executes a query with a SQL procedure 'viewSuccessPlan(id_user_param)'
+     * @description A function that executes a query with a SQL procedure 
+     * 'viewSuccessPlan(id_user_param)'
      * @return array of success plans data values
      */
     public function getSplans($idUser)
@@ -180,7 +188,8 @@ class Plans_model extends CI_Model
      * Finds and returns a list of failed plans by id_user
      * @access public
      * @param string $idUser Contains id_user
-     * @description A function that executes a query with a SQL procedure 'viewFailPlan(id_user_param)'
+     * @description A function that executes a query with a SQL procedure 
+     * 'viewFailPlan(id_user_param)'
      * @return array of failed plans data values
      */
     public function getFplans($idUser)
@@ -195,7 +204,8 @@ class Plans_model extends CI_Model
      * Finds and returns a list of user logs activity by id_user
      * @access public
      * @param string $idUser Contains id_user
-     * @description A function that executes a query SELECT * FROM logs where id_user=$id
+     * @description A function that executes a query 
+     * SELECT * FROM logs where id_user=$id ORDER BY times DESC
      * @return array of user logs data values
      */
     public function getLogs($idUser)

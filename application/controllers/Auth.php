@@ -12,7 +12,8 @@ class Auth extends CI_Controller
 	/**
 	 * @todo initialize all function needed
 	 * @access public
-	 * @description This function used to load library 'form_validation' and load model 'Auth_model' as 'amodel'
+	 * @description This function used to load library 
+	 * 'form_validation' and load model 'Auth_model' as 'amodel'
 	 * @see https://codeigniter.com/userguide3/general/creating_libraries.html?highlight=construct
 	 */
 	public function __construct()

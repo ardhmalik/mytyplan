@@ -68,7 +68,8 @@ class Auth_model extends CI_Model
      * Create and insert new user
      * @access public
      * @param string $data Containing an array of emails, usernames, passwords
-     * @description A function that executes a query with a stored procedure 'addUser(email_param, username_param, password_param)'
+     * @description A function that executes a query with a stored procedure 
+     * 'addUser(email_param, username_param, password_param)'
      */
     public function createUser($data)
     {

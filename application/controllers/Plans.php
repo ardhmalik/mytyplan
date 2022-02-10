@@ -12,7 +12,8 @@ class Plans extends CI_Controller
 	/**
 	 * @todo initialize all function needed
 	 * @access public
-	 * @description This function used to load library 'form_validation', load model 'Auth_model' as 'amodel' and 'Plans_model' as 'pmodel'
+	 * @description This function used to load library 
+	 * 'form_validation', load model 'Auth_model' as 'amodel' and 'Plans_model' as 'pmodel'
 	 * @see https://codeigniter.com/userguide3/general/creating_libraries.html?highlight=construct
 	 */
 	public function __construct()
@@ -26,7 +27,8 @@ class Plans extends CI_Controller
 	/**
 	 * Navigate to dashboard page
 	 * @access public
-	 * @description Show dashboard page if successfully logged in and will be directed to login page if they don't have a session
+	 * @description Show dashboard page if successfully logged in and 
+	 * will be directed to login page if they don't have a session
 	 * @return view main dashboard
 	 */
 	public function dashboard()
@@ -308,7 +310,8 @@ class Plans extends CI_Controller
 	 * Navigate a successfull plan page
 	 * @todo Fetch and present a successful plan
 	 * @access public
-	 * @description Loading a success plan page for users who have successfully logged in and will be directed to login page if they don't have a session
+	 * @description Show success plan page if successfully logged in and
+	 * will be directed to login page if they don't have a session
 	 * @return view main successp
 	 */
 	public function getSuccess()
@@ -373,7 +376,8 @@ class Plans extends CI_Controller
 	 * Navigate a failed plan page
 	 * @todo Fetch and present a failed plan
 	 * @access public
-	 * @description Loading a fail plan page for users who have successfully logged in and will be directed to login page if they don't have a session
+	 * @description Show a fail plan page if successfully logged in and
+	 * will be directed to login page if they don't have a session
 	 * @return view main and returns login page if isn't have 'email' session
 	 */
 	public function getFail()
@@ -438,7 +442,8 @@ class Plans extends CI_Controller
 	 * Navigate a user logs page
 	 * @todo Fetch and present a user logs
 	 * @access public
-	 * @description Loading a user logs page for users who have successfully logged in and will be directed to login page if they don't have a session
+	 * @description Show user logs page if successfully logged in and
+	 * will be directed to login page if they don't have a session
 	 * @return view main and returns login page if isn't have 'email' session
 	 */
 	public function userLogs()
