@@ -109,7 +109,7 @@
     <!-- Button to Dashboard -->
     <div class="col-12 text-center">
         <a href="<?= site_url('plans/dashboard') ?>" type="button" class="btn btn-light btn-outline-dark mx-auto">
-            Back to <i class="bi bi-house-fill"></i>
+            Back to <i class="fa-solid fa-house"></i>
         </a>
     </div>
     <!-- End Button -->
