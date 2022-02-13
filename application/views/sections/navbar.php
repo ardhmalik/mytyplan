@@ -17,13 +17,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="actionDropdown">
                         <li>
-                            <a href="<?= site_url('plans/getsuccess') ?>" class="dropdown-item">Success plan</a>
+                            <a href="<?= site_url('plans/get_success_plans') ?>" class="dropdown-item">Success plan</a>
                         </li>
                         <li>
-                            <a href="<?= site_url('plans/getfail') ?>" class="dropdown-item">Fail Plan</a>
+                            <a href="<?= site_url('plans/get_fail_plans') ?>" class="dropdown-item">Fail Plan</a>
                         </li>
                         <li>
-                            <a href="<?= site_url('plans/userlogs') ?>" class="dropdown-item">Logs</a>
+                            <a href="<?= site_url('plans/user_activity_logs') ?>" class="dropdown-item">Logs</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>

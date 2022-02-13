@@ -35,7 +35,7 @@ class Plans_model extends CI_Model
      * @access public
      * @return array months data value
      */
-    public function getMonths()
+    public function get_months()
     {
         $sql = $this->db->get('months');
         $query = $sql->result_array();
@@ -48,7 +48,7 @@ class Plans_model extends CI_Model
      * @access public
      * @return array labels data value
      */
-    public function getLabels()
+    public function get_labels()
     {
         $sql = $this->db->get('labels');
         $query = $sql->result_array();
@@ -64,7 +64,7 @@ class Plans_model extends CI_Model
      * 'viewAllPlan(id_user_param)'
      * @return array plans data value
      */
-    public function getPlans($idUser)
+    public function get_plans_by_id($idUser)
     {
         $sql = 'CALL viewAllPlan(?)';
         $query = $this->db->query($sql, ['id_user'=>$idUser])->result_array();
@@ -80,7 +80,7 @@ class Plans_model extends CI_Model
      * 'addPlan(id_user_param, plan_param, desc_param, exp_param, status_param, id_label_param, id_month_param)'
      * @return int 1 if the query insert is successful
      */
-    public function createPlan($data)
+    public function create_plan($data)
     {
         $sql = 'SELECT addPlan(?, ?, ?, ?, ?, ?, ?)';
         $query = $this->db->query($sql, $data)->result_array();
@@ -96,7 +96,7 @@ class Plans_model extends CI_Model
      * 'editPlan(id_plan_param, plan_param, desc_param, id_label_param)'
      * @return int 1 if the query update is successful
      */
-    public function updatePlan($data)
+    public function update_plan($data)
     {
         $sql = 'SELECT editPlan(?, ?, ?, ?)';
         $query = $this->db->query($sql, $data)->result_array();
@@ -112,7 +112,7 @@ class Plans_model extends CI_Model
      * 'successPlan(id_plan_param)'
      * @return int 1 if the query update is successful
      */
-    public function successMark($idPlan)
+    public function mark_success_plan($idPlan)
     {
         $sql = 'SELECT successPlan(?)';
         $query = $this->db->query($sql, $idPlan)->result_array();
@@ -128,7 +128,7 @@ class Plans_model extends CI_Model
      * 'failPlan(id_plan_param)'
      * @return int 1 if the query update is successful
      */
-    public function failMark($idPlan)
+    public function mark_fail_plan($idPlan)
     {
         $sql = 'SELECT failPlan(?)';
         $query = $this->db->query($sql, $idPlan)->result_array();
@@ -144,7 +144,7 @@ class Plans_model extends CI_Model
      * 'movePlan(id_plan_param, month_param, exp_param)'
      * @return int 1 if the query update is successful
      */
-    public function movePlan($data)
+    public function move_plan($data)
     {
         $sql = 'SELECT movePlan(?, ?, ?)';
         $query = $this->db->query($sql, $data);
@@ -160,7 +160,7 @@ class Plans_model extends CI_Model
      * 'delPlan(id_plan_param)'
      * @return int 1 if the query delete is successful
      */
-    public function delPlan($idPlan)
+    public function del_plan($idPlan)
     {
         $sql = 'SELECT delPlan(?)';
         $query = $this->db->query($sql, $idPlan);
@@ -176,7 +176,7 @@ class Plans_model extends CI_Model
      * 'viewSuccessPlan(id_user_param)'
      * @return array of success plans data values
      */
-    public function getSplans($idUser)
+    public function success_plans_by_id($idUser)
     {
         $sql = 'CALL viewSuccessPlan(?)';
         $query = $this->db->query($sql, $idUser)->result_array();
@@ -192,7 +192,7 @@ class Plans_model extends CI_Model
      * 'viewFailPlan(id_user_param)'
      * @return array of failed plans data values
      */
-    public function getFplans($idUser)
+    public function fail_plans_by_id($idUser)
     {
         $sql = 'CALL viewFailPlan(?)';
         $query = $this->db->query($sql, $idUser)->result_array();
@@ -208,7 +208,7 @@ class Plans_model extends CI_Model
      * SELECT * FROM logs where id_user=$id ORDER BY times DESC
      * @return array of user logs data values
      */
-    public function getLogs($idUser)
+    public function get_logs_by_id($idUser)
     {
         $this->db->order_by('times', 'DESC');
         $sql = $this->db->get_where('logs', ['id_user'=>$idUser]);

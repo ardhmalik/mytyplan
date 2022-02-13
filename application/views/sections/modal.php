@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <!-- Form Add Plan -->
-                    <form action="<?= site_url('plans/add') ?>" method="post" class="mx-3 my-3">
+                    <form action="<?= site_url('plans/proc_add_plan') ?>" method="post" class="mx-3 my-3">
                         <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" name="plan" id="plan" value="" placeholder="Enter new plan" required>
@@ -182,12 +182,12 @@
                     # If condition for display button Mark as success & form action
                     if ($pl['status'] == 0) {
                         # If TRUE, then display button change mark to success plan
-                        $formUrl = 'plans/successPlan';
+                        $formUrl = 'plans/proc_mark_success';
                         $btn = 'btn btn-success';
                         $textBtn = '<i class="far fa-check-circle"></i> | Mark as success';
                     } elseif ($pl['status'] == 1) {
                         # If FALSE, then display button change mark to failed plan
-                        $formUrl = 'plans/failPlan';
+                        $formUrl = 'plans/proc_mark_fail';
                         $btn = 'btn btn-danger';
                         $textBtn = '<i class="far fa-times-circle"></i> | Back to fail';
                     }
@@ -220,7 +220,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <!-- Form Edit Plan -->
-                    <form action="<?= site_url('plans/edit') ?>" method="post" class="mx-3 my-3">
+                    <form action="<?= site_url('plans/proc_edit_plan') ?>" method="post" class="mx-3 my-3">
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" name="plan" id="plan" value="<?= $pl['plan'] ?>" placeholder="Enter new plan" required>
@@ -280,7 +280,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <!-- Form Move Plan -->
-                    <form action="<?= site_url('plans/move') ?>" method="post">                       
+                    <form action="<?= site_url('plans/proc_move_plan') ?>" method="post">                       
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="mb-3 form-floating">
                             <select class="form-select" name="month" id="month" aria-label="Default select example">
@@ -326,7 +326,7 @@
                         Are you sure?
                     </h5>
                     <!-- Form Delete Plan -->
-                    <form action="<?= site_url('plans/delete') ?>" method="post">
+                    <form action="<?= site_url('plans/proc_delete_plan') ?>" method="post">
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">

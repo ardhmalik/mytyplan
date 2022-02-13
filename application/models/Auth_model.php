@@ -71,7 +71,7 @@ class Auth_model extends CI_Model
      * @description A function that executes a query with a stored procedure 
      * 'addUser(email_param, username_param, password_param)'
      */
-    public function createUser($data)
+    public function create_user($data)
     {
         $sql = 'CALL addUser(?, ?, ?)';
         $query = $this->db->query($sql, $data);
@@ -85,7 +85,7 @@ class Auth_model extends CI_Model
      * @param string $email Contains email
      * @return row of user data
      */
-    public function getUser($email)
+    public function get_user_by_email($email)
     {
         $sql = $this->db->get_where('users', ['email'=>$email]);
         $query = $sql->row_array();

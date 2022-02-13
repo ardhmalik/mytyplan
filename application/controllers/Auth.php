@@ -84,7 +84,7 @@ class Auth extends CI_Controller
 			'password'=>$this->input->post('password')
 		];
 		# $user variable returns user row array data value as per email in the stored session
-		$user = $this->amodel->getUser($data['email']);
+		$user = $this->amodel->get_user_by_email($data['email']);
 
 		// var_dump($user);
 		// die;
@@ -190,7 +190,7 @@ class Auth extends CI_Controller
 			// die;
 
 			# Passing $input as a parameter of createUser() function to execute adding data to database
-			$amodel->createUser($input);
+			$amodel->create_user($input);
 			# Add an alert message to session if createUser() process is successful
 			$sessions->set_flashdata(
 				'message',

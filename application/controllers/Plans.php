@@ -41,15 +41,15 @@ class Plans extends CI_Controller
 			'username'=>$this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
-		$user = $this->amodel->getUser($sessions['email']);
+		$user = $this->amodel->get_user_by_email($sessions['email']);
 		# $data variable to store array of data passed to dashboard page
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Dashboard',
 			'user'=>$user,
-			'months'=>$pmodel->getMonths(),
-			'labels'=>$pmodel->getLabels(),
-			'plans'=>$pmodel->getPlans($user['id_user']),
+			'months'=>$pmodel->get_months(),
+			'labels'=>$pmodel->get_labels(),
+			'plans'=>$pmodel->get_plans_by_id($user['id_user']),
 		];
 
 		# IF condition to check if there is a stored 'email' session
@@ -79,14 +79,14 @@ class Plans extends CI_Controller
 	 * @access public
 	 * @return message success on view dashboard
 	 */
-	public function add()
+	public function proc_add_plan()
 	{
 		# $input variable to shorten input method
 		$input = $this->input;
 		# $pmodel variable to shorten model call 'pmodel'
 		$pmodel = $this->pmodel;
-		# $status variable to load private function _statusCheck()
-		$status = $this->_statusCheck();
+		# $status variable to load private function _status_check()
+		$status = $this->_status_check();
 		
 		# $validation variable to shorten form_validation library
 		$validation = $this->form_validation;
@@ -107,9 +107,9 @@ class Plans extends CI_Controller
 		// var_dump($data);
 		// die;
 
-		# Passing $data as a parameter of createPlan() function to execute adding data to database
-		$pmodel->createPlan($data);
-		# Add an alert message to session if createPlan() process is successful
+		# Passing $data as a parameter of create_plan() function to execute adding data to database
+		$pmodel->create_plan($data);
+		# Add an alert message to session if create_plan() process is successful
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -127,7 +127,7 @@ class Plans extends CI_Controller
 	 * @access private
 	 * @return bool 0 if NULL and return 1 if NOT NULL
 	 */
-	private function _statusCheck()
+	private function _status_check()
 	{
 		# $check variable to store input from status field
 		$check = $this->input->post('status');
@@ -151,7 +151,7 @@ class Plans extends CI_Controller
 	 * @access public
 	 * @return message success on view dashboard
 	 */
-	public function edit()
+	public function proc_edit_plan()
 	{
 		# $input variable to shorten input method
 		$input = $this->input;
@@ -166,9 +166,9 @@ class Plans extends CI_Controller
 		// var_dump($data);
 		// die;
 
-		# Passing $data as a parameter of updatePlan() function to execute update data on database
-		$this->pmodel->updatePlan($data);
-		# Add an alert message to session if updatePlan() process is successful
+		# Passing $data as a parameter of update_plan() function to execute update data on database
+		$this->pmodel->update_plan($data);
+		# Add an alert message to session if update_plan() process is successful
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -186,7 +186,7 @@ class Plans extends CI_Controller
 	 * @access public
 	 * @return message success on view dashboard
 	 */
-	public function successPlan()
+	public function proc_mark_success()
 	{
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
@@ -196,9 +196,9 @@ class Plans extends CI_Controller
 		// var_dump($data);
 		// die;
 
-		# Passing $data as a parameter of successMark() function to execute update data on database
-		$this->pmodel->successMark($data);
-		# Add an alert message to session if successMark() process is successful
+		# Passing $data as a parameter of mark_success_plan() function to execute update data on database
+		$this->pmodel->mark_success_plan($data);
+		# Add an alert message to session if mark_success_plan() process is successful
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -216,7 +216,7 @@ class Plans extends CI_Controller
 	 * @access public
 	 * @return message success on view dashboard
 	 */
-	public function failPlan()
+	public function proc_mark_fail()
 	{
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
@@ -226,9 +226,9 @@ class Plans extends CI_Controller
 		// var_dump($data);
 		// die;
 
-		# Passing $data as a parameter of failMark() function to execute update data on database
-		$this->pmodel->failMark($data);
-		# Add an alert message to session if failMark() process is successful
+		# Passing $data as a parameter of mark_fail_plan() function to execute update data on database
+		$this->pmodel->mark_fail_plan($data);
+		# Add an alert message to session if mark_fail_plan() process is successful
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -246,7 +246,7 @@ class Plans extends CI_Controller
 	 * @access public
 	 * @return message success on view dashboard
 	 */
-	public function move()
+	public function proc_move_plan()
 	{
 		# $input variable to shorten input method
 		$input = $this->input;
@@ -260,9 +260,9 @@ class Plans extends CI_Controller
 		// var_dump($data);
 		// die;
 		
-		# Passing $data as a parameter of movePlan() function to execute update data on database
-		$this->pmodel->movePlan($data);
-		# Add an alert message to session if movePlan() process is successful
+		# Passing $data as a parameter of move_plan() function to execute update data on database
+		$this->pmodel->move_plan($data);
+		# Add an alert message to session if move_plan() process is successful
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -280,7 +280,7 @@ class Plans extends CI_Controller
 	 * @access public
 	 * @return message success on view dashboard
 	 */
-	public function delete()
+	public function proc_delete_plan()
 	{
 		# $input variable to shorten input method
 		$input = $this->input;
@@ -292,9 +292,9 @@ class Plans extends CI_Controller
 		// var_dump($data);
 		// die;
 
-		# Passing $data as a parameter of delPlan() function to execute update data on database
-		$this->pmodel->delPlan($data);
-		# Add an alert message to session if delPlan() process is successful
+		# Passing $data as a parameter of del_plan() function to execute update data on database
+		$this->pmodel->del_plan($data);
+		# Add an alert message to session if del_plan() process is successful
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -314,7 +314,7 @@ class Plans extends CI_Controller
 	 * will be directed to login page if they don't have a session
 	 * @return view main successp
 	 */
-	public function getSuccess()
+	public function get_success_plans()
 	{
 		#  $pmodel variable to load model 'pmodel'
 		$pmodel = $this->pmodel;
@@ -324,15 +324,15 @@ class Plans extends CI_Controller
 			'username'=>$this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
-		$user = $this->amodel->getUser($sessions['email']);
+		$user = $this->amodel->get_user_by_email($sessions['email']);
 		# $data variable to store array of data passed to dashboard page
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Success Plan',
 			'user'=>$user,
-			'months'=>$pmodel->getMonths(),
-			'labels'=>$pmodel->getLabels(),
-			'splans'=>$pmodel->getSplans($user['id_user'])
+			'months'=>$pmodel->get_months(),
+			'labels'=>$pmodel->get_labels(),
+			'splans'=>$pmodel->success_plans_by_id($user['id_user'])
 		];
 
 		# IF condition to check if no 'email' session is stored
@@ -380,7 +380,7 @@ class Plans extends CI_Controller
 	 * will be directed to login page if they don't have a session
 	 * @return view main and returns login page if isn't have 'email' session
 	 */
-	public function getFail()
+	public function get_fail_plans()
 	{
 		#  $pmodel variable to load model 'pmodel'
 		$pmodel = $this->pmodel;
@@ -390,15 +390,15 @@ class Plans extends CI_Controller
 			'username'=>$this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
-		$user = $this->amodel->getUser($sessions['email']);
+		$user = $this->amodel->get_user_by_email($sessions['email']);
 		# $data variable to store array of data passed to dashboard page
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Fail Plan',
 			'user'=>$user,
-			'months'=>$pmodel->getMonths(),
-			'labels'=>$pmodel->getLabels(),
-			'fplans'=>$pmodel->getFplans($user['id_user'])
+			'months'=>$pmodel->get_months(),
+			'labels'=>$pmodel->get_labels(),
+			'fplans'=>$pmodel->fail_plans_by_id($user['id_user'])
 		];
 
 		# IF condition to check if there is a stored 'email' session
@@ -446,7 +446,7 @@ class Plans extends CI_Controller
 	 * will be directed to login page if they don't have a session
 	 * @return view main and returns login page if isn't have 'email' session
 	 */
-	public function userLogs()
+	public function user_activity_logs()
 	{
 		#  $pmodel variable to load model 'pmodel'
 		$pmodel = $this->pmodel;
@@ -456,13 +456,13 @@ class Plans extends CI_Controller
 			'username'=>$this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
-		$user = $this->amodel->getUser($sessions['email']);
+		$user = $this->amodel->get_user_by_email($sessions['email']);
 		# $data variable to store array of data passed to dashboard page
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Logs',
 			'user'=>$user,
-			'logs'=>$pmodel->getLogs($user['id_user'])
+			'logs'=>$pmodel->get_logs_by_id($user['id_user'])
 		];
 
 		# IF condition to check if there is a stored 'email' session
