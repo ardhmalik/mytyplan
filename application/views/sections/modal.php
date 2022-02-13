@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <!-- Form Add Plan -->
-                    <form action="<?= site_url('plans/proc_add_plan') ?>" method="post" class="mx-3 my-3">
+                    <form action="<?= site_url('add_plan') ?>" method="post" class="mx-3 my-3">
                         <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" name="plan" id="plan" value="" placeholder="Enter new plan" required>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <a href="<?= site_url('plans/dashboard') ?>" class="btn btn-outline-secondary">Cancel</a>
+                                <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-secondary">Cancel</a>
                             </div>
                             <div class="p-2 ms-auto bd-highlight">
                                 <input type="submit" class="btn btn-primary" value="Add"></input>
@@ -92,26 +92,26 @@
                             <h5 class="text-bold">
                                 <?= $pl['plan'] ?>
                                 <?php
-                                    # $bgLabel variable to store background class for label
-                                    $bgLabel = '';
+                                    # $label_bg variable to store background class for label
+                                    $label_bg = '';
                                     # Switch statement to specify background label
                                     switch ($pl['label']) {
                                         case 'Very Important':
-                                            $bgLabel = 'bg-danger';
+                                            $label_bg = 'bg-danger';
                                             break;
                                         case 'Important':
-                                            $bgLabel = 'bg-warning';
+                                            $label_bg = 'bg-warning';
                                             break;
                                         case 'Normal':
-                                            $bgLabel = 'bg-primary';
+                                            $label_bg = 'bg-primary';
                                             break;
                                         default:
-                                            $bgLabel;
+                                            $label_bg;
                                             break;
                                     }
 
-                                    # $bgStatus variable to save background class for status
-                                    $bgStatus = '';
+                                    # $status_bg variable to save background class for status
+                                    $status_bg = '';
                                     # $status variable to save icon for status
                                     $status = '';
                                     # $now to save current time
@@ -130,7 +130,7 @@
                                     } else {
                                         if ($pl['status'] == 0) {
                                             # If status value is 0, then status isn't displayed
-                                            $bgStatus = 'd-none';
+                                            $status_bg = 'd-none';
                                         } elseif ($pl['status'] == 1) {
                                             # If status value is 1, then display check icon dan green color
                                             $status = 'fas fa-check-circle text-success';
@@ -138,13 +138,13 @@
                                     }
                                 ?>
                                 <!-- Label Badge -->
-                                <span class="badge <?= $bgLabel ?> rounded-pill">
+                                <span class="badge <?= $label_bg ?> rounded-pill">
                                     <?= $pl['label'] ?>
                                 </span>
                                 <!-- End Label Badge -->
 
                                 <!-- Status Badge -->
-                                <span class="badge-lg <?= $bgStatus ?> rounded-pill">
+                                <span class="badge-lg <?= $status_bg ?> rounded-pill">
                                     <i class="<?= $status ?>"></i>
                                 </span>
                                 <!-- End Status Badge -->
@@ -172,30 +172,30 @@
                     <i class="fas fa-edit"></i> | Edit Plan
                 </button>
                 <?php
-                    # $formUrl to save url text
-                    $formUrl = '';
+                    # $form_url to save url text
+                    $form_url = '';
                     # $btn to save button class
                     $btn = '';
-                    # $textBtn to save button values
-                    $textBtn = '';
+                    # $text_btn to save button values
+                    $text_btn = '';
 
                     # If condition for display button Mark as success & form action
                     if ($pl['status'] == 0) {
                         # If TRUE, then display button change mark to success plan
-                        $formUrl = 'plans/proc_mark_success';
+                        $form_url = 'mark_success';
                         $btn = 'btn btn-success';
-                        $textBtn = '<i class="far fa-check-circle"></i> | Mark as success';
+                        $text_btn = '<i class="far fa-check-circle"></i> | Mark as success';
                     } elseif ($pl['status'] == 1) {
                         # If FALSE, then display button change mark to failed plan
-                        $formUrl = 'plans/proc_mark_fail';
+                        $form_url = 'mark_fail';
                         $btn = 'btn btn-danger';
-                        $textBtn = '<i class="far fa-times-circle"></i> | Back to fail';
+                        $text_btn = '<i class="far fa-times-circle"></i> | Back to fail';
                     }
                 ?>
                 <!-- Form Mark -->
-                <form action="<?= site_url($formUrl) ?>" method="post">
+                <form action="<?= site_url($form_url) ?>" method="post">
                     <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
-                    <button type="submit" class="<?= $btn ?>"><?= $textBtn ?></button>
+                    <button type="submit" class="<?= $btn ?>"><?= $text_btn ?></button>
                 </form>
                 <!-- End Form Mark -->
             </div>
@@ -220,7 +220,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <!-- Form Edit Plan -->
-                    <form action="<?= site_url('plans/proc_edit_plan') ?>" method="post" class="mx-3 my-3">
+                    <form action="<?= site_url('edit_plan') ?>" method="post" class="mx-3 my-3">
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" name="plan" id="plan" value="<?= $pl['plan'] ?>" placeholder="Enter new plan" required>
@@ -280,7 +280,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <!-- Form Move Plan -->
-                    <form action="<?= site_url('plans/proc_move_plan') ?>" method="post">                       
+                    <form action="<?= site_url('move_plan') ?>" method="post">                       
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="mb-3 form-floating">
                             <select class="form-select" name="month" id="month" aria-label="Default select example">
@@ -326,7 +326,7 @@
                         Are you sure?
                     </h5>
                     <!-- Form Delete Plan -->
-                    <form action="<?= site_url('plans/proc_delete_plan') ?>" method="post">
+                    <form action="<?= site_url('delete_plan') ?>" method="post">
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">

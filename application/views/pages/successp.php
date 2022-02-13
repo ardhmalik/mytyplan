@@ -31,8 +31,8 @@
                         <?php if (intval($pl['month']) == $mn['id_month']) : ?>
                             <ol class="list-group">
                                 <?php
-                                    # $bgList to save plan list background class
-                                    $bgList = '';
+                                    # $list_bg to save plan list background class
+                                    $list_bg = '';
                                     # $now to save current time
                                     $now = time();
                                     # $exp to store the expired value which has been converted to the time data type
@@ -40,11 +40,11 @@
                                     
                                     # If condition to compare expired with current time
                                     if ($exp < $now) {
-                                        $bgList = 'bg-secondary bg-opacity-10';
+                                        $list_bg = 'bg-secondary bg-opacity-10';
                                     }
                                 ?>
                                 <!-- List Plan -->
-                                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start <?= $bgList ?>">
+                                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start <?= $list_bg ?>">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">
                                             <?= $pl['plan'] ?>
@@ -58,28 +58,28 @@
                                         </span>
                                     </div>
                                     <?php
-                                        # $bgLabel to save badge background class
-                                        $bgLabel = '';
+                                        # $label_bg to save badge background class
+                                        $label_bg = '';
                                         # Switch statement to specify badge background
                                         switch ($pl['label']) {
                                             case 'Very Important':
-                                                $bgLabel = 'bg-danger';
+                                                $label_bg = 'bg-danger';
                                                 break;
                                             case 'Important':
-                                                $bgLabel = 'bg-warning';
+                                                $label_bg = 'bg-warning';
                                                 break;
                                             case 'Normal':
-                                                $bgLabel = 'bg-primary';
+                                                $label_bg = 'bg-primary';
                                                 break;
                                             default:
-                                                $bgLabel;
+                                                $label_bg;
                                                 break;
                                         }
                                     ?>
                                     <div>
                                         <!-- Label Badge -->
                                         <div class="float-end">
-                                            <span class="badge <?= $bgLabel ?> rounded-pill">
+                                            <span class="badge <?= $label_bg ?> rounded-pill">
                                                 <?= $pl['label'] ?>
                                             </span>
                                         </div>
@@ -108,7 +108,7 @@
 
     <!-- Button to Dashboard -->
     <div class="col-12 text-center">
-        <a href="<?= site_url('plans/dashboard') ?>" type="button" class="btn btn-light btn-outline-dark mx-auto">
+        <a href="<?= site_url('dashboard') ?>" type="button" class="btn btn-light btn-outline-dark mx-auto">
             Back to <i class="fa-solid fa-house"></i>
         </a>
     </div>

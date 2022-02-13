@@ -63,7 +63,7 @@ class Plans extends CI_Controller
 				</div>'
 			);
 			# It will be returned to login page
-			redirect('auth/login');
+			redirect('login');
 		}
 
 		// var_dump($user);
@@ -118,7 +118,7 @@ class Plans extends CI_Controller
 			</div>'
 		);
 		# It will be returned to dashboard page
-		redirect('plans/dashboard');
+		redirect('dashboard');
 	}
 
 	/**
@@ -177,7 +177,7 @@ class Plans extends CI_Controller
 			</div>'
 		);
 		# It will be returned to dashboard page
-		redirect('plans/dashboard');
+		redirect('dashboard');
 	}
 
 	/**
@@ -207,7 +207,7 @@ class Plans extends CI_Controller
 			</div>'
 		);
 		# It will be returned to dashboard page
-		redirect('plans/dashboard');
+		redirect('dashboard');
 	}
 	
 	/**
@@ -237,7 +237,7 @@ class Plans extends CI_Controller
 			</div>'
 		);
 		# It will be returned to dashboard page
-		redirect('plans/dashboard');
+		redirect('dashboard');
 	}
 	
 	/**
@@ -271,7 +271,7 @@ class Plans extends CI_Controller
 			</div>'
 		);
 		# It will be returned to dashboard page
-		redirect('plans/dashboard');
+		redirect('dashboard');
 	}
 	
 	/**
@@ -303,7 +303,7 @@ class Plans extends CI_Controller
 			</div>'
 		);
 		# It will be returned to dashboard page
-		redirect('plans/dashboard');
+		redirect('dashboard');
 	}
 
 	/**
@@ -346,7 +346,7 @@ class Plans extends CI_Controller
 				</div>'
 			);
 			# It will be returned to login page
-			redirect('auth/login');
+			redirect('login');
 		}
 
 		// var_dump($user);
@@ -412,7 +412,7 @@ class Plans extends CI_Controller
 				</div>'
 			);
 			# It will be returned to login page
-			redirect('auth/login');
+			redirect('login');
 		}
 
 		// var_dump($user);
@@ -476,7 +476,7 @@ class Plans extends CI_Controller
 				</div>'
 			);
 			# It will be returned to login page
-			redirect('auth/login');
+			redirect('login');
 		}
 		
 		// var_dump($user);

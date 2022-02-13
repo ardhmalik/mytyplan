@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @description This model class as the link between database and controller
  * @return functions Used by Plans Controller
  */
+
 class Plans_model extends CI_Model
 {
     /**
@@ -59,15 +60,15 @@ class Plans_model extends CI_Model
     /**
      * Finds and returns plans by id_user
      * @access public
-     * @param string $idUser Contains id_user
+     * @param string $id_user Contains id_user
      * @description A function that executes a query with a SQL procedure 
      * 'viewAllPlan(id_user_param)'
      * @return array plans data value
      */
-    public function get_plans_by_id($idUser)
+    public function get_plans_by_id($id_user)
     {
         $sql = 'CALL viewAllPlan(?)';
-        $query = $this->db->query($sql, ['id_user'=>$idUser])->result_array();
+        $query = $this->db->query($sql, ['id_user'=>$id_user])->result_array();
 
         return $query;
     }
@@ -107,15 +108,15 @@ class Plans_model extends CI_Model
     /**
      * Finds and mark success plan
      * @access public
-     * @param string $idPlan Contains id_plan
+     * @param string $id_plan Contains id_plan
      * @description A function that executes a query with a custom SQL function 
      * 'successPlan(id_plan_param)'
      * @return int 1 if the query update is successful
      */
-    public function mark_success_plan($idPlan)
+    public function mark_success_plan($id_plan)
     {
         $sql = 'SELECT successPlan(?)';
-        $query = $this->db->query($sql, $idPlan)->result_array();
+        $query = $this->db->query($sql, $id_plan)->result_array();
 
         return $query;
     }
@@ -123,15 +124,15 @@ class Plans_model extends CI_Model
     /**
      * Finds and mark fail plan
      * @access public
-     * @param string $idPlan Contains id_plan
+     * @param string $id_plan Contains id_plan
      * @description A function that executes a query with a custom SQL function 
      * 'failPlan(id_plan_param)'
      * @return int 1 if the query update is successful
      */
-    public function mark_fail_plan($idPlan)
+    public function mark_fail_plan($id_plan)
     {
         $sql = 'SELECT failPlan(?)';
-        $query = $this->db->query($sql, $idPlan)->result_array();
+        $query = $this->db->query($sql, $id_plan)->result_array();
 
         return $query;
     }
@@ -155,15 +156,15 @@ class Plans_model extends CI_Model
     /**
      * Finds and delete a plan
      * @access public
-     * @param string $idPlan Contains id_plan
+     * @param string $id_plan Contains id_plan
      * @description A function that executes a query with a custom SQL function 
      * 'delPlan(id_plan_param)'
      * @return int 1 if the query delete is successful
      */
-    public function del_plan($idPlan)
+    public function del_plan($id_plan)
     {
         $sql = 'SELECT delPlan(?)';
-        $query = $this->db->query($sql, $idPlan);
+        $query = $this->db->query($sql, $id_plan);
 
         return $query;
     }
@@ -171,15 +172,15 @@ class Plans_model extends CI_Model
     /**
      * Finds and returns a list of successful plans by id_user
      * @access public
-     * @param string $idUser Contains id_user
+     * @param string $id_user Contains id_user
      * @description A function that executes a query with a SQL procedure 
      * 'viewSuccessPlan(id_user_param)'
      * @return array of success plans data values
      */
-    public function success_plans_by_id($idUser)
+    public function success_plans_by_id($id_user)
     {
         $sql = 'CALL viewSuccessPlan(?)';
-        $query = $this->db->query($sql, $idUser)->result_array();
+        $query = $this->db->query($sql, $id_user)->result_array();
 
         return $query;
     }
@@ -187,15 +188,15 @@ class Plans_model extends CI_Model
     /**
      * Finds and returns a list of failed plans by id_user
      * @access public
-     * @param string $idUser Contains id_user
+     * @param string $id_user Contains id_user
      * @description A function that executes a query with a SQL procedure 
      * 'viewFailPlan(id_user_param)'
      * @return array of failed plans data values
      */
-    public function fail_plans_by_id($idUser)
+    public function fail_plans_by_id($id_user)
     {
         $sql = 'CALL viewFailPlan(?)';
-        $query = $this->db->query($sql, $idUser)->result_array();
+        $query = $this->db->query($sql, $id_user)->result_array();
 
         return $query;
     }
@@ -203,15 +204,15 @@ class Plans_model extends CI_Model
     /**
      * Finds and returns a list of user logs activity by id_user
      * @access public
-     * @param string $idUser Contains id_user
+     * @param string $id_user Contains id_user
      * @description A function that executes a query 
      * SELECT * FROM logs where id_user=$id ORDER BY times DESC
      * @return array of user logs data values
      */
-    public function get_logs_by_id($idUser)
+    public function get_logs_by_id($id_user)
     {
         $this->db->order_by('times', 'DESC');
-        $sql = $this->db->get_where('logs', ['id_user'=>$idUser]);
+        $sql = $this->db->get_where('logs', ['id_user'=>$id_user]);
         $query = $sql->result_array();
 
         return $query;

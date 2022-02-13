@@ -45,8 +45,8 @@
                                 <!-- Link to modal detail plan -->
                                 <a type="button" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">
                                     <?php
-                                        # $bgList to save plan list background class
-                                        $bgList = '';
+                                        # $list_bg to save plan list background class
+                                        $list_bg = '';
                                         # $now to save current time
                                         $now = time();
                                         # $exp to store the expired value which has been converted to the time data type
@@ -54,11 +54,11 @@
                                         
                                         # If condition to compare expired with current time
                                         if ($exp < $now) {
-                                            $bgList = 'bg-secondary bg-opacity-10';
+                                            $list_bg = 'bg-secondary bg-opacity-10';
                                         }
                                     ?>
                                     <!-- List Plan -->
-                                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start <?= $bgList ?>">
+                                    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start <?= $list_bg ?>">
                                         <div class="ms-2 me-auto">
                                             <div class="fw-bold">
                                                 <?= $pl['plan'] ?>
@@ -68,26 +68,26 @@
                                             </span>
                                         </div>
                                         <?php
-                                            # $bgBadge to save badge background class
-                                            $bgBadge = '';
+                                            # $badge_bg to save badge background class
+                                            $badge_bg = '';
                                             # Switch statement to specify badge background
                                             switch ($pl['label']) {
                                                 case 'Very Important':
-                                                    $bgBadge = 'bg-danger';
+                                                    $badge_bg = 'bg-danger';
                                                     break;
                                                 case 'Important':
-                                                    $bgBadge = 'bg-warning';
+                                                    $badge_bg = 'bg-warning';
                                                     break;
                                                 case 'Normal':
-                                                    $bgBadge = 'bg-primary';
+                                                    $badge_bg = 'bg-primary';
                                                     break;
                                                 default:
-                                                    $bgBadge;
+                                                    $badge_bg;
                                                     break;
                                             }
 
                                             # Percabangan if untuk tampilan status
-                                            $bgStatus = '';
+                                            $status_bg = '';
                                             # $status variable to save icon for status
                                             $status = '';
                                             # $now to save current time
@@ -106,7 +106,7 @@
                                             } else {
                                                 if ($pl['status'] == 0) {
                                                     # If status value is 0, then status isn't displayed
-                                                    $bgStatus = 'd-none';
+                                                    $status_bg = 'd-none';
                                                 } elseif ($pl['status'] == 1) {
                                                     # If status value is 1, then display check icon dan green color
                                                     $status = 'fas fa-check-circle text-success';
@@ -116,7 +116,7 @@
                                         <div>
                                             <!-- Label Badge -->
                                             <div class="float-end">
-                                                <span class="badge <?= $bgBadge ?> rounded-pill">
+                                                <span class="badge <?= $badge_bg ?> rounded-pill">
                                                     <?= $pl['label'] ?>
                                                 </span>
                                             </div>
@@ -124,7 +124,7 @@
 
                                             <!-- Status Badge -->
                                             <div class="float-end">
-                                                <span class="badge-lg <?= $bgStatus ?> rounded-pill">
+                                                <span class="badge-lg <?= $status_bg ?> rounded-pill">
                                                     <i class="<?= $status ?>"></i>
                                                 </span>
                                             </div>

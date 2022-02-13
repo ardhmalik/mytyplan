@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <!-- Navbar Brand-->
-        <a href="<?= site_url('plans/dashboard') ?>" class="navbar-brand">
+        <a href="<?= site_url('dashboard') ?>" class="navbar-brand">
             <?= $project ?>
         </a>
         <!-- End Navbar Brand-->
@@ -17,17 +17,17 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="actionDropdown">
                         <li>
-                            <a href="<?= site_url('plans/get_success_plans') ?>" class="dropdown-item">Success plan</a>
+                            <a href="<?= site_url('success_plans') ?>" class="dropdown-item">Success plan</a>
                         </li>
                         <li>
-                            <a href="<?= site_url('plans/get_fail_plans') ?>" class="dropdown-item">Fail Plan</a>
+                            <a href="<?= site_url('fail_plans') ?>" class="dropdown-item">Fail Plan</a>
                         </li>
                         <li>
-                            <a href="<?= site_url('plans/user_activity_logs') ?>" class="dropdown-item">Logs</a>
+                            <a href="<?= site_url('user_activity_logs') ?>" class="dropdown-item">Logs</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a href="<?= site_url('auth/logout') ?>" class="dropdown-item">Logout</a>
+                            <a href="<?= site_url('logout') ?>" class="dropdown-item">Logout</a>
                         </li>
                     </ul>
                 </li>

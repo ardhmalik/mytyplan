@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-footer text-muted">
                     <span>Do you have an account?</span>    
-                    <a href="<?= site_url('auth/login') ?>">Login Now</a>
+                    <a href="<?= site_url('login') ?>">Login Now</a>
                 </div>
             </div>
         </div>

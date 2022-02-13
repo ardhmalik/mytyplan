@@ -44,12 +44,12 @@ class Auth extends CI_Controller
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-info alert-dismissible fade show" role="alert">
-					You are still logged in, please <a href="'. site_url('auth/logout') .'" class="alert-link">Logout</a>..
+					You are still logged in, please <a href="'. site_url('logout') .'" class="alert-link">Logout</a>..
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
 			# It will be returned to dashboard page
-			redirect('plans/dashboard');
+			redirect('dashboard');
 		}
 
 		# $data variable to store array of data passed to login page
@@ -102,7 +102,7 @@ class Auth extends CI_Controller
 				# Add $data values to session
 				$this->session->set_userdata($data);
 				# It will be returned to dashboard page
-				redirect('plans/dashboard');
+				redirect('dashboard');
 			} else {
 				# If password is not matches, will be send wrong password message
 				$this->session->set_flashdata(
@@ -113,7 +113,7 @@ class Auth extends CI_Controller
 					</div>'
 				);
 				# It will be returned to login page
-				redirect('auth/login');
+				redirect('login');
 			}
 		} else {
 			# If there is no user data, will be send email isn't registered message
@@ -122,11 +122,11 @@ class Auth extends CI_Controller
 				'<div class="alert alert-danger alert-dismissible fade show" role="alert">
 					Email isn`t registered, please 
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					<a href="'.site_url('auth/register').'">Register here</a>
+					<a href="'.site_url('register').'">Register here</a>
 				</div>'
 			);
 			# It will be returned to login page
-			redirect('auth/login');
+			redirect('login');
 		}
 	}
 	
@@ -153,12 +153,12 @@ class Auth extends CI_Controller
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-info alert-dismissible fade show" role="alert">
-					You are still logged in, please <a href="'. site_url('auth/login') .'" class="alert-link">Logout</a>..
+					You are still logged in, please <a href="'. site_url('login') .'" class="alert-link">Logout</a>..
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
 			# It will be returned to dashboard page
-			redirect('plans/dashboard');
+			redirect('dashboard');
 		}
 
 		# $data variable to store array of data passed to register page
@@ -199,8 +199,6 @@ class Auth extends CI_Controller
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
-			# It will be returned to login page
-			redirect('auth/login');
 		}
 	}
 
@@ -228,6 +226,6 @@ class Auth extends CI_Controller
 			</div>'
 		);
 		# It will be returned to login page
-		redirect('auth/login');
+		redirect('login');
 	}
 }

@@ -52,3 +52,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth/login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+# Custom Routing for Auth
+$route['register'] = 'auth/register';
+$route['login'] = 'auth/login';
+$route['logout'] = 'auth/logout';
+
+# Custom Routing for Plans
+$route['dashboard'] = 'plans/dashboard';
+$route['success_plans'] = 'plans/get_success_plans';
+$route['fail_plans'] = 'plans/get_fail_plans';
+$route['user_activity_logs'] = 'plans/user_activity_logs';
+$route['add_plan'] = 'plans/proc_add_plan';
+$route['edit_plan'] = 'plans/proc_edit_plan';
+$route['move_plan'] = 'plans/proc_move_plan';
+$route['delete_plan'] = 'plans/proc_delete_plan';
+$route['mark_success'] = 'plans/proc_mark_success';
+$route['mark_fail'] = 'plans/proc_mark_fail';

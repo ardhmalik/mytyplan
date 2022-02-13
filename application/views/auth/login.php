@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-footer text-muted">
                     <span>Don't have an account?</span>    
-                    <a href="<?= site_url('auth/register') ?>">Register Now</a>
+                    <a href="<?= site_url('register') ?>">Register Now</a>
                 </div>
             </div>
         </div>
