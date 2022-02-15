@@ -4,7 +4,7 @@
         <i class="bi bi-github"></i> @ardhmalik
     </a>
     <br>
-    <span>Made with <i class="bi bi-heart-fill" style="color:red"></i> from ardhmalik's home</span>
+    <span>Made with <i class="fa-solid fa-heart" style="color:red"></i> from ardhmalik's home</span>
 </footer>
 <!-- End Footer -->
 
