@@ -20,8 +20,26 @@ class Plans extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
+		$this->load->library('unit_test');
 		$this->load->model('auth_model', 'amodel');
 		$this->load->model('plans_model', 'pmodel');
+	}
+
+	/**
+	 * Running the unit test process
+	 * @access private
+	 * @param array $test
+	 * @param array $expected
+	 * @param string $test_name
+	 * @return void
+	 */
+	private function _unit_test($test, $expected, $test_name)
+	{
+		# $test_run variable to store result unit test
+		$test_run = $this->unit->run($test, $expected, $test_name);
+		# Show result
+		echo $test_run;
+		die;
 	}
 
 	/**
@@ -163,6 +181,17 @@ class Plans extends CI_Controller
 			'id_label'=>$input->post('label')
 		];
 		
+		# $expected_result variable to store array of unit test scenario
+		$expected_result = [
+			'id_plan'=>31,
+			'plan'=>"Lulus Sertifikasi Analis Program",
+			'description'=>"Menyelesaikan Sertifikasi Analis Program dengan baik tanpa kendala",
+			'id_label'=>3,
+		];
+
+		# run unit_test with function _unit_test
+		// $this->_unit_test($data, $expected_result, "Form edit plan test");
+
 		// var_dump($data);
 		// die;
 
