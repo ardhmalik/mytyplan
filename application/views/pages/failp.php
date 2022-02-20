@@ -10,7 +10,7 @@
 
     <!-- Message from action add, edit and delete plan -->
     <div class="col-12">
-        <?= $this->session->flashdata('message') ?>
+        <?= $this->session->flashdata('fail_message') ?>
     </div>
     <!-- End Message -->
 

@@ -383,7 +383,7 @@ class Plans extends CI_Controller
 
 		# Add an alert message to session if success plan page has been loaded
 		$this->session->set_flashdata(
-			'message',
+			'success_message',
 			'<div class="alert alert-info alert-dismissible fade show" role="alert">
 				<h4 class="alert-heading">You`re Amazing!</h4>
 				<p>Don`t be <span class="fw-bold">complacent</span> with your success, keep <span class="fw-bold">going</span> and <span class="fw-bold">focus</span> on your goals this year.</p>
@@ -449,7 +449,7 @@ class Plans extends CI_Controller
 
 		# Add an alert message to session if fail plan page has been loaded
 		$this->session->set_flashdata(
-			'message',
+			'fail_message',
 			'<div class="alert alert-info alert-dismissible fade show" role="alert">
 				<h4 class="alert-heading">Finish it!</h4>
 				<p>You have other plans to complete, stay <span class="fw-bold">motivated</span> and <span class="fw-bold">focused</span> on your goals!</p>
