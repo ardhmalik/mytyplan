@@ -64,7 +64,7 @@
                                                 <?= $pl['plan'] ?>
                                             </div>
                                             <span class="text-muted fst-italic">
-                                                <?= $pl['description'] ?>
+                                                <?= substr($pl['description'], 0, 20) . "..." ?>
                                             </span>
                                         </div>
                                         <?php
