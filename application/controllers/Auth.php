@@ -20,7 +20,25 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
+		$this->load->library('unit_test');
 		$this->load->model('auth_model', 'amodel');
+	}
+
+	/**
+	 * Running the unit test process
+	 * @access private
+	 * @param array $test
+	 * @param array $expected
+	 * @param string $test_name
+	 * @return void
+	 */
+	private function _unit_test($test, $expected, $test_name)
+	{
+		# $test_run variable to store result unit test
+		$test_run = $this->unit->run($test, $expected, $test_name);
+		# Show result
+		echo $test_run;
+		die;
 	}
 
 	/**
@@ -85,6 +103,15 @@ class Auth extends CI_Controller
 		];
 		# $user variable returns user row array data value as per email in the stored session
 		$user = $this->amodel->get_user_by_email($data['email']);
+
+		# $expected_result variable to store array of unit test scenario
+		$expected_result = [
+			'email'=>'minato@konoha.com',
+			'password'=>"Minato123"
+		];
+
+		# run unit_test with function _unit_test
+		// $this->_unit_test($data, $expected_result, "Form login test");
 
 		// var_dump($user);
 		// die;

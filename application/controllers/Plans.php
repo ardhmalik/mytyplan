@@ -122,6 +122,20 @@ class Plans extends CI_Controller
 			'id_month'=>$input->post('month')
 		];
 
+		# $expected_result variable to store array of unit test scenario
+		$expected_result = [
+			'id_user'=>"1",
+			'plan'=>"Mempelajari dan Memahami Python",
+			'description'=>"Belajar dari dasar bahasa Python melalui berbagai sumber gratis",
+			'expired'=>"2022-03-12 23:59:59",
+			'status'=>0,
+			'id_label'=>"1",
+			'id_month'=>"3"
+		];
+
+		# run unit_test with function _unit_test
+		// $this->_unit_test($data, $expected_result, "Form add plan test");
+
 		// var_dump($data);
 		// die;
 
@@ -221,6 +235,14 @@ class Plans extends CI_Controller
 		$data = [
 			'id_plan'=>$this->input->post('id_plan')
 		];
+		
+		# $expected_result variable to store array of unit test scenario
+		$expected_result = [
+			'id_plan'=>"39"
+		];
+
+		# run unit_test with function _unit_test
+		// $this->_unit_test($data, $expected_result, "Form mark succcess plan test");
 
 		// var_dump($data);
 		// die;
