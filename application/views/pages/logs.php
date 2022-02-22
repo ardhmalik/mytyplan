@@ -38,10 +38,17 @@
                     <?php endforeach ?>
                 </tbody>
             </table>
-            <div class="col-12 text-center">
-                <a href="<?= site_url('dashboard') ?>" type="button" class="btn btn-light btn-outline-dark mx-auto">
-                    Back to <i class="fa-solid fa-house"></i>
-                </a>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <a href="<?= site_url('dashboard') ?>" type="button" class="btn btn-light btn-outline-dark mx-auto">
+                            Back to <i class="fa-solid fa-house"></i>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <?= $this->pagination->create_links() ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

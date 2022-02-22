@@ -499,6 +499,8 @@ class Plans extends CI_Controller
 	 */
 	public function user_activity_logs()
 	{
+		# Load pagination library
+		$this->load->library('pagination');
 		#  $pmodel variable to load model 'pmodel'
 		$pmodel = $this->pmodel;
 		# $session variable to save field email & username from user
@@ -513,8 +515,46 @@ class Plans extends CI_Controller
 			'project'=>'My This Year Plan',
 			'title'=>'Logs',
 			'user'=>$user,
-			'logs'=>$pmodel->get_logs_by_id($user['id_user'])
+			'logs'=>$pmodel->get_num_logs($user['id_user'])
 		];
+		
+		# $config variable to store pagination library settings
+		$config = [
+			# common_config
+			'base_url'=>'http://localhost/mytyplan/plans/user_activity_logs',
+			'total_rows'=>$data['logs'],
+			'per_page'=>15,
+			'uri_segment'=>3,
+
+			# page_button_styling
+			'full_tag_open'=>'<nav aria-label="Page navigation example"><ul class="pagination">',
+			'full_tag_close'=>'</ul></nav>',
+			'first_link'=>'First',
+			'first_tag_open'=>'<li class="page-item">',
+			'first_tag_close'=>'</li>',
+			'last_link'=>'Last',
+			'last_tag_open'=>'<li class="page-item">',
+			'last_tag_close'=>'</li>',
+			'next_link'=>'&raquo',
+			'next_tag_open'=>'<li class="page-item">',
+			'next_tag_close'=>'</li>',
+			'prev_link'=>'&laquo',
+			'prev_tag_open'=>'<li class="page-item">',
+			'prev_tag_close'=>'</li>',
+			'cur_tag_open'=>'<li class="page-item active"><a class="page-link" href="#">',
+			'cur_tag_close'=>'</a></li>',
+			'num_tag_open'=>'<li class="page-item">',
+			'num_tag_close'=>'</li>',
+			'attributes'=>array('class' => 'page-link')
+		];
+		
+		# initialize pagination library
+		$this->pagination->initialize($config);
+
+		# $data['start'] variable to store values of URI segment 3
+		$data['start'] = $this->uri->segment(3);
+		# $data['logs'] variable to store arrays of limit logs
+		$data['logs'] = $pmodel->get_logs_limit($user['id_user'], $config['per_page'], $data['start']);
 
 		# IF condition to check if there is a stored 'email' session
 		if (!$this->session->userdata('email')) {

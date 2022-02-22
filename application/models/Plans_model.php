@@ -202,17 +202,31 @@ class Plans_model extends CI_Model
     }
 
     /**
-     * Finds and returns a list of user logs activity by id_user
+     * Finds and returns number of user logs activity by id_user
      * @access public
      * @param string $id_user Contains id_user
-     * @description A function that executes a query 
-     * SELECT * FROM logs where id_user=$id ORDER BY times DESC
+     * @description A function that executes a query with a view 'user_logs'
+     * @return int number of logs
+     */
+    public function get_num_logs($id_user)
+    {
+        $sql = $this->db->get_where('user_logs', ['id_user'=>$id_user]);
+        $query = $sql->num_rows();
+
+        return $query;
+    }
+    
+    /**
+     * Finds and returns a list of user logs activity by id_user with limits
+     * @access public
+     * @param string $id_user Contains id_user
+     * @description A function that executes a query with a view 'user_logs'
      * @return array of user logs data values
      */
-    public function get_logs_by_id($id_user)
+    public function get_logs_limit($id_user, $limit, $start)
     {
         $this->db->order_by('times', 'DESC');
-        $sql = $this->db->get_where('logs', ['id_user'=>$id_user]);
+        $sql = $this->db->get_where('user_logs', ['id_user'=>$id_user], $limit, $start);
         $query = $sql->result_array();
 
         return $query;
