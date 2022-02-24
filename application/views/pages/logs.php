@@ -44,7 +44,7 @@
                         <?= $this->pagination->create_links() ?>
                     </div>
                     <div class="col-auto">
-                        <a href="<?= site_url('dashboard') ?>" type="button" class="btn btn-light btn-outline-dark mx-auto">
+                        <a href="<?= site_url('dashboard') ?>" type="button" class="btn fw-bold btn-light btn-outline-dark mx-auto">
                             Back to <i class="fa-solid fa-house"></i>
                         </a>
                     </div>

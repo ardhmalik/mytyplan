@@ -10,7 +10,7 @@
 
     <!-- Button Add New Plan -->
     <div class="d-flex flex-row-reverse mb-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planAdd">
+        <button class="btn fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#planAdd">
             <i class="far fa-calendar-plus"></i> | New Plan
         </button>
     </div>

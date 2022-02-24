@@ -54,10 +54,10 @@
                         </div>
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-secondary">Cancel</a>
+                                <a href="<?= site_url('dashboard') ?>" class="btn fw-bold btn-outline-secondary">Cancel</a>
                             </div>
                             <div class="p-2 ms-auto bd-highlight">
-                                <input type="submit" class="btn btn-primary" value="Add"></input>
+                                <input type="submit" class="btn fw-bold btn-primary" value="Add"></input>
                             </div>
                         </div>
                     </form>
@@ -167,8 +167,8 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">
+                <button type="button" class="btn fw-bold btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">
                     <i class="fas fa-edit"></i> | Edit Plan
                 </button>
                 <?php
@@ -239,7 +239,7 @@
                             <label for="label" class="form-label">Label</label>
                         </div>
                         <div class="float-end">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn fw-bold btn-primary">
                                 <i class="far fa-save"></i> | Save
                             </button>
                         </div>
@@ -251,11 +251,11 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">Back</button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#planDel<?= $pl['id_plan'] ?>">
+                <button type="button" class="btn fw-bold btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#plan<?= $pl['id_plan'] ?>">Back</button>
+                <button type="button" class="btn fw-bold btn-outline-danger" data-bs-toggle="modal" data-bs-target="#planDel<?= $pl['id_plan'] ?>">
                     <i class="fas fa-trash"></i> | Delete
                 </button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#planMove<?= $pl['id_plan'] ?>">
+                <button type="button" class="btn fw-bold btn-warning" data-bs-toggle="modal" data-bs-target="#planMove<?= $pl['id_plan'] ?>">
                     <i class="fas fa-arrows-alt"></i> | Move Plan
                 </button>
             </div>
@@ -295,10 +295,10 @@
                             <input type="date" class="form-control" name="expired" id="expired" min="2022-01-01" max="2022-12-30" value="<?= date('Y-m-d', strtotime($pl['expired'])) ?>" required>
                         </div>
                         <div class="float-end">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">
+                            <button type="button" class="btn fw-bold btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">
                                 <i class="fa-solid fa-arrow-left"></i> | Back
                             </button>
-                            <input type="submit" class="btn btn-primary" value="Move"></input>
+                            <input type="submit" class="btn fw-bold btn-primary" value="Move"></input>
                         </div>
                     </form>
                     <!-- End Form Move Plan -->
@@ -332,10 +332,10 @@
                         <input type="hidden" name="id_plan" id="id_plan" value="<?= $pl['id_plan'] ?>">
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="button" class="btn btn-light btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">No</button>
+                                <button type="button" class="btn fw-bold btn-light btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">No</button>
                             </div>
                             <div class="ms-auto p-2 bd-highlight">
-                                <input type="submit" class="btn btn-danger fw-bold" value="Yes, delete it">
+                                <input type="submit" class="btn fw-bold btn-danger fw-bold" value="Yes, delete it">
                             </div>
                         </div>
                     </form>
@@ -393,7 +393,7 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfile<?= $user['id_user'] ?>">
+                <button type="button" class="btn fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#editProfile<?= $user['id_user'] ?>">
                     <i class="fas fa-edit"></i> | Edit Profile
                 </button>
             </div>
@@ -435,7 +435,7 @@
                             <label for="email">email</label>
                         </div>
                         <div class="float-end">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn fw-bold btn-primary">
                                 <i class="far fa-save"></i> | Save
                             </button>
                         </div>
@@ -447,11 +447,11 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#profile<?= $user['id_user'] ?>">
+                <button type="button" class="btn fw-bold btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#profile<?= $user['id_user'] ?>">
                     <i class="fa-solid fa-arrow-left"></i> | Back
                 </button>
                 <?php if ($user['avatar'] != 'avatar.png') : ?>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#defaultAvatar<?= $user['id_user'] ?>">
+                    <button type="button" class="btn fw-bold btn-info" data-bs-toggle="modal" data-bs-target="#defaultAvatar<?= $user['id_user'] ?>">
                         <i class="fa-solid fa-image-portrait"></i> | Set Default Avatar
                     </button>
                 <?php endif; ?>
@@ -487,10 +487,10 @@
                         <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="button" class="btn btn-light btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProfile<?= $user['id_user'] ?>">No</button>
+                                <button type="button" class="btn fw-bold btn-light btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProfile<?= $user['id_user'] ?>">No</button>
                             </div>
                             <div class="ms-auto p-2 bd-highlight">
-                                <input type="submit" class="btn btn-danger fw-bold" value="Yes, delete it">
+                                <input type="submit" class="btn fw-bold btn-danger fw-bold" value="Yes, delete it">
                             </div>
                         </div>
                     </form>

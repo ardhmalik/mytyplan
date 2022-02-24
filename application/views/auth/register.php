@@ -26,10 +26,10 @@
                         </div>
                         <div class="d-flex bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="reset" class="btn btn-light btn-outline-secondary">Cancel</button>
+                                <button type="reset" class="btn fw-bold btn-light btn-outline-secondary">Cancel</button>
                             </div>
                             <div class="ms-auto p-2 bd-highlight">
-                                <button type="submit" class="btn btn-primary">Register Account</button>
+                                <button type="submit" class="btn fw-bold btn-primary">Register Account</button>
                             </div>
                         </div>
                     </form>
