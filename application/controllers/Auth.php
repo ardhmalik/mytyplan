@@ -41,6 +41,11 @@ class Auth extends CI_Controller
 		die;
 	}
 
+	private function _del_avatar($file)
+	{
+		return array_map('unlink', glob(FCPATH . "assets/img/user/$file.*"));
+	}
+
 	/**
 	 * Navigate to login page
 	 * @access public
@@ -313,7 +318,8 @@ class Auth extends CI_Controller
 		$email = $this->session->userdata('email');
 		$user = $this->amodel->get_user_by_email($email);
 
-		unlink(FCPATH . "assets/img/user/" . $user['avatar']);
+		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
+		$this->_del_avatar($file_name);
 
 		$data = [
 			'id_user'=>$this->input->post('id_user'),
@@ -330,7 +336,7 @@ class Auth extends CI_Controller
 				</div>'
 			);
 		}
-		
+
 		redirect('dashboard');
 	}
 }
