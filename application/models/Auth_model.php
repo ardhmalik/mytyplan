@@ -78,6 +78,21 @@ class Auth_model extends CI_Model
 
         return $query;
     }
+
+    /**
+     * Update data user
+     * @access public
+     * @param string $data Containing an array of id_user, avatar, username
+     * @description A function that executes a query with a stored procedure 
+     * 'editser(id_user_param, avatar_param, username_param)'
+     */
+    public function update_user($data)
+    {
+        $sql = 'CALL editUser(?, ?, ?)';
+        $query = $this->db->query($sql, $data);
+
+        return $query;
+    }
     
     /**
      * Finds and returns a user data by email

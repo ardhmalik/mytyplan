@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'auth/register';
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
+$route['edit_profile'] = 'auth/edit_profile';
 
 # Custom Routing for Plans
 $route['dashboard'] = 'plans/dashboard';

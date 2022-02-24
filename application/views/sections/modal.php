@@ -295,7 +295,9 @@
                             <input type="date" class="form-control" name="expired" id="expired" min="2022-01-01" max="2022-12-30" value="<?= date('Y-m-d', strtotime($pl['expired'])) ?>" required>
                         </div>
                         <div class="float-end">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">Back</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#planEdit<?= $pl['id_plan'] ?>">
+                                <i class="fa-solid fa-arrow-left"></i> | Back
+                            </button>
                             <input type="submit" class="btn btn-primary" value="Move"></input>
                         </div>
                     </form>
@@ -347,3 +349,110 @@
 <!-- End Modal Delete Plan -->
 
 <?php endforeach ?>
+
+
+<!-- Modal Detail Profile -->
+<div class="modal fade" id="profile<?= $user['id_user'] ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="profile" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="profile">Your Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- End Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="card border-0 mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4 my-auto">
+                                <img src="<?= site_url('assets/img/user/') . $user['avatar'] ?>" class="img-fluid rounded" alt="Profile Avatar">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <?= $user['username'] ?>
+                                    </h5>
+                                    <p class="card-text">
+                                        <?= $user['email'] ?>
+                                    </p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            Joined at <?= $user['joined'] ?>
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal Body -->
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfile<?= $user['id_user'] ?>">
+                    <i class="fas fa-edit"></i> | Edit Profile
+                </button>
+            </div>
+            <!-- End Modal Footer -->
+        </div>
+    </div>
+</div>
+<!-- End Modal Move plan -->
+
+<!-- Modal Edit Profile -->
+<div class="modal fade" id="editProfile<?= $user['id_user'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProfile" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfile">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- End Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <!-- Form Edit Plan -->
+                    <form action="<?= site_url('edit_profile') ?>" method="post" enctype="multipart/form-data" class="mx-3 my-3">
+                        <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
+                        <div class="mb-2 w-50 mx-auto">
+                            <img src="<?= site_url('assets/img/user/') . $user['avatar'] ?>" class="img-fluid rounded" alt="Profile Avatar">
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control" type="file" id="formFile" name="avatar" accept="image/png, image/jpeg, image/jpg, image/gif">
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" name="username" id="username" value="<?= $user['username'] ?>" placeholder="Enter new username" required>
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" name="email" id="email" value="<?= $user['email'] ?>" placeholder="Enter new email" required readonly>
+                            <label for="email">email</label>
+                        </div>
+                        <div class="float-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="far fa-save"></i> | Save
+                            </button>
+                        </div>
+                    </form>
+                    <!-- End Form Edit Plan -->
+                </div>
+            </div>
+            <!-- End Modal Body -->
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#profile<?= $user['id_user'] ?>">
+                    <i class="fa-solid fa-arrow-left"></i> | Back
+                </button>
+            </div>
+            <!-- End Modal Footer -->
+        </div>
+    </div>
+</div>
+<!-- Modal Edit Plan -->

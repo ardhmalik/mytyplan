@@ -255,4 +255,56 @@ class Auth extends CI_Controller
 		# It will be returned to login page
 		redirect('login');
 	}
+
+	public function edit_profile()
+	{
+		$email = $this->session->userdata('email');
+		# $file_name variable to store string email without dot
+		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
+		# $config variable to store upload library settings
+		$config = [
+			'upload_path'=>FCPATH.'assets/img/user/',
+			'allowed_types'=>'gif|jpg|jpeg|png',
+			'file_name'=>$file_name,
+			'overwrite'=>true,
+			'max_size'=>1024, # Ukuran maksimal 1MB
+			'max_width'=>1080, # Lebar maksimal dalam px
+			'max_height'=>1080 # Tinggi maksimal dalam px
+		];
+
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('avatar')) {
+			$error = $this->upload->display_errors();
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+				. $error .
+				'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+		} else {
+			$uploaded_data = $this->upload->data();
+			$new_data = [
+				'id_user'=>$this->input->post('id_user'),
+				'avatar'=>$uploaded_data['file_name'],
+				'username'=>$this->input->post('username')
+			];
+			
+			if ($this->amodel->update_user($new_data)) {
+				$this->session->set_flashdata(
+					'message',
+					'<div class="alert alert-success alert-dismissible fade show" role="alert">
+					Your profile was updated!
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>'
+				);
+			}
+		}
+
+		// var_dump($data);
+		// die;
+
+		redirect('dashboard');
+	}
 }

@@ -12,10 +12,13 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="actionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="<?= base_url('/assets/img/') . $user['avatar'] ?>" alt="" width="22" height="22" class="d-inline-block align-text-top" style="border-radius: 50%; border: 2px solid grey;">
+                        <img src="<?= base_url('/assets/img/user/') . $user['avatar'] ?>" alt="" width="22" height="22" class="d-inline-block align-text-top" style="border-radius: 50%; border: 2px solid grey;">
                         <?= $user['username'] ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="actionDropdown">
+                        <li>
+                            <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profile<?= $user['id_user'] ?>">Profile</a>
+                        </li>
                         <li>
                             <a href="<?= site_url('success_plans') ?>" class="dropdown-item">Success plan</a>
                         </li>
