@@ -380,6 +380,8 @@ class Plans extends CI_Controller
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
+		# Ternary operation to set avatar image for user
+		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
 			'project'=>'My This Year Plan',
@@ -446,6 +448,8 @@ class Plans extends CI_Controller
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
+		# Ternary operation to set avatar image for user
+		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
 			'project'=>'My This Year Plan',
@@ -514,6 +518,8 @@ class Plans extends CI_Controller
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
+		# Ternary operation to set avatar image for user
+		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
 			'project'=>'My This Year Plan',
