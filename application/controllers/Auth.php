@@ -307,4 +307,30 @@ class Auth extends CI_Controller
 
 		redirect('dashboard');
 	}
+
+	public function default_avatar()
+	{
+		$email = $this->session->userdata('email');
+		$user = $this->amodel->get_user_by_email($email);
+
+		unlink(FCPATH . "assets/img/user/" . $user['avatar']);
+
+		$data = [
+			'id_user'=>$this->input->post('id_user'),
+			'avatar'=>null,
+			'username'=>$user['username']
+		];
+
+		if ($this->amodel->update_user($data)) {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-success alert-dismissible fade show" role="alert">
+				Success to set default avatar!
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+		}
+		
+		redirect('dashboard');
+	}
 }

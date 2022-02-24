@@ -413,7 +413,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- End Modal Header -->
-
+            
             <!-- Modal Body -->
             <div class="modal-body">
                 <div class="container-fluid">
@@ -450,9 +450,55 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#profile<?= $user['id_user'] ?>">
                     <i class="fa-solid fa-arrow-left"></i> | Back
                 </button>
+                <?php if ($user['avatar'] != 'avatar.png') : ?>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#defaultAvatar<?= $user['id_user'] ?>">
+                        <i class="fa-solid fa-image-portrait"></i> | Set Default Avatar
+                    </button>
+                <?php endif; ?>
             </div>
             <!-- End Modal Footer -->
         </div>
     </div>
 </div>
 <!-- Modal Edit Plan -->
+
+<!-- Modal Set Default Avatar -->
+<div class="modal fade" id="defaultAvatar<?= $user['id_user'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="defaultAvatar" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="defaultAvatar">Set Default Avatar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- End Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <h5 class="text-center text-bold">
+                        Are you sure delete this avatar?
+                    </h5>
+                    <div class="div w-50 my-3 mx-auto">
+                        <img src="<?= site_url('assets/img/user/') . $user['avatar'] ?>" class="img-fluid rounded" alt="Profile Avatar">
+                    </div>
+                    <!-- Form Set Default Avatar -->
+                    <form action="<?= site_url('default_avatar') ?>" method="post">
+                        <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
+                        <div class="d-flex bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="button" class="btn btn-light btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProfile<?= $user['id_user'] ?>">No</button>
+                            </div>
+                            <div class="ms-auto p-2 bd-highlight">
+                                <input type="submit" class="btn btn-danger fw-bold" value="Yes, delete it">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End Form Set Default Avatar -->
+                </div>
+            </div>
+            <!-- End Modal Body -->
+        </div>
+    </div>
+</div>
+<!-- End Modal Set Default Avatar -->
