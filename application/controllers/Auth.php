@@ -264,6 +264,7 @@ class Auth extends CI_Controller
 	public function edit_profile()
 	{
 		$email = $this->session->userdata('email');
+		$user = $this->amodel->get_user_by_email($email);
 		# $file_name variable to store string email without dot
 		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
 		# $config variable to store upload library settings
@@ -279,24 +280,34 @@ class Auth extends CI_Controller
 
 		$this->load->library('upload', $config);
 
-		if (!$this->upload->do_upload('avatar')) {
-			$error = $this->upload->display_errors();
-			$this->session->set_flashdata(
-				'message',
-				'<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-				. $error .
-				'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>'
-			);
-		} else {
-			$uploaded_data = $this->upload->data();
-			$new_data = [
-				'id_user'=>$this->input->post('id_user'),
-				'avatar'=>$uploaded_data['file_name'],
-				'username'=>$this->input->post('username')
-			];
-			
-			if ($this->amodel->update_user($new_data)) {
+		$old_data = [
+			'avatar'=>$user['avatar'],
+			'username'=>$user['username']
+		];
+		$new_data = [
+			'id_user'=>$this->input->post('id_user'),
+			'username'=>$this->input->post('username')
+		];
+		
+		if (!empty($_FILES['avatar']['name'])) {
+			if (!$this->upload->do_upload('avatar')) {
+				$error = $this->upload->display_errors();
+				$this->session->set_flashdata(
+					'message',
+					'<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+					. $error .
+					'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>'
+				);
+			} elseif (!is_null($new_data['id_user'])) {
+				$uploaded_data = $this->upload->data();
+				$data = [
+					'id_user'=>$new_data['id_user'],
+					'avatar'=>$uploaded_data['file_name'],
+					'username'=>$new_data['username']
+				];
+				
+				$this->amodel->update_user($data);
 				$this->session->set_flashdata(
 					'message',
 					'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -305,10 +316,30 @@ class Auth extends CI_Controller
 					</div>'
 				);
 			}
-		}
+		} elseif (!is_null($new_data['id_user']) && $old_data['username'] != $new_data['username']) {
+			$data = [
+				'id_user'=>$new_data['id_user'],
+				'avatar'=>$old_data['avatar'],
+				'username'=>$new_data['username'],
+			];
 
-		// var_dump($data);
-		// die;
+			$this->amodel->update_user($data);
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-success alert-dismissible fade show" role="alert">
+				Your profile was updated!
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+		} else {
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-secondary alert-dismissible fade show" role="alert">
+				Nothing changes!
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+		} 
 
 		redirect('dashboard');
 	}

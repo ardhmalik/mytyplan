@@ -424,7 +424,8 @@
                             <img src="<?= site_url('assets/img/user/') . $user['avatar'] ?>" class="img-fluid rounded" alt="Profile Avatar">
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="file" id="formFile" name="avatar" accept="image/png, image/jpeg, image/jpg, image/gif">
+                            <input class="form-control" type="file" id="formFile" name="avatar" accept="image/png, image/jpeg, image/jpg, image/gif" aria-describedby="imgHelp">
+                            <div id="imgHelp" class="form-text">Max: 1MB (1800x1800 px) *.(png,jpg,jpeg,gif)</div>
                         </div>
                         <div class="mb-3 form-floating">
                             <input type="text" class="form-control" name="username" id="username" value="<?= $user['username'] ?>" placeholder="Enter new username" required>
