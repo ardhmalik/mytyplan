@@ -274,8 +274,8 @@ class Auth extends CI_Controller
 			'file_name'=>$file_name,
 			'overwrite'=>true,
 			'max_size'=>1024, # Ukuran maksimal 1MB
-			'max_width'=>1080, # Lebar maksimal dalam px
-			'max_height'=>1080 # Tinggi maksimal dalam px
+			'max_width'=>1000, # Lebar maksimal dalam px
+			'max_height'=>1000 # Tinggi maksimal dalam px
 		];
 
 		$this->load->library('upload', $config);

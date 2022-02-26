@@ -23,6 +23,9 @@ switch ($title) {
         break;
 }
 
+
+# Load modal_profile
+$this->load->view('sections/modal_profile');
 # Load footer section
 $this->load->view('sections/footer');
 
