@@ -40,7 +40,7 @@ class Auth extends CI_Controller
 		echo $test_run;
 		die;
 	}
-
+	
 	private function _del_avatar($file)
 	{
 		return array_map('unlink', glob(FCPATH . "assets/img/user/$file.*"));
@@ -130,7 +130,6 @@ class Auth extends CI_Controller
 					'email'=>$user['email'],
 					'username'=>$user['username']
 				];
-
 				# Add $data values to session
 				$this->session->set_userdata($data);
 				# It will be returned to dashboard page
@@ -234,33 +233,6 @@ class Auth extends CI_Controller
 		}
 	}
 
-	/**
-	 * Process of logout
-	 * @todo Processing logout account and unset userdata on session
-	 * @access public
-	 * @return view login page
-	 */
-	public function logout()
-	{
-		# $sessions variable to shorten session method
-		$sessions = $this->session;
-		# $data variable to store array of data sessions
-		$data = ['email', 'username'];
-		# Process to unset all userdata 'email' and 'password' from session
-		$sessions->unset_userdata($data);
-
-		# Add an alert message to session if unset_userdata() process is successful
-		$sessions->set_flashdata(
-			'message',
-			'<div class="alert alert-info alert-dismissible fade show" role="alert">
-				You have been logout, Please Login...
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>'
-		);
-		# It will be returned to login page
-		redirect('login');
-	}
-
 	public function edit_profile()
 	{
 		$email = $this->session->userdata('email');
@@ -277,9 +249,9 @@ class Auth extends CI_Controller
 			'max_width'=>1000, # Lebar maksimal dalam px
 			'max_height'=>1000 # Tinggi maksimal dalam px
 		];
-
+		
 		$this->load->library('upload', $config);
-
+		
 		$old_data = [
 			'avatar'=>$user['avatar'],
 			'username'=>$user['username']
@@ -322,7 +294,7 @@ class Auth extends CI_Controller
 				'avatar'=>$old_data['avatar'],
 				'username'=>$new_data['username'],
 			];
-
+			
 			$this->amodel->update_user($data);
 			$this->session->set_flashdata(
 				'message',
@@ -340,24 +312,24 @@ class Auth extends CI_Controller
 				</div>'
 			);
 		} 
-
+		
 		redirect('dashboard');
 	}
-
+	
 	public function default_avatar()
 	{
 		$email = $this->session->userdata('email');
 		$user = $this->amodel->get_user_by_email($email);
-
+		
 		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
 		$this->_del_avatar($file_name);
-
+		
 		$data = [
 			'id_user'=>$this->input->post('id_user'),
 			'avatar'=>null,
 			'username'=>$user['username']
 		];
-
+		
 		if ($this->amodel->update_user($data)) {
 			$this->session->set_flashdata(
 				'message',
@@ -367,7 +339,30 @@ class Auth extends CI_Controller
 				</div>'
 			);
 		}
-
+		
 		redirect('dashboard');
+	}
+	
+	/**
+	 * Process of logout
+	 * @todo Processing logout account and unset userdata on session
+	 * @access public
+	 * @return view login page
+	 */
+	public function logout()
+	{
+		# Process to unset all userdata 'email' and 'password' from session
+		$this->session->sess_destroy();
+	
+		# Add an alert message to session if unset_userdata() process is successful
+		$this->session->set_flashdata(
+			'message',
+			'<div class="alert alert-info alert-dismissible fade show" role="alert">
+				You have been logout, Please Login...
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>'
+		);
+		# It will be returned to login page
+		redirect('login');
 	}
 }
