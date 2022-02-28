@@ -62,6 +62,7 @@ $route['default_avatar'] = 'auth/default_avatar';
 
 # Custom Routing for Plans
 $route['dashboard'] = 'plans/dashboard';
+$route['admin_dashboard'] = 'plans/admin_dashboard';
 $route['success_plans'] = 'plans/get_success_plans';
 $route['fail_plans'] = 'plans/get_fail_plans';
 $route['user_activity_logs'] = 'plans/user_activity_logs';

@@ -43,6 +43,59 @@ class Plans extends CI_Controller
 	}
 
 	/**
+	 * Navigate to DMIN dashboard page
+	 * @access public
+	 * @description Show admin dashboard page if successfully logged in and 
+	 * will be directed to login page if they don't have a session
+	 * @return void
+	 */
+	public function admin_dashboard()
+	{
+		# $pmodel variable to shorten model call 'pmodel'
+		$pmodel = $this->pmodel;
+		# $session variable to save field email & username from user
+		$sessions = [
+			'email'=>$this->session->userdata('email'),
+			'username'=>$this->session->userdata('username')
+		];
+		# $user variable returns user row array data value as per email in stored session
+		$user = $this->amodel->get_user_by_email($sessions['email']);
+
+		# Ternary operation to set avatar image for user
+		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
+		
+		# $data variable to store array of data passed to dashboard page
+		$data = [
+			'project'=>'My This Year Plan',
+			'title'=>'Dashboard Admin',
+			'user'=>$user,
+			'months'=>$pmodel->get_months(),
+			'labels'=>$pmodel->get_labels(),
+			'plans'=>$pmodel->get_plans_by_id($user['id_user']),
+		];
+
+		# IF condition to check if there is a stored 'email' session
+		if (!$this->session->userdata('email')) {
+			# If TRUE, add an alert message to session
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-info alert-dismissible fade show" role="alert">
+					You are still not logged in, please Login..
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+			# It will be returned to login page
+			redirect('login');
+		}
+
+		// var_dump($user);
+		// die;
+
+		# Load view main on folder sections and pass $data variable
+		$this->load->view('admin/main', $data);
+	}
+
+	/**
 	 * Navigate to dashboard page
 	 * @access public
 	 * @description Show dashboard page if successfully logged in and 

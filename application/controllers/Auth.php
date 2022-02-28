@@ -40,6 +40,14 @@ class Auth extends CI_Controller
 		echo $test_run;
 		die;
 	}
+	
+	private function _check_role($email)
+	{
+		if ($email == 'admin@mytyplan.com') {
+			$data['role'] = "admin";
+			return $this->session->set_userdata($data);
+		}
+	}
 
 	private function _del_avatar($file)
 	{
@@ -125,6 +133,8 @@ class Auth extends CI_Controller
 		if ($user) {
 			# IF condition to check whether entered password matches user data
 			if (password_verify($data['password'], $user['password'])) {
+				# call _check_role() for role admin
+				$this->_check_role($user['email']);
 				# $data variable to save field email & username from $user
 				$data = [
 					'email'=>$user['email'],
@@ -132,8 +142,14 @@ class Auth extends CI_Controller
 				];
 				# Add $data values to session
 				$this->session->set_userdata($data);
-				# It will be returned to dashboard page
-				redirect('dashboard');
+
+				if (!$this->session->userdata('role')) {
+					# It will be returned to dashboard page
+					redirect('dashboard');
+				} else {
+					# It will be returned to admin dashboard page
+					redirect('admin_dashboard');
+				}
 			} else {
 				# If password is not matches, will be send wrong password message
 				$this->session->set_flashdata(
