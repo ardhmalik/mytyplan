@@ -352,7 +352,9 @@ class Auth extends CI_Controller
 	public function logout()
 	{
 		# $data variable to store items as array of userdata keys
-		$data = ['email', 'username' . ($this->session->userdata('role')) ? 'role' : ''];
+		$data = ['email', 'username'];
+		# $role variable to store result of role check ternary operation
+		$role = ($this->session->userdata('role')) ? array_push($data, 'role') : '';
 		# Unset all from session
 		$this->session->unset_userdata($data);
 	
