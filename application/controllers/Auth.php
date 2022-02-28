@@ -40,7 +40,7 @@ class Auth extends CI_Controller
 		echo $test_run;
 		die;
 	}
-	
+
 	private function _del_avatar($file)
 	{
 		return array_map('unlink', glob(FCPATH . "assets/img/user/$file.*"));
@@ -351,8 +351,10 @@ class Auth extends CI_Controller
 	 */
 	public function logout()
 	{
-		# Process to unset all userdata 'email' and 'password' from session
-		$this->session->sess_destroy();
+		# $data variable to store items as array of userdata keys
+		$data = ['email', 'username' . ($this->session->userdata('role')) ? 'role' : ''];
+		# Unset all from session
+		$this->session->unset_userdata($data);
 	
 		# Add an alert message to session if unset_userdata() process is successful
 		$this->session->set_flashdata(
