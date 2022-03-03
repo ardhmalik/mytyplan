@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'auth/register';
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
+$route['admin_profile'] = 'auth/admin_profile';
 $route['edit_profile'] = 'auth/edit_profile';
 $route['default_avatar'] = 'auth/default_avatar';
 
@@ -72,3 +73,6 @@ $route['move_plan'] = 'plans/proc_move_plan';
 $route['delete_plan'] = 'plans/proc_delete_plan';
 $route['mark_success'] = 'plans/proc_mark_success';
 $route['mark_fail'] = 'plans/proc_mark_fail';
+$route['get_user_list'] = 'plans/get_user_list';
+$route['get_user_logs'] = 'plans/get_user_logs';
+$route['get_all_plans'] = 'plans/get_all_plans';
