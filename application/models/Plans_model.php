@@ -231,4 +231,17 @@ class Plans_model extends CI_Model
 
         return $query;
     }
+
+    /**
+     * Finds and returns all plans
+     * @access public
+     * @return array of plans
+     */
+    public function get_all_plans()
+    {
+        $sql = $this->db->get_where('all_plans');
+        $query = $sql->result_array();
+
+        return $query;
+    }
 }

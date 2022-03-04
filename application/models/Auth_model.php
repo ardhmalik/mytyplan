@@ -107,4 +107,30 @@ class Auth_model extends CI_Model
 
         return $query;
     }
+    
+    /**
+     * Finds and returns all user data
+     * @access public
+     * @return array of user
+     */
+    public function get_all_users()
+    {
+        $sql = $this->db->get('users');
+        $query = $sql->result_array();
+
+        return $query;
+    }
+    
+    /**
+     * Finds and returns all user logs activity
+     * @access public
+     * @return array of user logs
+     */
+    public function get_user_logs()
+    {
+        $sql = $this->db->get('user_logs');
+        $query = $sql->result_array();
+
+        return $query;
+    }
 }

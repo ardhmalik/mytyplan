@@ -661,7 +661,8 @@ class Plans extends CI_Controller
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'User List',
-			'user'=>$user
+			'user'=>$user,
+			'users'=>$this->amodel->get_all_users()
 		];
 
 		// var_dump($data);
@@ -705,7 +706,8 @@ class Plans extends CI_Controller
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'User Logs Activity',
-			'user'=>$user
+			'user'=>$user,
+			'logs'=>$this->amodel->get_user_Logs()
 		];
 
 		// var_dump($data);
@@ -749,7 +751,8 @@ class Plans extends CI_Controller
 		$data = [
 			'project'=>'My This Year Plan',
 			'title'=>'Plans List',
-			'user'=>$user
+			'user'=>$user,
+			'plans'=>$this->pmodel->get_all_plans()
 		];
 
 		// var_dump($data);
