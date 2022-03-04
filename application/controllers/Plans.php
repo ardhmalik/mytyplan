@@ -616,8 +616,63 @@ class Plans extends CI_Controller
 			'user'=>$user,
 			'months'=>$pmodel->get_months(),
 			'labels'=>$pmodel->get_labels(),
-			'plans'=>$pmodel->get_plans_by_id($user['id_user']),
+			'users'=>$this->amodel->get_all_users(),
+			'new_users'=>[],
+			'plans'=>$pmodel->get_all_plans(),
+			'new_plans'=>[],
+			'success_plans'=>$pmodel->all_success_plans(),
+			'get_fail'=>$pmodel->all_fail_plans(),
+			'fail_plans'=>[],
+			'unfulfilled_plans'=>[]
 		];
+
+		// var_dump($data['new_users']);
+		// die;
+		
+		# Looping to insert array data to $data['new_users']
+		for ($i=0; $i < count($data['users']); $i++) { 
+			# $now variable to store current time on format date('Y-m-d)
+			$now = date('Y-m-d', time());
+			# $exp variable to store joined on format date('Y-m-d)
+			$join = date('Y-m-d', strtotime($data['users'][$i]['joined']));
+			
+			if ($join == $now) {
+				# push array to $data['new_users'] when user join is equal now
+				array_push($data['new_users'], $data['get_fail'][$i]);
+			}
+		}
+		
+		# Looping to insert array data to $data['new_plans']
+		for ($i=0; $i < count($data['plans']); $i++) { 
+			# $now variable to store current time on format date('Y-m-d)
+			$now = date('Y-m-d', time());
+			# $created variable to store created on format date('Y-m-d)
+			$created = date('Y-m-d', strtotime($data['plans'][$i]['created']));
+			
+			if ($created == $now) {
+				# push array to $data['new_plans'] when user join is equal now
+				array_push($data['new_plans'], $data['get_fail'][$i]);
+			}
+		}
+		
+		# Looping to insert array data to $data['fail_plans'] or $data['unfulfilled_plans']
+		for ($i=0; $i < count($data['get_fail']); $i++) { 
+			# $now variable to store current time
+			$now = time();
+			# $exp variable to store time value of expired
+			$exp = strtotime($data['get_fail'][$i]['expired']);
+			
+			if ($now < $exp) {
+				# push array to $data['unfulfilled_plans'] when now less than expired
+				array_push($data['unfulfilled_plans'], $data['get_fail'][$i]);
+			} else {
+				# push array to $data['fail_plans']
+				array_push($data['fail_plans'], $data['get_fail'][$i]);
+			}
+		}
+		
+		// var_dump(count($data['new_plans']));
+		// die;
 
 		# IF condition to check if there is a stored 'email' session
 		if (!$this->session->userdata('email')) {

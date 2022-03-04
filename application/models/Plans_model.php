@@ -244,4 +244,30 @@ class Plans_model extends CI_Model
 
         return $query;
     }
+    
+    /**
+     * Finds and returns all success plans
+     * @access public
+     * @return array of success plans
+     */
+    public function all_success_plans()
+    {
+        $sql = $this->db->get('success_plans');
+        $query = $sql->result_array();
+
+        return $query;
+    }
+
+    /**
+     * Finds and returns all failed plans
+     * @access public
+     * @return array of fail plans
+     */
+    public function all_fail_plans()
+    {
+        $sql = $this->db->get('fail_plans');
+        $query = $sql->result_array();
+
+        return $query;
+    }
 }
