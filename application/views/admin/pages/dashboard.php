@@ -9,7 +9,13 @@
         </nav>
     </div>
     <!-- End Page Title -->
+    <?php
+    // for ($i = 0; $i < count($tmp_users); $i++) {
+    //     // die;
+    // }
 
+    // var_dump($users_per_month);
+    ?>
     <section class="section dashboard">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -25,7 +31,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6><?= count($users) ?></h6>
-                                        <span class="text-success small pt-1 fw-bold"><?= round(count($new_users)/count($users)*100, 2) ?> %</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        <span class="text-success small pt-1 fw-bold"><?= round(count($new_users) / count($users) * 100, 2) ?> %</span> <span class="text-muted small pt-2 ps-1">Today's increase</span>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +50,7 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6><?= count($plans) ?></h6>
-                                        <span class="text-success small pt-1 fw-bold"><?= round(count($new_plans)/count($plans)*100, 2) ?> %</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        <span class="text-success small pt-1 fw-bold"><?= round(count($new_plans) / count($plans) * 100, 2) ?> %</span> <span class="text-muted small pt-2 ps-1">Today's increase</span>
                                     </div>
                                 </div>
                             </div>
@@ -100,10 +106,26 @@
         new ApexCharts(document.querySelector("#reportsChart"), {
             series: [{
                 name: 'Plans',
-                data: [31, 40, 28, 51, 42, 82, 56],
+                data: [<?php
+                        for ($i = 0; $i < count($plans_per_month); $i++) {
+                            if ($i == count($plans_per_month) - 1) {
+                                echo $plans_per_month[$i];
+                            } else {
+                                echo "$plans_per_month[$i], ";
+                            }
+                        }
+                        ?>],
             }, {
                 name: 'Users',
-                data: [11, 32, 45, 32, 34, 52, 41]
+                data: [<?php
+                        for ($i = 0; $i < count($users_per_month); $i++) {
+                            if ($i == count($users_per_month) - 1) {
+                                echo $users_per_month[$i];
+                            } else {
+                                echo "$users_per_month[$i], ";
+                            }
+                        }
+                        ?>]
             }],
             chart: {
                 height: 350,
@@ -133,8 +155,15 @@
                 width: 2
             },
             xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                type: 'month',
+                categories: [<?php foreach ($months as $mn) {
+                                    $txt = substr($mn['month_name'], 0, 3);
+                                    if ($mn['id_month'] < 12) {
+                                        echo "'" . $txt . "', ";
+                                    } else {
+                                        echo "'" . $txt . "'";
+                                    }
+                                } ?>]
             },
             tooltip: {
                 x: {

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Plans is child of CI_Controller
@@ -55,23 +55,23 @@ class Plans extends CI_Controller
 		$pmodel = $this->pmodel;
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
 
 		# Ternary operation to set avatar image for user
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
-		
+
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Dashboard',
-			'user'=>$user,
-			'months'=>$pmodel->get_months(),
-			'labels'=>$pmodel->get_labels(),
-			'plans'=>$pmodel->get_plans_by_id($user['id_user']),
+			'project' => 'My This Year Plan',
+			'title' => 'Dashboard',
+			'user' => $user,
+			'months' => $pmodel->get_months(),
+			'labels' => $pmodel->get_labels(),
+			'plans' => $pmodel->get_plans_by_id($user['id_user']),
 		];
 
 		# IF condition to check if there is a stored 'email' session
@@ -94,7 +94,7 @@ class Plans extends CI_Controller
 		# Load view main on folder sections and pass $data variable
 		$this->load->view('sections/main', $data);
 	}
-	
+
 	/**
 	 * Add a new plan
 	 * @todo Processing of add a plan
@@ -109,7 +109,7 @@ class Plans extends CI_Controller
 		$pmodel = $this->pmodel;
 		# $status variable to load private function _status_check()
 		$status = $this->_status_check();
-		
+
 		# $validation variable to shorten form_validation library
 		$validation = $this->form_validation;
 		# Initialize adding plan rules with add_rules()
@@ -117,24 +117,24 @@ class Plans extends CI_Controller
 
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
-			'id_user'=>$input->post('id_user'),
-			'plan'=>$input->post('plan'),
-			'description'=>$input->post('description'),
-			'expired'=>$input->post('expired') . " 23:59:59",
-			'status'=>$status,
-			'id_label'=>$input->post('label'),
-			'id_month'=>$input->post('month')
+			'id_user' => $input->post('id_user'),
+			'plan' => $input->post('plan'),
+			'description' => $input->post('description'),
+			'expired' => $input->post('expired') . " 23:59:59",
+			'status' => $status,
+			'id_label' => $input->post('label'),
+			'id_month' => $input->post('month')
 		];
 
 		# $expected_result variable to store array of unit test scenario
 		$expected_result = [
-			'id_user'=>"1",
-			'plan'=>"Mempelajari dan Memahami Python",
-			'description'=>"Belajar dari dasar bahasa Python melalui berbagai sumber gratis",
-			'expired'=>"2022-03-12 23:59:59",
-			'status'=>0,
-			'id_label'=>"1",
-			'id_month'=>"3"
+			'id_user' => "1",
+			'plan' => "Mempelajari dan Memahami Python",
+			'description' => "Belajar dari dasar bahasa Python melalui berbagai sumber gratis",
+			'expired' => "2022-03-12 23:59:59",
+			'status' => 0,
+			'id_label' => "1",
+			'id_month' => "3"
 		];
 
 		# run unit_test with function _unit_test
@@ -193,18 +193,18 @@ class Plans extends CI_Controller
 		$input = $this->input;
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
-			'id_plan'=>$input->post('id_plan'),
-			'plan'=>$input->post('plan'),
-			'description'=>$input->post('description'),
-			'id_label'=>$input->post('label')
+			'id_plan' => $input->post('id_plan'),
+			'plan' => $input->post('plan'),
+			'description' => $input->post('description'),
+			'id_label' => $input->post('label')
 		];
-		
+
 		# $expected_result variable to store array of unit test scenario
 		$expected_result = [
-			'id_plan'=>31,
-			'plan'=>"Lulus Sertifikasi Analis Program",
-			'description'=>"Menyelesaikan Sertifikasi Analis Program dengan baik tanpa kendala",
-			'id_label'=>3,
+			'id_plan' => 31,
+			'plan' => "Lulus Sertifikasi Analis Program",
+			'description' => "Menyelesaikan Sertifikasi Analis Program dengan baik tanpa kendala",
+			'id_label' => 3,
 		];
 
 		# run unit_test with function _unit_test
@@ -237,12 +237,12 @@ class Plans extends CI_Controller
 	{
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
-			'id_plan'=>$this->input->post('id_plan')
+			'id_plan' => $this->input->post('id_plan')
 		];
-		
+
 		# $expected_result variable to store array of unit test scenario
 		$expected_result = [
-			'id_plan'=>"39"
+			'id_plan' => "39"
 		];
 
 		# run unit_test with function _unit_test
@@ -264,7 +264,7 @@ class Plans extends CI_Controller
 		# It will be returned to dashboard page
 		redirect('dashboard');
 	}
-	
+
 	/**
 	 * Mark a fail plan
 	 * @todo Processing a failed plan
@@ -275,9 +275,9 @@ class Plans extends CI_Controller
 	{
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
-			'id_plan'=>$this->input->post('id_plan')
+			'id_plan' => $this->input->post('id_plan')
 		];
-		
+
 		// var_dump($data);
 		// die;
 
@@ -294,7 +294,7 @@ class Plans extends CI_Controller
 		# It will be returned to dashboard page
 		redirect('dashboard');
 	}
-	
+
 	/**
 	 * Move a plan to other month
 	 * @todo Processing move a plan
@@ -307,14 +307,14 @@ class Plans extends CI_Controller
 		$input = $this->input;
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
-			'id_plan'=>$input->post('id_plan'),
-			'id_month'=>$input->post('month'),
-			'expired'=>$input->post('expired') . " 23:59:59"
+			'id_plan' => $input->post('id_plan'),
+			'id_month' => $input->post('month'),
+			'expired' => $input->post('expired') . " 23:59:59"
 		];
-		
+
 		// var_dump($data);
 		// die;
-		
+
 		# Passing $data as a parameter of move_plan() function to execute update data on database
 		$this->pmodel->move_plan($data);
 		# Add an alert message to session if move_plan() process is successful
@@ -328,7 +328,7 @@ class Plans extends CI_Controller
 		# It will be returned to dashboard page
 		redirect('dashboard');
 	}
-	
+
 	/**
 	 * Delete a plan
 	 * @todo Processing delete a plan
@@ -341,7 +341,7 @@ class Plans extends CI_Controller
 		$input = $this->input;
 		# $data variable to store array of data passed to 'Plans_model'
 		$data = [
-			'id_plan'=>$input->post('id_plan')
+			'id_plan' => $input->post('id_plan')
 		];
 
 		// var_dump($data);
@@ -375,8 +375,8 @@ class Plans extends CI_Controller
 		$pmodel = $this->pmodel;
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
@@ -384,12 +384,12 @@ class Plans extends CI_Controller
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Success Plan',
-			'user'=>$user,
-			'months'=>$pmodel->get_months(),
-			'labels'=>$pmodel->get_labels(),
-			'splans'=>$pmodel->success_plans_by_id($user['id_user'])
+			'project' => 'My This Year Plan',
+			'title' => 'Success Plan',
+			'user' => $user,
+			'months' => $pmodel->get_months(),
+			'labels' => $pmodel->get_labels(),
+			'splans' => $pmodel->success_plans_by_id($user['id_user'])
 		];
 
 		# IF condition to check if no 'email' session is stored
@@ -428,7 +428,7 @@ class Plans extends CI_Controller
 		# Load view main on folder sections and pass $data variable
 		$this->load->view('sections/main', $data);
 	}
-	
+
 	/**
 	 * Navigate a failed plan page
 	 * @todo Fetch and present a failed plan
@@ -443,8 +443,8 @@ class Plans extends CI_Controller
 		$pmodel = $this->pmodel;
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
@@ -452,12 +452,12 @@ class Plans extends CI_Controller
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Fail Plan',
-			'user'=>$user,
-			'months'=>$pmodel->get_months(),
-			'labels'=>$pmodel->get_labels(),
-			'fplans'=>$pmodel->fail_plans_by_id($user['id_user'])
+			'project' => 'My This Year Plan',
+			'title' => 'Fail Plan',
+			'user' => $user,
+			'months' => $pmodel->get_months(),
+			'labels' => $pmodel->get_labels(),
+			'fplans' => $pmodel->fail_plans_by_id($user['id_user'])
 		];
 
 		# IF condition to check if there is a stored 'email' session
@@ -513,8 +513,8 @@ class Plans extends CI_Controller
 		$pmodel = $this->pmodel;
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
@@ -522,42 +522,42 @@ class Plans extends CI_Controller
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Logs',
-			'user'=>$user,
-			'logs'=>$pmodel->get_num_logs($user['id_user'])
+			'project' => 'My This Year Plan',
+			'title' => 'Logs',
+			'user' => $user,
+			'logs' => $pmodel->get_num_logs($user['id_user'])
 		];
-		
+
 		# $config variable to store pagination library settings
 		$config = [
 			# common_config
-			'base_url'=>'http://localhost/mytyplan/plans/user_activity_logs',
-			'total_rows'=>$data['logs'],
-			'per_page'=>15,
-			'uri_segment'=>3,
+			'base_url' => 'http://localhost/mytyplan/plans/user_activity_logs',
+			'total_rows' => $data['logs'],
+			'per_page' => 15,
+			'uri_segment' => 3,
 
 			# page_button_styling
-			'full_tag_open'=>'<nav aria-label="Page navigation example"><ul class="pagination">',
-			'full_tag_close'=>'</ul></nav>',
-			'first_link'=>'First',
-			'first_tag_open'=>'<li class="page-item">',
-			'first_tag_close'=>'</li>',
-			'last_link'=>'Last',
-			'last_tag_open'=>'<li class="page-item">',
-			'last_tag_close'=>'</li>',
-			'next_link'=>'&raquo',
-			'next_tag_open'=>'<li class="page-item">',
-			'next_tag_close'=>'</li>',
-			'prev_link'=>'&laquo',
-			'prev_tag_open'=>'<li class="page-item">',
-			'prev_tag_close'=>'</li>',
-			'cur_tag_open'=>'<li class="page-item active"><a class="page-link" href="#">',
-			'cur_tag_close'=>'</a></li>',
-			'num_tag_open'=>'<li class="page-item">',
-			'num_tag_close'=>'</li>',
-			'attributes'=>array('class' => 'page-link')
+			'full_tag_open' => '<nav aria-label="Page navigation example"><ul class="pagination">',
+			'full_tag_close' => '</ul></nav>',
+			'first_link' => 'First',
+			'first_tag_open' => '<li class="page-item">',
+			'first_tag_close' => '</li>',
+			'last_link' => 'Last',
+			'last_tag_open' => '<li class="page-item">',
+			'last_tag_close' => '</li>',
+			'next_link' => '&raquo',
+			'next_tag_open' => '<li class="page-item">',
+			'next_tag_close' => '</li>',
+			'prev_link' => '&laquo',
+			'prev_tag_open' => '<li class="page-item">',
+			'prev_tag_close' => '</li>',
+			'cur_tag_open' => '<li class="page-item active"><a class="page-link" href="#">',
+			'cur_tag_close' => '</a></li>',
+			'num_tag_open' => '<li class="page-item">',
+			'num_tag_close' => '</li>',
+			'attributes' => array('class' => 'page-link')
 		];
-		
+
 		# initialize pagination library
 		$this->pagination->initialize($config);
 
@@ -579,7 +579,7 @@ class Plans extends CI_Controller
 			# It will be returned to login page
 			redirect('login');
 		}
-		
+
 		// var_dump($user);
 		// die;
 
@@ -600,68 +600,90 @@ class Plans extends CI_Controller
 		$pmodel = $this->pmodel;
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
 
 		# Ternary operation to set avatar image for user
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
-		
+
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Admin Dashboard',
-			'user'=>$user,
-			'months'=>$pmodel->get_months(),
-			'labels'=>$pmodel->get_labels(),
-			'users'=>$this->amodel->get_all_users(),
-			'new_users'=>[],
-			'plans'=>$pmodel->get_all_plans(),
-			'new_plans'=>[],
-			'success_plans'=>$pmodel->all_success_plans(),
-			'get_fail'=>$pmodel->all_fail_plans(),
-			'fail_plans'=>[],
-			'unfulfilled_plans'=>[]
+			'project' => 'My This Year Plan',
+			'title' => 'Admin Dashboard',
+			'user' => $user,
+			'months' => $pmodel->get_months(),
+			'labels' => $pmodel->get_labels(),
+			'users' => $this->amodel->get_all_users(),
+			'plans' => $pmodel->get_all_plans(),
+			'new_users' => [],
+			'new_plans' => [],
+			'users_per_month' => [],
+			'plans_per_month' => [],
+			'success_plans' => $pmodel->all_success_plans(),
+			'get_fail' => $pmodel->all_fail_plans(),
+			'fail_plans' => [],
+			'unfulfilled_plans' => []
 		];
 
-		// var_dump($data['new_users']);
-		// die;
-		
 		# Looping to insert array data to $data['new_users']
-		for ($i=0; $i < count($data['users']); $i++) { 
+		for ($i = 0; $i < count($data['users']); $i++) {
 			# $now variable to store current time on format date('Y-m-d)
 			$now = date('Y-m-d', time());
 			# $exp variable to store joined on format date('Y-m-d)
 			$join = date('Y-m-d', strtotime($data['users'][$i]['joined']));
-			
+
 			if ($join == $now) {
 				# push array to $data['new_users'] when user join is equal now
 				array_push($data['new_users'], $data['get_fail'][$i]);
 			}
 		}
-		
+
+		# Looping to insert array data to $data['users_per_month'] and $data['plans_per_month']
+		for ($i = 0; $i < count($data['months']); $i++) {
+			/**
+			 * Logic for insert array count to $data['users_per_month']
+			 */
+			# $users variable to store result array of users per month
+			$users = $this->db->like('joined', '-' . $data['months'][$i]['month'] . '-')->get('users')->result_array();
+			# $count_user variable to store number of users
+			$count = count($users);
+			# push array to $data['users_per_month']
+			array_push($data['users_per_month'], $count);
+			
+			/**
+			 * Logic for insert array count to $data['plans_per_month']
+			 */
+			# $plans variable to store result array of plans per month
+			$plans = $this->db->get_where('all_plans', ['month' => $data['months'][$i]['month']])->result_array();
+			# $count_user variable to store number of plans
+			$count = count($plans);
+			# push array to $data['plans_per_month']
+			array_push($data['plans_per_month'], $count);
+		}
+
 		# Looping to insert array data to $data['new_plans']
-		for ($i=0; $i < count($data['plans']); $i++) { 
+		for ($i = 0; $i < count($data['plans']); $i++) {
 			# $now variable to store current time on format date('Y-m-d)
 			$now = date('Y-m-d', time());
 			# $created variable to store created on format date('Y-m-d)
 			$created = date('Y-m-d', strtotime($data['plans'][$i]['created']));
-			
+
 			if ($created == $now) {
 				# push array to $data['new_plans'] when user join is equal now
 				array_push($data['new_plans'], $data['get_fail'][$i]);
 			}
 		}
-		
+
 		# Looping to insert array data to $data['fail_plans'] or $data['unfulfilled_plans']
-		for ($i=0; $i < count($data['get_fail']); $i++) { 
+		for ($i = 0; $i < count($data['get_fail']); $i++) {
 			# $now variable to store current time
 			$now = time();
 			# $exp variable to store time value of expired
 			$exp = strtotime($data['get_fail'][$i]['expired']);
-			
+
 			if ($now < $exp) {
 				# push array to $data['unfulfilled_plans'] when now less than expired
 				array_push($data['unfulfilled_plans'], $data['get_fail'][$i]);
@@ -670,8 +692,8 @@ class Plans extends CI_Controller
 				array_push($data['fail_plans'], $data['get_fail'][$i]);
 			}
 		}
-		
-		// var_dump(count($data['new_plans']));
+
+		// var_dump($data['plans_per_month']);
 		// die;
 
 		# IF condition to check if there is a stored 'email' session
@@ -688,13 +710,10 @@ class Plans extends CI_Controller
 			redirect('login');
 		}
 
-		// var_dump($user);
-		// die;
-
 		# Load view main on folder sections and pass $data variable
 		$this->load->view('admin/main', $data);
 	}
-	
+
 	/**
 	 * Navigate an user list page
 	 * @access public
@@ -705,8 +724,8 @@ class Plans extends CI_Controller
 	{
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
@@ -714,10 +733,10 @@ class Plans extends CI_Controller
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'User List',
-			'user'=>$user,
-			'users'=>$this->amodel->get_all_users()
+			'project' => 'My This Year Plan',
+			'title' => 'User List',
+			'user' => $user,
+			'users' => $this->amodel->get_all_users()
 		];
 
 		// var_dump($data);
@@ -739,7 +758,7 @@ class Plans extends CI_Controller
 		# Load view main on folder sections and pass $data variable
 		$this->load->view('admin/main', $data);
 	}
-	
+
 	/**
 	 * Navigate an user logs page
 	 * @access public
@@ -750,8 +769,8 @@ class Plans extends CI_Controller
 	{
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
@@ -759,10 +778,10 @@ class Plans extends CI_Controller
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'User Logs Activity',
-			'user'=>$user,
-			'logs'=>$this->amodel->get_user_Logs()
+			'project' => 'My This Year Plan',
+			'title' => 'User Logs Activity',
+			'user' => $user,
+			'logs' => $this->amodel->get_user_Logs()
 		];
 
 		// var_dump($data);
@@ -795,8 +814,8 @@ class Plans extends CI_Controller
 	{
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
@@ -804,10 +823,10 @@ class Plans extends CI_Controller
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Plans List',
-			'user'=>$user,
-			'plans'=>$this->pmodel->get_all_plans()
+			'project' => 'My This Year Plan',
+			'title' => 'Plans List',
+			'user' => $user,
+			'plans' => $this->pmodel->get_all_plans()
 		];
 
 		// var_dump($data);
