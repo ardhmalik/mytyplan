@@ -11,6 +11,11 @@
 
     <section class="section profile">
         <div class="row">
+            <div class="col">
+                <?= $this->session->flashdata('message') ?>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xl-4">
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
@@ -43,7 +48,7 @@
                                 </p>
                                 <h5 class="card-title">Profile Details</h5>
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                    <div class="col-lg-3 col-md-4 label ">Username</div>
                                     <div class="col-lg-9 col-md-8"><?= $user['username'] ?></div>
                                 </div>
                                 <div class="row">
@@ -73,104 +78,62 @@
                             </div>
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                 <!-- Profile Edit Form -->
-                                <form>
+                                <form action="<?= site_url('edit_profile') ?>" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
                                     <div class="row mb-3">
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img src="<?= site_url('/assets/img/user/') . $user['avatar'] ?>" alt="Profile">
+                                            <img src="<?= site_url('/assets/img/user/') . $user['avatar'] ?>" class="img-fluid rounded" alt="Profile Avatar"><br>
+                                            <small class="text-muted fst-italic">Max: 1MB (1800x1800 px) *.(png,jpg,jpeg,gif)</small>
                                             <div class="pt-2">
-                                                <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                                <?php if ($user['avatar'] != 'avatar.png') : ?>
-                                                    <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                                                <?php endif ?>
+                                                <div class="input-group input-group-sm w-50">
+                                                    <input type="file" name="avatar" id="avatar" class="form-control" title="Upload new profile image" accept="image/png, image/jpeg, image/jpg, image/gif">
+                                                    <label class="input-group-text  me-2" for="avatar"><i class="bi bi-upload"></i></label>
+                                                    <?php if ($user['avatar'] != 'avatar.png') : ?>
+                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delAvatar<?= $user['id_user'] ?>">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    <?php endif ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row mb-3">
-                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                        <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                                            <input name="username" type="text" class="form-control" id="username" value="<?= $user['username'] ?>">
                                         </div>
                                     </div>
-
-                                    <div class="row mb-3">
-                                        <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
-                                        </div>
-                                    </div>
-
                                     <div class="row mb-3">
                                         <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                                            <input name="company" type="text" class="form-control" id="company" value="<?= $project ?>" readonly>
                                         </div>
                                     </div>
-
                                     <div class="row mb-3">
                                         <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                                            <input name="job" type="text" class="form-control" id="Job" value="<?= $this->session->userdata('role') ?>" readonly>
                                         </div>
                                     </div>
-
                                     <div class="row mb-3">
                                         <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="country" type="text" class="form-control" id="Country" value="USA">
+                                            <input name="country" type="text" class="form-control" id="Country" value="Indonesia" readonly>
                                         </div>
                                     </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
-                                        </div>
-                                    </div>
-
                                     <div class="row mb-3">
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                                            <input name="phone" type="text" class="form-control" id="Phone" value="(+62) 812X-XXXX-XXXX" readonly>
                                         </div>
                                     </div>
-
                                     <div class="row mb-3">
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                                            <input name="email" type="email" class="form-control" id="Email" value="<?= $user['email'] ?>" readonly>
                                         </div>
                                     </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
-                                        </div>
-                                    </div>
-
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Save Changes</button>
                                     </div>
@@ -219,3 +182,44 @@
     </section>
 
 </main><!-- End #main -->
+
+<!-- Modal Set Default Avatar -->
+<div class="modal fade" id="delAvatar<?= $user['id_user'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="delAvatar" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="delAvatar">Delete Profile Image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- End Modal Header -->
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <h5 class="text-center text-bold">
+                        Are you sure to delete your profile image?
+                    </h5>
+                    <div class="div w-50 my-3 mx-auto">
+                        <img src="<?= site_url('assets/img/user/') . $user['avatar'] ?>" class="img-fluid rounded" alt="Profile Avatar">
+                    </div>
+                    <!-- Form Set Default Avatar -->
+                    <form action="<?= site_url('default_avatar') ?>" method="post">
+                        <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
+                        <div class="d-flex bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="button" class="btn btn-light btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProfile<?= $user['id_user'] ?>">No</button>
+                            </div>
+                            <div class="ms-auto p-2 bd-highlight">
+                                <input type="submit" class="btn btn-danger" value="Yes, delete it">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End Form Set Default Avatar -->
+                </div>
+            </div>
+            <!-- End Modal Body -->
+        </div>
+    </div>
+</div>
+<!-- End Modal Set Default Avatar -->
