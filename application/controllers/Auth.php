@@ -375,7 +375,11 @@ class Auth extends CI_Controller
 			);
 		} 
 		
-		redirect('dashboard');
+		if ($this->session->userdata('role')) {
+			redirect('admin_profile');
+		} else {
+			redirect('dashboard');
+		}
 	}
 	
 	public function default_avatar()
@@ -402,7 +406,11 @@ class Auth extends CI_Controller
 			);
 		}
 		
-		redirect('dashboard');
+		if ($this->session->userdata('role')) {
+			redirect('admin_profile');
+		} else {
+			redirect('dashboard');
+		}
 	}
 	
 	/**
