@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Auth_model is child of CI_Model
@@ -17,15 +17,15 @@ class Auth_model extends CI_Model
      */
     public function login_rules()
     {
-        return [ 
+        return [
             [
-                'field'=>'email',
-                'label'=>'Email',
-                'rules'=>'required|trim|valid_email'
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|trim|valid_email'
             ], [
-                'field'=>'password',
-                'label'=>'Password',
-                'rules'=>'required|trim'
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required|trim'
             ]
         ];
     }
@@ -40,26 +40,54 @@ class Auth_model extends CI_Model
     {
         return [
             [
-                'field'=>'username',
-                'label'=>'Username',
-                'rules'=>'required|trim|is_unique[users.username]',
-                'errors'=>[
-                    'is_unique'=>'Try another username'
+                'field' => 'username',
+                'label' => 'Username',
+                'rules' => 'required|trim|is_unique[users.username]',
+                'errors' => [
+                    'is_unique' => 'Try another username'
                 ]
             ], [
-                'field'=>'email',
-                'label'=>'Email',
-                'rules'=>'required|trim|valid_email|is_unique[users.email]',
-                'errors'=>[
-                    'is_unique'=>'Email has already registered, try another email'
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|trim|valid_email|is_unique[users.email]',
+                'errors' => [
+                    'is_unique' => 'Email has already registered, try another email'
                 ]
             ], [
-                'field'=>'password',
-                'label'=>'Password',
-                'rules'=>'required|min_length[5]|trim',
-                'errors'=>[
-                    'min_length'=>'Password must have 5 character or more!'
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required|min_length[5]|trim',
+                'errors' => [
+                    'min_length' => 'Password must have 5 character or more!'
                 ]
+            ]
+        ];
+    }
+
+    /**
+     * Rules of change password 
+     * @access public
+     * @description Contains the change password rules
+     * @return string [][]
+     */
+    public function change_pass_rules()
+    {
+        return [
+            [
+                'field' => 'curr_password',
+                'label' => 'Current Password',
+                'rules' => 'required'
+            ], [
+                'field' => 'new_password',
+                'label' => 'New Password',
+                'rules' => 'required|trim|min_length[5]',
+                'errors' => [
+                    'min_length' => 'New Password must have 5 character or more!'
+                ]
+            ], [
+                'field' => 'renew_password',
+                'label' => 'Repeat Password',
+                'rules' => 'required|matches[new_password]'
             ]
         ];
     }
@@ -93,7 +121,7 @@ class Auth_model extends CI_Model
 
         return $query;
     }
-    
+
     /**
      * Finds and returns a user data by email
      * @access public
@@ -102,12 +130,12 @@ class Auth_model extends CI_Model
      */
     public function get_user_by_email($email)
     {
-        $sql = $this->db->get_where('users', ['email'=>$email]);
+        $sql = $this->db->get_where('users', ['email' => $email]);
         $query = $sql->row_array();
 
         return $query;
     }
-    
+
     /**
      * Finds and returns all user data
      * @access public
@@ -120,7 +148,7 @@ class Auth_model extends CI_Model
 
         return $query;
     }
-    
+
     /**
      * Finds and returns all user logs activity
      * @access public
@@ -130,6 +158,20 @@ class Auth_model extends CI_Model
     {
         $sql = $this->db->get('user_logs');
         $query = $sql->result_array();
+
+        return $query;
+    }
+
+    /**
+     * Processing change password
+     * @access public
+     * @return mixed
+     */
+    public function change_pass($id_user, $new_pass)
+    {
+        $this->db->set('password', $new_pass);
+        $this->db->where('id_user', $id_user);
+        $query = $this->db->update('users');
 
         return $query;
     }

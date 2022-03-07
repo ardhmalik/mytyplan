@@ -20,6 +20,9 @@
                             <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#profile<?= $user['id_user'] ?>">Profile</a>
                         </li>
                         <li>
+                            <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#changePass<?= $user['id_user'] ?>">Change Password</a>
+                        </li>
+                        <li>
                             <a href="<?= site_url('success_plans') ?>" class="dropdown-item">Success plan</a>
                         </li>
                         <li>

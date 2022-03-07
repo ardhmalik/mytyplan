@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['register'] = 'auth/register';
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
+$route['change_password'] = 'auth/change_password';
 $route['admin_profile'] = 'auth/admin_profile';
 $route['edit_profile'] = 'auth/edit_profile';
 $route['default_avatar'] = 'auth/default_avatar';

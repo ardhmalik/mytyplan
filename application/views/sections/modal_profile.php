@@ -98,6 +98,9 @@
                 <button type="button" class="btn fw-bold btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#profile<?= $user['id_user'] ?>">
                     <i class="fa-solid fa-arrow-left"></i> | Back
                 </button>
+                <button type="button" class="btn fw-bold btn-warning" data-bs-toggle="modal" data-bs-target="#changePass<?= $user['id_user'] ?>">
+                    <i class="fa-solid fa-key"></i> | Change Password
+                </button>
                 <?php if ($user['avatar'] != 'avatar.png') : ?>
                     <button type="button" class="btn fw-bold btn-info" data-bs-toggle="modal" data-bs-target="#defaultAvatar<?= $user['id_user'] ?>">
                         <i class="fa-solid fa-image-portrait"></i> | Set Default Avatar
@@ -109,6 +112,55 @@
     </div>
 </div>
 <!-- Modal Edit Plan -->
+
+<!-- Modal Change Password -->
+<div class="modal fade" id="changePass<?= $user['id_user'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changePass" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePass">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- End Modal Header -->
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <!-- Form Change Password -->
+                    <form action="<?= site_url('change_password') ?>" method="post" class="mx-3 my-3">
+                        <input type="hidden" name="id_user" id="id_user" value="<?= $user['id_user'] ?>">
+                        <div class="mb-3 form-floating">
+                            <input type="password" class="form-control" name="curr_password" id="curr_password" placeholder="Enter current password" required>
+                            <label for="curr_password">Current Password</label>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <input type="password" class="form-control" name="new_password" id="new_password" placeholder="Enter new password" required>
+                            <label for="new_password">New Password</label>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <input type="password" class="form-control" name="renew_password" id="renew_password" placeholder="Enter new password" required>
+                            <label for="renew_password">Repeat New Password</label>
+                        </div>
+                        <div class="float-end">
+                            <button type="submit" class="btn fw-bold btn-primary">
+                                <i class="far fa-save"></i> | Save
+                            </button>
+                        </div>
+                    </form>
+                    <!-- End Form Change Password -->
+                </div>
+            </div>
+            <!-- End Modal Body -->
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn fw-bold btn-outline-secondary" data-bs-dismiss="modal" aria-label="Cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Change Password -->
 
 <!-- Modal Set Default Avatar -->
 <div class="modal fade" id="defaultAvatar<?= $user['id_user'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="defaultAvatar" aria-hidden="true">

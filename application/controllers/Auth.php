@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Auth is child of CI_Controller
@@ -40,7 +40,7 @@ class Auth extends CI_Controller
 		echo $test_run;
 		die;
 	}
-	
+
 	private function _check_role($email)
 	{
 		if ($email == 'admin@mytyplan.com') {
@@ -68,14 +68,14 @@ class Auth extends CI_Controller
 		$validation = $this->form_validation;
 		# Initialize login rules with login_rules()
 		$validation->set_rules($amodel->login_rules());
-		
+
 		# IF condition to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
 			# If TRUE, add an wrong password alert message to session
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-info alert-dismissible fade show" role="alert">
-					You are still logged in, please <a href="'. site_url('logout') .'" class="alert-link">Logout</a>..
+					You are still logged in, please <a href="' . site_url('logout') . '" class="alert-link">Logout</a>..
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
@@ -85,10 +85,10 @@ class Auth extends CI_Controller
 
 		# $data variable to store array of data passed to login page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Login'
+			'project' => 'My This Year Plan',
+			'title' => 'Login'
 		];
-		
+
 		# IF condition to check form_validation not running
 		if ($validation->run() == FALSE) {
 			# If TRUE, it will be load login page
@@ -111,16 +111,16 @@ class Auth extends CI_Controller
 	{
 		# $session variable to save field email & username from user
 		$data = [
-			'email'=>$this->input->post('email'),
-			'password'=>$this->input->post('password')
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password')
 		];
 		# $user variable returns user row array data value as per email in the stored session
 		$user = $this->amodel->get_user_by_email($data['email']);
 
 		# $expected_result variable to store array of unit test scenario
 		$expected_result = [
-			'email'=>'minato@konoha.com',
-			'password'=>"Minato123"
+			'email' => 'minato@konoha.com',
+			'password' => "Minato123"
 		];
 
 		# run unit_test with function _unit_test
@@ -128,7 +128,7 @@ class Auth extends CI_Controller
 
 		// var_dump($user);
 		// die;
-		
+
 		# IF condition to check if user data exists
 		if ($user) {
 			# IF condition to check whether entered password matches user data
@@ -137,8 +137,8 @@ class Auth extends CI_Controller
 				$this->_check_role($user['email']);
 				# $data variable to save field email & username from $user
 				$data = [
-					'email'=>$user['email'],
-					'username'=>$user['username']
+					'email' => $user['email'],
+					'username' => $user['username']
 				];
 				# Add $data values to session
 				$this->session->set_userdata($data);
@@ -169,14 +169,14 @@ class Auth extends CI_Controller
 				'<div class="alert alert-danger alert-dismissible fade show" role="alert">
 					Email isn`t registered, please 
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					<a href="'.site_url('register').'">Register here</a>
+					<a href="' . site_url('register') . '">Register here</a>
 				</div>'
 			);
 			# It will be returned to login page
 			redirect('login');
 		}
 	}
-	
+
 	/**
 	 * Navigate to register page
 	 * @access public
@@ -193,14 +193,14 @@ class Auth extends CI_Controller
 		$validation = $this->form_validation;
 		# Initialize registration rules with reg_rules()
 		$validation->set_rules($amodel->reg_rules());
-		
+
 		# IF condition to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
 			# If TRUE, add an alert message to session
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-info alert-dismissible fade show" role="alert">
-					You are still logged in, please <a href="'. site_url('login') .'" class="alert-link">Logout</a>..
+					You are still logged in, please <a href="' . site_url('login') . '" class="alert-link">Logout</a>..
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
@@ -210,8 +210,8 @@ class Auth extends CI_Controller
 
 		# $data variable to store array of data passed to register page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Register'
+			'project' => 'My This Year Plan',
+			'title' => 'Register'
 		];
 
 		# IF condition to check form_validation not running
@@ -226,11 +226,11 @@ class Auth extends CI_Controller
 			 * Add @param true in post() method to avoid XSS attack
 			 * Add htmlspecialchars() method for change character to HTML entity
 			 * Add password_hash() method to create a password hash
-			 *  */ 
+			 *  */
 			$input = [
-				'email'=>htmlspecialchars($this->input->post('email', true)),
-				'username'=>htmlspecialchars($this->input->post('username', true)),
-				'password'=>password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+				'email' => htmlspecialchars($this->input->post('email', true)),
+				'username' => htmlspecialchars($this->input->post('username', true)),
+				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
 			];
 
 			// var_dump($input);
@@ -250,7 +250,80 @@ class Auth extends CI_Controller
 			redirect('login');
 		}
 	}
-	
+
+	/**
+	 * Processing change password
+	 * @access public
+	 * @return void
+	 */
+	public function change_password()
+	{
+		# $amodel variable to shorten model call 'amodel'
+		$amodel = $this->amodel;
+		# $sessions variable to shorten session method
+		$sessions = $this->session;
+		# $validation variable to shorten form_validation library
+		$validation = $this->form_validation;
+		# Initialize registration rules with reg_rules()
+		$validation->set_rules($amodel->change_pass_rules());
+		
+		if ($validation->run() == FALSE) {
+			$sessions->set_flashdata(
+				'message',
+				'<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+				. validation_errors() .
+				'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>'
+			);
+		} else {
+			# $user variable returns user row array data value as per email in the stored session
+			$user = $amodel->get_user_by_email($sessions->userdata('email'));
+			$input = [
+				'id_user' => $this->input->post('id_user'),
+				'curr_password' => $this->input->post('curr_password'),
+				'new_password' => $this->input->post('new_password'),
+				'renew_password' => $this->input->post('renew_password')
+			];
+
+			if (password_verify($input['curr_password'], $user['password'])) {
+				if ($input['new_password'] == $input['curr_password']) {
+					$sessions->set_flashdata(
+						'message',
+						'<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							New password can`t be same to current password!
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>'
+					);
+				} else {
+					$new_pass = password_hash($input['new_password'], PASSWORD_DEFAULT);
+					$amodel->change_pass($user['id_user'], $new_pass);
+
+					$sessions->set_flashdata(
+						'message',
+						'<div class="alert alert-success alert-dismissible fade show" role="alert">
+							Password has ben changed!
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>'
+					);
+				}
+			} else {
+				$sessions->set_flashdata(
+					'message',
+					'<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						Wrong your current password bro, try again!
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>'
+				);
+			}
+		}
+
+		if ($this->session->userdata('role')) {
+			redirect('admin_profile');
+		} else {
+			redirect('dashboard');
+		}
+	}
+
 	/**
 	 * Navigate an admin profile page
 	 * @access public
@@ -261,8 +334,8 @@ class Auth extends CI_Controller
 	{
 		# $session variable to save field email & username from user
 		$sessions = [
-			'email'=>$this->session->userdata('email'),
-			'username'=>$this->session->userdata('username')
+			'email' => $this->session->userdata('email'),
+			'username' => $this->session->userdata('username')
 		];
 		# $user variable returns user row array data value as per email in stored session
 		$user = $this->amodel->get_user_by_email($sessions['email']);
@@ -270,9 +343,9 @@ class Auth extends CI_Controller
 		($user['avatar'] == null) ? $user['avatar'] = 'avatar.png' : $user['avatar'];
 		# $data variable to store array of data passed to dashboard page
 		$data = [
-			'project'=>'My This Year Plan',
-			'title'=>'Admin Profile',
-			'user'=>$user
+			'project' => 'My This Year Plan',
+			'title' => 'Admin Profile',
+			'user' => $user
 		];
 
 		// var_dump($data);
@@ -303,44 +376,44 @@ class Auth extends CI_Controller
 		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
 		# $config variable to store upload library settings
 		$config = [
-			'upload_path'=>FCPATH.'assets/img/user/',
-			'allowed_types'=>'gif|jpg|jpeg|png',
-			'file_name'=>$file_name,
-			'overwrite'=>true,
-			'max_size'=>1024, # Ukuran maksimal 1MB
-			'max_width'=>1000, # Lebar maksimal dalam px
-			'max_height'=>1000 # Tinggi maksimal dalam px
+			'upload_path' => FCPATH . 'assets/img/user/',
+			'allowed_types' => 'gif|jpg|jpeg|png',
+			'file_name' => $file_name,
+			'overwrite' => true,
+			'max_size' => 1024, # Ukuran maksimal 1MB
+			'max_width' => 1000, # Lebar maksimal dalam px
+			'max_height' => 1000 # Tinggi maksimal dalam px
 		];
-		
+
 		$this->load->library('upload', $config);
-		
+
 		$old_data = [
-			'avatar'=>$user['avatar'],
-			'username'=>$user['username']
+			'avatar' => $user['avatar'],
+			'username' => $user['username']
 		];
 		$new_data = [
-			'id_user'=>$this->input->post('id_user'),
-			'username'=>$this->input->post('username')
+			'id_user' => $this->input->post('id_user'),
+			'username' => $this->input->post('username')
 		];
-		
+
 		if (!empty($_FILES['avatar']['name'])) {
 			if (!$this->upload->do_upload('avatar')) {
 				$error = $this->upload->display_errors();
 				$this->session->set_flashdata(
 					'message',
 					'<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-					. $error .
-					'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						. $error .
+						'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>'
 				);
 			} elseif (!is_null($new_data['id_user'])) {
 				$uploaded_data = $this->upload->data();
 				$data = [
-					'id_user'=>$new_data['id_user'],
-					'avatar'=>$uploaded_data['file_name'],
-					'username'=>$new_data['username']
+					'id_user' => $new_data['id_user'],
+					'avatar' => $uploaded_data['file_name'],
+					'username' => $new_data['username']
 				];
-				
+
 				$this->amodel->update_user($data);
 				$this->session->set_flashdata(
 					'message',
@@ -352,11 +425,11 @@ class Auth extends CI_Controller
 			}
 		} elseif (!is_null($new_data['id_user']) && $old_data['username'] != $new_data['username']) {
 			$data = [
-				'id_user'=>$new_data['id_user'],
-				'avatar'=>$old_data['avatar'],
-				'username'=>$new_data['username'],
+				'id_user' => $new_data['id_user'],
+				'avatar' => $old_data['avatar'],
+				'username' => $new_data['username'],
 			];
-			
+
 			$this->amodel->update_user($data);
 			$this->session->set_flashdata(
 				'message',
@@ -373,29 +446,29 @@ class Auth extends CI_Controller
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
-		} 
-		
+		}
+
 		if ($this->session->userdata('role')) {
 			redirect('admin_profile');
 		} else {
 			redirect('dashboard');
 		}
 	}
-	
+
 	public function default_avatar()
 	{
 		$email = $this->session->userdata('email');
 		$user = $this->amodel->get_user_by_email($email);
-		
+
 		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
 		$this->_del_avatar($file_name);
-		
+
 		$data = [
-			'id_user'=>$this->input->post('id_user'),
-			'avatar'=>null,
-			'username'=>$user['username']
+			'id_user' => $this->input->post('id_user'),
+			'avatar' => null,
+			'username' => $user['username']
 		];
-		
+
 		if ($this->amodel->update_user($data)) {
 			$this->session->set_flashdata(
 				'message',
@@ -405,14 +478,14 @@ class Auth extends CI_Controller
 				</div>'
 			);
 		}
-		
+
 		if ($this->session->userdata('role')) {
 			redirect('admin_profile');
 		} else {
 			redirect('dashboard');
 		}
 	}
-	
+
 	/**
 	 * Process of logout
 	 * @todo Processing logout account and unset userdata on session
@@ -427,7 +500,7 @@ class Auth extends CI_Controller
 		$role = ($this->session->userdata('role')) ? array_push($data, 'role') : '';
 		# Unset all from session
 		$this->session->unset_userdata($data);
-	
+
 		# Add an alert message to session if unset_userdata() process is successful
 		$this->session->set_flashdata(
 			'message',
