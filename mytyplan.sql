@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2022 at 07:17 AM
+-- Generation Time: Mar 08, 2022 at 03:51 AM
 -- Server version: 10.6.5-MariaDB
 -- PHP Version: 8.0.14
 
@@ -26,7 +26,11 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`ardhmalik`@`localhost` PROCEDURE `addUser` (IN `email_param` VARCHAR(128), IN `username_param` VARCHAR(100), IN `password_param` VARCHAR(256))  BEGIN
-INSERT INTO users(email, username, password, avatar, joined) VALUES (email_param, username_param, password_param, "avatar.png", NOW());
+INSERT INTO users(email, username, password, joined) VALUES (email_param, username_param, password_param, NOW());
+END$$
+
+CREATE DEFINER=`ardhmalik`@`localhost` PROCEDURE `editUser` (IN `id_user_param` INT, IN `avatar_param` VARCHAR(100), IN `username_param` VARCHAR(100))  BEGIN
+UPDATE users SET avatar=avatar_param, username=username_param WHERE id_user=id_user_param;
 END$$
 
 CREATE DEFINER=`ardhmalik`@`localhost` PROCEDURE `viewAllPlan` (IN `id_user_param` INT)  BEGIN
@@ -134,7 +138,7 @@ CREATE TABLE `history` (
   `id_plan` int(11) NOT NULL,
   `month` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `label` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `plan` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `plan` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL,
   `created` datetime NOT NULL,
@@ -147,18 +151,18 @@ CREATE TABLE `history` (
 
 INSERT INTO `history` (`id_history`, `id_user`, `id_plan`, `month`, `label`, `plan`, `description`, `status`, `created`, `updated`) VALUES
 (1, 1, 1, '05', 'Important', 'Menguasai HTML, CSS & JS', 'Belajar dari buku, YT & blog', 1, '2022-01-26 11:20:34', '2022-02-02 10:55:06'),
-(2, 1, 2, '02', 'Very Important', 'Menjadi backend dev', 'Mengikuti bootcamp', 0, '2022-01-26 11:22:28', '2022-01-26 11:22:28'),
+(2, 1, 2, '04', 'Very Important', 'Menjadi backend developer', 'Belajar dari YT, online course, dll', 0, '2022-01-26 11:22:28', '2022-02-13 08:03:34'),
 (4, 2, 4, '12', 'Normal', 'Menjadi Legenda', 'Menjadi tetua Clan Uchiha', 1, '2022-01-26 12:12:39', '2022-01-26 12:12:39'),
 (5, 4, 5, '03', 'Important', 'Mengikuti Turnamen', 'Mengikuti turnamen sepakbola DANONE CUP', 0, '2022-01-26 15:02:27', '2022-01-26 15:02:27'),
-(6, 1, 7, '02', 'Very Important', 'Menjadi Fullstack Web Dev', 'Menguasai backend & frontend dengan belajar dan praktik langsung', 1, '2022-01-31 21:08:40', '2022-02-02 19:51:28'),
-(7, 1, 8, '03', 'Important', 'Mulai nyusun skripsi', 'Kumpulin berbagai referensi buat nyusun skripsi', 0, '2022-01-31 21:14:42', '2022-01-31 21:14:42'),
-(8, 1, 9, '01', 'Normal', 'Tuntasin sertifikasi', 'Semangat bro, jangan mager nanti nggak selesai2 tugasnya', 1, '2022-01-31 21:16:13', '2022-02-02 19:36:09'),
-(9, 1, 10, '02', 'Very Important', 'Perpanjang SIM', 'Pulkam buat perpanjang SIM, tapi ngga jadi', 0, '2022-01-31 21:19:46', '2022-02-05 09:34:21'),
-(10, 1, 11, '03', 'Important', 'Belajar Self Development', 'Mempelajari dari berbagai media untuk meningkatkan soft skill', 1, '2022-02-01 07:30:30', '2022-02-01 11:03:42'),
+(6, 1, 7, '03', 'Very Important', 'Menjadi Fullstack Web Dev', 'Menguasai backend & frontend dengan belajar dan praktik langsung', 0, '2022-01-31 21:08:40', '2022-02-05 19:34:54'),
+(7, 1, 8, '03', 'Important', 'Mulai nyusun skripsi', 'Kumpulin berbagai referensi buat nyusun skripsi', 0, '2022-01-31 21:14:42', '2022-02-12 21:03:46'),
+(8, 1, 9, '01', 'Normal', 'Mulai kerjain sertifikasi', 'Semangat bro, jangan mager nanti nggak selesai2 tugasnya', 1, '2022-01-31 21:16:13', '2022-02-16 11:33:58'),
+(9, 1, 10, '02', 'Very Important', 'Perpanjang SIM', 'Pulkam buat perpanjang SIM, tapi ngga jadi', 1, '2022-01-31 21:19:46', '2022-02-05 14:22:52'),
+(10, 1, 11, '03', 'Important', 'Belajar soft skill', 'Mempelajari dari berbagai media untuk meningkatkan soft skill', 1, '2022-02-01 07:30:30', '2022-02-13 08:03:02'),
 (11, 1, 12, '09', 'Normal', 'Belajar Bahasa Inggris Dasar', 'Belajar B.Inggris  dasar untuk menambah value dalam mencari kerja', 1, '2022-02-01 07:32:55', '2022-02-01 11:02:49'),
-(12, 1, 13, '01', 'Very Important', 'Liburan kuliah', 'Tapi ngga jadi, karna ada sertifikasi. Semangat bro, jangan sia2in kesempatan sama kayak dia nyia2in dirimu XD', 0, '2022-02-01 14:42:17', '2022-02-05 13:58:56'),
+(12, 1, 13, '01', 'Very Important', 'Liburan kuliah', 'Tapi ngga jadi, karna ada sertifikasi. Semangat bro, jangan sia2in kesempatan sama kayak dia nyia2in dirimu XD', 1, '2022-02-01 14:42:17', '2022-02-26 08:34:22'),
 (15, 1, 16, '04', 'Normal', 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet,', 0, '2022-02-01 20:11:22', '2022-02-01 20:11:22'),
-(16, 1, 17, '04', 'Very Important', 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ', 0, '2022-02-01 20:11:49', '2022-02-01 20:11:49'),
+(16, 1, 17, '01', 'Very Important', 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ', 1, '2022-02-01 20:11:49', '2022-02-26 08:34:30'),
 (17, 1, 18, '08', 'Important', 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 0, '2022-02-01 20:12:18', '2022-02-01 20:12:18'),
 (18, 1, 19, '08', 'Very Important', 'Agustusan', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 0, '2022-02-01 20:12:55', '2022-02-01 20:12:55'),
 (19, 1, 20, '12', 'Normal', 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 0, '2022-02-01 20:13:55', '2022-02-01 20:13:55'),
@@ -171,7 +175,17 @@ INSERT INTO `history` (`id_history`, `id_user`, `id_plan`, `month`, `label`, `pl
 (26, 1, 27, '07', 'Important', 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1, '2022-02-01 20:47:17', '2022-02-01 20:47:17'),
 (27, 1, 28, '07', 'Very Important', 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 0, '2022-02-01 20:52:53', '2022-02-01 20:52:53'),
 (28, 1, 29, '06', 'Important', 'Lorem ipsum dolor', 'Lorem ipsum wkwk', 1, '2022-02-02 09:08:18', '2022-02-02 10:58:09'),
-(29, 1, 30, '10', 'Important', 'Lorem ipsum dolor', 'Lorem wkwkwkwk wkwkwk wkw kwk wkwk wkwk wwtfw eeeee eeeee eeeeee eeeee eee eeeee eeee eeeeee ', 1, '2022-02-02 20:16:03', '2022-02-02 20:17:34');
+(29, 1, 30, '10', 'Important', 'Lorem ipsum dolor', 'Lorem wkwkwkwk wkwkwk wkw kwk wkwk wkwk wwtfw eeeee eeeee eeeeee eeeee eee eeeee eeee eeeeee ', 1, '2022-02-02 20:16:03', '2022-02-02 20:17:34'),
+(30, 1, 31, '02', 'Important', 'Lolos sertifikasi', 'Bismillah, lolos sertifikasi trus bisa dapat kerjaan', 1, '2022-02-05 14:21:59', '2022-02-15 10:43:53'),
+(31, 1, 32, '11', 'Normal', 'Lorem ipsum dolor', 'Lorem ipsum kui dolor e sopo', 1, '2022-02-10 10:59:52', '2022-02-10 10:59:52'),
+(32, 1, 33, '03', 'Very Important', 'Mencari kekurangan & Memperbaiki diri', 'Kumpulkan kekurangan pada diri, dan cari bagaimana cara memperbaikinya. Mantap', 0, '2022-02-12 20:32:42', '2022-02-12 20:35:55'),
+(33, 1, 34, '02', 'Important', 'Benerin sesuatu', 'Benerin apa yang harus dibenerin, jangan mager', 1, '2022-02-12 20:46:45', '2022-02-12 21:04:16'),
+(34, 1, 35, '01', 'Important', 'wkwk', 'kwkwkwkwkwkw', 0, '2022-02-12 21:04:37', '2022-02-15 09:56:57'),
+(35, 1, 36, '02', 'Very Important', 'Buat perubahan baik', 'Jadikan dirimu sumber perubahan baik bagi lingkunganmu, sip', 0, '2022-02-13 09:02:12', '2022-02-13 09:03:07'),
+(36, 1, 37, '02', 'Very Important', 'Balajar dari kesalahan', 'Belajar menjadi lebih baik dari kesalahan di masa laluku', 0, '2022-02-13 09:41:17', '2022-02-13 09:41:36'),
+(38, 1, 39, '03', 'Normal', 'Mempelajari dan Memahami Python', 'Belajar dari dasar bahasa Python melalui berbagai sumber gratis', 0, '2022-02-20 09:40:59', '2022-02-20 10:08:52'),
+(40, 15, 41, '02', 'Important', 'Mematangkan Kawaki', 'Memastikan Kawaki memasuki tahap akhir', 1, '2022-03-04 21:03:57', '2022-03-04 21:03:57'),
+(41, 16, 42, '01', 'Very Important', 'Menjadi Guru & Ayah Naturo', 'Mengabdikan diri mengajar dan menjadi sosok ayah bagi Naruto kecil', 1, '2022-03-04 21:05:28', '2022-03-04 21:05:28');
 
 --
 -- Triggers `history`
@@ -190,7 +204,7 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `edit_plan` AFTER UPDATE ON `history` FOR EACH ROW BEGIN
-INSERT INTO logs(id_user, action, content, times, activity) VALUES (OLD.id_user, "UPDATE PLAN", OLD.plan, NOW(), "User update a plan");
+INSERT INTO logs(id_user, action, content, times, activity) VALUES (OLD.id_user, "UPDATE PLAN", NEW.plan, NOW(), "User update a plan");
 END
 $$
 DELIMITER ;
@@ -329,7 +343,183 @@ INSERT INTO `logs` (`id_log`, `id_user`, `action`, `content`, `times`, `activity
 (93, 1, 'UPDATE PLAN', 'Tahun baru-an', '2022-02-04 09:14:16', 'User update a plan'),
 (94, 1, 'UPDATE PLAN', 'Perpanjang SIM', '2022-02-05 09:34:17', 'User update a plan'),
 (95, 1, 'UPDATE PLAN', 'Perpanjang SIM', '2022-02-05 09:34:21', 'User update a plan'),
-(96, 1, 'UPDATE PLAN', 'Liburan kuliah', '2022-02-05 13:58:56', 'User update a plan');
+(96, 1, 'UPDATE PLAN', 'Liburan kuliah', '2022-02-05 13:58:56', 'User update a plan'),
+(97, 1, 'ADD PLAN', 'Lolos sertifikasi', '2022-02-05 14:21:59', 'User adding new plan'),
+(98, 1, 'UPDATE PLAN', 'Tuntasin sertifikasi', '2022-02-05 14:22:23', 'User update a plan'),
+(99, 1, 'UPDATE PLAN', 'Menjadi backend dev', '2022-02-05 14:22:45', 'User update a plan'),
+(100, 1, 'UPDATE PLAN', 'Perpanjang SIM', '2022-02-05 14:22:52', 'User update a plan'),
+(101, 1, 'UPDATE PLAN', 'Menjadi Fullstack Web Dev', '2022-02-05 14:23:31', 'User update a plan'),
+(102, 1, 'UPDATE PLAN', 'Menjadi Fullstack Web Dev', '2022-02-05 14:23:36', 'User update a plan'),
+(103, 1, 'UPDATE PLAN', 'Belajar Self Development', '2022-02-05 14:23:54', 'User update a plan'),
+(104, 1, 'UPDATE PLAN', 'Menjadi Fullstack Web Dev', '2022-02-05 19:34:49', 'User update a plan'),
+(105, 1, 'UPDATE PLAN', 'Menjadi Fullstack Web Dev', '2022-02-05 19:34:54', 'User update a plan'),
+(106, 1, 'UPDATE PLAN', 'Lolos sertifikasi', '2022-02-05 21:07:47', 'User update a plan'),
+(107, 1, 'UPDATE PLAN', 'Lolos sertifikasi', '2022-02-05 21:07:56', 'User update a plan'),
+(108, 1, 'UPDATE PLAN', 'Lolos sertifikasi', '2022-02-08 08:41:14', 'User update a plan'),
+(109, 10, 'JOINED', 'killer_bee', '2022-02-10 08:33:50', 'User has been joined to My This Year Plans'),
+(110, 1, 'ADD PLAN', 'Lorem ipsum dolor', '2022-02-10 10:59:52', 'User adding new plan'),
+(111, 1, 'UPDATE PLAN', 'Lorem ipsum dolor', '2022-02-10 11:01:08', 'User update a plan'),
+(112, 1, 'UPDATE PLAN', 'Lolos sertifikasi', '2022-02-10 11:32:48', 'User update a plan'),
+(113, 1, 'UPDATE PLAN', 'Liburan kuliah', '2022-02-11 09:41:04', 'User update a plan'),
+(114, 1, 'UPDATE PLAN', 'Mulai nyusun skripsi', '2022-02-12 20:28:37', 'User update a plan'),
+(115, 1, 'ADD PLAN', 'Memperbaiki diri', '2022-02-12 20:32:42', 'User adding new plan'),
+(116, 1, 'UPDATE PLAN', 'Memperbaiki diri', '2022-02-12 20:35:19', 'User update a plan'),
+(117, 1, 'UPDATE PLAN', 'Memperbaiki diri', '2022-02-12 20:35:22', 'User update a plan'),
+(118, 1, 'UPDATE PLAN', 'Memperbaiki diri', '2022-02-12 20:35:55', 'User update a plan'),
+(119, 1, 'UPDATE PLAN', 'Mencari kekurangan & Memperbaiki diri', '2022-02-12 20:36:10', 'User update a plan'),
+(120, 1, 'UPDATE PLAN', 'Mencari kekurangan & Memperbaiki diri', '2022-02-12 20:36:28', 'User update a plan'),
+(121, 1, 'ADD PLAN', 'Benerin sesuatu', '2022-02-12 20:46:45', 'User adding new plan'),
+(122, 1, 'UPDATE PLAN', 'Benerin sesuatu', '2022-02-12 20:46:50', 'User update a plan'),
+(123, 1, 'UPDATE PLAN', 'Benerin sesuatu', '2022-02-12 20:46:52', 'User update a plan'),
+(124, 1, 'UPDATE PLAN', 'Benerin sesuatu', '2022-02-12 20:47:07', 'User update a plan'),
+(125, 1, 'UPDATE PLAN', 'Benerin sesuatuu', '2022-02-12 20:47:10', 'User update a plan'),
+(126, 1, 'UPDATE PLAN', 'Mulai nyusun skripsi', '2022-02-12 21:03:43', 'User update a plan'),
+(127, 1, 'UPDATE PLAN', 'Mulai nyusun skripsi', '2022-02-12 21:03:46', 'User update a plan'),
+(128, 1, 'UPDATE PLAN', 'Benerin sesuatuu', '2022-02-12 21:04:05', 'User update a plan'),
+(129, 1, 'UPDATE PLAN', 'Benerin sesuatuu', '2022-02-12 21:04:16', 'User update a plan'),
+(130, 1, 'ADD PLAN', 'wkwkwkwk', '2022-02-12 21:04:37', 'User adding new plan'),
+(131, 1, 'UPDATE PLAN', 'wkwkwkwk', '2022-02-12 21:04:42', 'User update a plan'),
+(132, 1, 'UPDATE PLAN', 'Lolos sertifikasi', '2022-02-13 08:02:50', 'User update a plan'),
+(133, 1, 'UPDATE PLAN', 'Belajar soft skill', '2022-02-13 08:02:59', 'User update a plan'),
+(134, 1, 'UPDATE PLAN', 'Belajar soft skill', '2022-02-13 08:03:02', 'User update a plan'),
+(135, 1, 'UPDATE PLAN', 'Menjadi backend dev', '2022-02-13 08:03:34', 'User update a plan'),
+(136, 1, 'UPDATE PLAN', 'Menjadi backend developer', '2022-02-13 08:03:51', 'User update a plan'),
+(137, 1, 'UPDATE PLAN', 'Mulai nyusun skripsi', '2022-02-13 08:04:22', 'User update a plan'),
+(138, 1, 'ADD PLAN', 'Buat perubahan', '2022-02-13 09:02:12', 'User adding new plan'),
+(139, 1, 'UPDATE PLAN', 'Buat perubahan', '2022-02-13 09:02:17', 'User update a plan'),
+(140, 1, 'UPDATE PLAN', 'Buat perubahan', '2022-02-13 09:02:21', 'User update a plan'),
+(141, 1, 'UPDATE PLAN', 'Buat perubahan', '2022-02-13 09:02:32', 'User update a plan'),
+(142, 1, 'UPDATE PLAN', 'Buat perubahan', '2022-02-13 09:02:51', 'User update a plan'),
+(143, 1, 'UPDATE PLAN', 'Buat perubahan', '2022-02-13 09:03:07', 'User update a plan'),
+(144, 1, 'ADD PLAN', 'Balajar dai kesalahan', '2022-02-13 09:41:17', 'User adding new plan'),
+(145, 1, 'UPDATE PLAN', 'Balajar dai kesalahan', '2022-02-13 09:41:31', 'User update a plan'),
+(146, 1, 'UPDATE PLAN', 'Balajar dari kesalahan', '2022-02-13 09:41:34', 'User update a plan'),
+(147, 1, 'UPDATE PLAN', 'Balajar dari kesalahan', '2022-02-13 09:41:36', 'User update a plan'),
+(148, 1, 'UPDATE PLAN', 'Balajar dari kesalahan', '2022-02-13 09:41:48', 'User update a plan'),
+(149, 1, 'UPDATE PLAN', 'wkwkwkwk', '2022-02-13 10:03:48', 'User update a plan'),
+(150, 1, 'UPDATE PLAN', 'wkwkwkwk', '2022-02-13 10:04:02', 'User update a plan'),
+(151, 1, 'UPDATE PLAN', 'wkwkwkwk', '2022-02-13 10:04:05', 'User update a plan'),
+(152, 1, 'UPDATE PLAN', 'wkwkwkwk', '2022-02-13 10:04:12', 'User update a plan'),
+(153, 1, 'UPDATE PLAN', 'Lolos sertifikasi', '2022-02-15 09:48:41', 'User update a plan'),
+(154, 1, 'UPDATE PLAN', 'wkwkwkwk', '2022-02-15 09:56:57', 'User update a plan'),
+(155, 1, 'UPDATE PLAN', 'Lolos sertifikasi', '2022-02-15 10:43:53', 'User update a plan'),
+(156, 1, 'UPDATE PLAN', 'Mulai kerjain sertifikasi', '2022-02-16 11:33:54', 'User update a plan'),
+(157, 1, 'UPDATE PLAN', 'Mulai kerjain sertifikasi', '2022-02-16 11:33:58', 'User update a plan'),
+(158, 1, 'ADD PLAN', 'Mempelajari dan Memahami Python', '2022-02-20 09:01:34', 'User adding new plan'),
+(159, 1, 'UPDATE PLAN', 'Mempelajari dan Memahami Python', '2022-02-20 09:02:41', 'User update a plan'),
+(160, 1, 'DELETE PLAN', 'Mempelajari dan Memahami Python', '2022-02-20 09:31:48', 'User delete a plan'),
+(161, 1, 'ADD PLAN', 'Mempelajari dan Memahami Python', '2022-02-20 09:40:59', 'User adding new plan'),
+(162, 1, 'UPDATE PLAN', 'Mempelajari dan Memahami Python', '2022-02-20 09:42:37', 'User update a plan'),
+(163, 1, 'UPDATE PLAN', 'Mempelajari dan Memahami Python', '2022-02-20 10:08:52', 'User update a plan'),
+(164, 11, 'JOINED', 'Eren Yeager', '2022-02-23 11:03:53', 'User has been joined to My This Year Plans'),
+(165, 12, 'JOINED', 'Eren Yeager', '2022-02-23 11:20:35', 'User has been joined to My This Year Plans'),
+(166, 13, 'JOINED', 'Eren Yeager', '2022-02-23 11:22:39', 'User has been joined to My This Year Plans'),
+(167, 10, 'UPDATE PROFILE', 'killer_bee', '2022-02-24 08:58:50', 'User has updated profile data'),
+(168, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 09:00:42', 'User has updated profile data'),
+(169, 11, 'UPDATE PROFILE', 'Aji Santoso', '2022-02-24 09:05:27', 'User has updated profile data'),
+(170, 11, 'UPDATE PROFILE', 'Aji Santoso', '2022-02-24 09:12:27', 'User has updated profile data'),
+(171, 11, 'UPDATE PROFILE', 'Aji Santoso', '2022-02-24 09:12:52', 'User has updated profile data'),
+(172, 11, 'UPDATE PROFILE', 'Aji Santoso', '2022-02-24 09:59:09', 'User has updated profile data'),
+(173, 11, 'UPDATE PROFILE', 'Aji Santoso', '2022-02-24 09:59:25', 'User has updated profile data'),
+(174, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 10:11:49', 'User has updated profile data'),
+(175, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 10:13:27', 'User has updated profile data'),
+(176, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 10:18:04', 'User has updated profile data'),
+(177, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 10:20:47', 'User has updated profile data'),
+(178, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 10:22:10', 'User has updated profile data'),
+(179, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 10:22:31', 'User has updated profile data'),
+(180, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 10:41:11', 'User has updated profile data'),
+(181, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 10:44:29', 'User has updated profile data'),
+(182, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 11:15:03', 'User has updated profile data'),
+(183, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 11:15:23', 'User has updated profile data'),
+(184, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 11:16:48', 'User has updated profile data'),
+(185, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 11:17:33', 'User has updated profile data'),
+(186, 10, 'UPDATE PROFILE', 'Killerz Bee', '2022-02-24 11:18:03', 'User has updated profile data'),
+(187, 10, 'UPDATE PROFILE', 'Killerz Bee', '2022-02-24 11:18:13', 'User has updated profile data'),
+(188, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 20:24:27', 'User has updated profile data'),
+(189, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 20:36:25', 'User has updated profile data'),
+(190, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-24 20:49:01', 'User has updated profile data'),
+(191, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 20:51:26', 'User has updated profile data'),
+(192, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 21:06:07', 'User has updated profile data'),
+(193, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-24 21:06:13', 'User has updated profile data'),
+(194, 10, 'UPDATE PROFILE', 'Killerz Bee', '2022-02-24 21:06:59', 'User has updated profile data'),
+(195, 10, 'UPDATE PROFILE', 'Killerz Bee', '2022-02-24 21:07:29', 'User has updated profile data'),
+(196, 10, 'UPDATE PROFILE', 'Killerz Bee', '2022-02-24 21:07:40', 'User has updated profile data'),
+(197, 10, 'UPDATE PROFILE', 'Killerz Bee', '2022-02-25 07:12:45', 'User has updated profile data'),
+(198, 10, 'UPDATE PROFILE', 'Killerz Bee', '2022-02-25 07:23:36', 'User has updated profile data'),
+(199, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 07:23:47', 'User has updated profile data'),
+(200, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 07:29:24', 'User has updated profile data'),
+(201, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-25 07:29:41', 'User has updated profile data'),
+(202, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-25 07:29:51', 'User has updated profile data'),
+(203, 10, 'UPDATE PROFILE', 'Pendaki Cantik', '2022-02-25 07:30:14', 'User has updated profile data'),
+(204, 10, 'UPDATE PROFILE', 'Pendaki Cantik', '2022-02-25 08:24:16', 'User has updated profile data'),
+(205, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 08:24:34', 'User has updated profile data'),
+(206, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 08:24:44', 'User has updated profile data'),
+(207, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 08:29:15', 'User has updated profile data'),
+(208, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 08:29:26', 'User has updated profile data'),
+(209, 10, 'UPDATE PROFILE', 'Dhawini', '2022-02-25 08:29:44', 'User has updated profile data'),
+(210, 10, 'UPDATE PROFILE', 'Dhawini', '2022-02-25 08:29:56', 'User has updated profile data'),
+(211, 10, 'UPDATE PROFILE', 'Pendaki Cantik', '2022-02-25 08:30:16', 'User has updated profile data'),
+(212, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 08:37:12', 'User has updated profile data'),
+(213, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 08:38:21', 'User has updated profile data'),
+(214, 10, 'UPDATE PROFILE', 'Killerzz Bee', '2022-02-25 08:38:29', 'User has updated profile data'),
+(215, 10, 'UPDATE PROFILE', 'Killerzz Bee', '2022-02-25 08:38:45', 'User has updated profile data'),
+(216, 10, 'UPDATE PROFILE', 'CAtur', '2022-02-25 08:39:04', 'User has updated profile data'),
+(217, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 09:29:26', 'User has updated profile data'),
+(218, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 09:29:33', 'User has updated profile data'),
+(219, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 09:54:26', 'User has updated profile data'),
+(220, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 09:56:30', 'User has updated profile data'),
+(221, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:03:21', 'User has updated profile data'),
+(222, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:03:45', 'User has updated profile data'),
+(223, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:04:41', 'User has updated profile data'),
+(224, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:04:59', 'User has updated profile data'),
+(225, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:05:49', 'User has updated profile data'),
+(226, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:12:10', 'User has updated profile data'),
+(227, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:12:23', 'User has updated profile data'),
+(228, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:13:08', 'User has updated profile data'),
+(229, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-25 10:13:30', 'User has updated profile data'),
+(230, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-25 10:13:38', 'User has updated profile data'),
+(231, 10, 'UPDATE PROFILE', 'Killer Bee', '2022-02-25 10:14:00', 'User has updated profile data'),
+(232, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-25 10:15:47', 'User has updated profile data'),
+(233, 10, 'UPDATE PROFILE', 'Killers Bee', '2022-02-25 10:15:57', 'User has updated profile data'),
+(234, 14, 'JOINED', 'eren.png', '2022-02-25 20:20:13', 'User has been joined to My This Year Plans'),
+(235, 14, 'UPDATE PROFILE', 'Paijo', '2022-02-25 20:24:09', 'User has updated profile data'),
+(236, 14, 'UPDATE PROFILE', 'Paijoku', '2022-02-25 20:25:30', 'User has updated profile data'),
+(237, 1, 'ADD PLAN', 'Testing', '2022-02-25 21:24:06', 'User adding new plan'),
+(238, 1, 'UPDATE PLAN', 'Testing', '2022-02-25 21:24:10', 'User update a plan'),
+(239, 1, 'UPDATE PLAN', 'Testing', '2022-02-25 21:24:13', 'User update a plan'),
+(240, 1, 'UPDATE PLAN', 'Testing', '2022-02-25 21:24:28', 'User update a plan'),
+(241, 1, 'UPDATE PLAN', 'Testing', '2022-02-25 21:24:42', 'User update a plan'),
+(242, 1, 'DELETE PLAN', 'Testing', '2022-02-25 21:24:49', 'User delete a plan'),
+(243, 1, 'UPDATE PLAN', 'Liburan kuliah', '2022-02-26 08:34:19', 'User update a plan'),
+(244, 1, 'UPDATE PLAN', 'Liburan kuliah', '2022-02-26 08:34:22', 'User update a plan'),
+(245, 1, 'UPDATE PLAN', 'Lorem ipsum dolor', '2022-02-26 08:34:30', 'User update a plan'),
+(246, 1, 'UPDATE PLAN', 'Lorem ipsum dolor', '2022-02-26 08:34:48', 'User update a plan'),
+(247, 1, 'UPDATE PROFILE', 'Minato', '2022-02-26 08:35:43', 'User has updated profile data'),
+(248, 1, 'UPDATE PROFILE', 'Minato', '2022-02-26 09:16:42', 'User has updated profile data'),
+(249, 12, 'UPDATE PROFILE', 'Admin MTYP', '2022-02-28 07:45:58', 'User has updated profile data'),
+(250, 15, 'JOINED', 'Jigen', '2022-03-04 20:48:27', 'User has been joined to My This Year Plans'),
+(251, 16, 'JOINED', 'Jiraiya', '2022-03-04 20:51:24', 'User has been joined to My This Year Plans'),
+(252, 15, 'ADD PLAN', 'Mematangkan Kawaki', '2022-03-04 21:03:57', 'User adding new plan'),
+(253, 16, 'ADD PLAN', 'Menjadi Guru & Ayah Naturo', '2022-03-04 21:05:28', 'User adding new plan'),
+(254, 10, 'UPDATE PROFILE', 'Killers Bees', '2022-03-06 19:12:57', 'User has updated profile data'),
+(255, 10, 'UPDATE PROFILE', 'Killers Bees', '2022-03-06 19:13:07', 'User has updated profile data'),
+(256, 12, 'UPDATE PROFILE', 'Admin My TYP', '2022-03-06 19:15:57', 'User has updated profile data'),
+(257, 12, 'UPDATE PROFILE', 'Admin MTYP', '2022-03-06 19:18:40', 'User has updated profile data'),
+(258, 12, 'UPDATE PROFILE', 'Admin MTYP', '2022-03-06 19:18:56', 'User has updated profile data'),
+(259, 12, 'UPDATE PROFILE', 'Admin MTYP', '2022-03-06 19:44:30', 'User has updated profile data'),
+(260, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 19:45:15', 'User has updated profile data'),
+(261, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 19:45:21', 'User has updated profile data'),
+(262, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 20:31:24', 'User has updated profile data'),
+(263, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 20:31:50', 'User has updated profile data'),
+(264, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 20:33:56', 'User has updated profile data'),
+(265, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 20:37:47', 'User has updated profile data'),
+(266, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 20:38:36', 'User has updated profile data'),
+(267, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 20:40:04', 'User has updated profile data'),
+(268, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-06 20:41:09', 'User has updated profile data'),
+(269, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-07 09:03:29', 'User has updated profile data'),
+(270, 12, 'UPDATE PROFILE', 'Admin MTYPlan', '2022-03-07 09:19:30', 'User has updated profile data'),
+(271, 15, 'UPDATE PROFILE', 'Jigen', '2022-03-07 09:21:16', 'User has updated profile data'),
+(272, 15, 'UPDATE PROFILE', 'Jigen', '2022-03-07 09:22:05', 'User has updated profile data');
 
 -- --------------------------------------------------------
 
@@ -384,18 +574,18 @@ CREATE TABLE `plans` (
 
 INSERT INTO `plans` (`id_plan`, `plan`, `description`, `created`, `expired`, `status`, `id_label`, `id_month`) VALUES
 (1, 'Menguasai HTML, CSS & JS', 'Belajar dari buku, YT & blog', '2022-01-26 11:20:34', '2022-05-31 23:59:59', 1, 2, 5),
-(2, 'Menjadi backend dev', 'Mengikuti bootcamp', '2022-01-26 11:22:28', '2022-02-28 20:00:00', 0, 3, 2),
+(2, 'Menjadi backend developer', 'Belajar dari YT, online course, dll', '2022-01-26 11:22:28', '2022-04-28 23:59:59', 0, 3, 4),
 (4, 'Menjadi Legenda', 'Menjadi tetua Clan Uchiha', '2022-01-26 12:12:39', '2022-12-30 10:30:00', 1, 1, 12),
 (5, 'Mengikuti Turnamen', 'Mengikuti turnamen sepakbola DANONE CUP', '2022-01-26 15:02:27', '2022-03-30 12:30:00', 0, 2, 3),
-(7, 'Menjadi Fullstack Web Dev', 'Menguasai backend & frontend dengan belajar dan praktik langsung', '2022-01-31 21:08:40', '2022-03-31 23:59:59', 1, 3, 2),
-(8, 'Mulai nyusun skripsi', 'Kumpulin berbagai referensi buat nyusun skripsi', '2022-01-31 21:14:42', '2022-03-12 23:59:59', 0, 2, 3),
-(9, 'Tuntasin sertifikasi', 'Semangat bro, jangan mager nanti nggak selesai2 tugasnya', '2022-01-31 21:16:13', '2022-01-31 23:59:59', 1, 1, 1),
-(10, 'Perpanjang SIM', 'Pulkam buat perpanjang SIM, tapi ngga jadi', '2022-01-31 21:19:46', '2022-02-12 23:59:59', 0, 3, 2),
-(11, 'Belajar Self Development', 'Mempelajari dari berbagai media untuk meningkatkan soft skill', '2022-02-01 07:30:30', '2022-03-31 23:59:59', 1, 2, 3),
+(7, 'Menjadi Fullstack Web Dev', 'Menguasai backend & frontend dengan belajar dan praktik langsung', '2022-01-31 21:08:40', '2022-03-31 23:59:59', 0, 3, 3),
+(8, 'Mulai nyusun skripsi', 'Kumpulin berbagai referensi buat nyusun skripsi', '2022-01-31 21:14:42', '2022-03-07 23:59:59', 0, 2, 3),
+(9, 'Mulai kerjain sertifikasi', 'Semangat bro, jangan mager nanti nggak selesai2 tugasnya', '2022-01-31 21:16:13', '2022-01-31 23:59:59', 1, 1, 1),
+(10, 'Perpanjang SIM', 'Pulkam buat perpanjang SIM, tapi ngga jadi', '2022-01-31 21:19:46', '2022-02-12 23:59:59', 1, 3, 2),
+(11, 'Belajar soft skill', 'Mempelajari dari berbagai media untuk meningkatkan soft skill', '2022-02-01 07:30:30', '2022-03-31 23:59:59', 1, 2, 3),
 (12, 'Belajar Bahasa Inggris Dasar', 'Belajar B.Inggris  dasar untuk menambah value dalam mencari kerja', '2022-02-01 07:32:55', '2022-09-30 23:59:59', 1, 1, 9),
-(13, 'Liburan kuliah', 'Tapi ngga jadi, karna ada sertifikasi. Semangat bro, jangan sia2in kesempatan sama kayak dia nyia2in dirimu XD', '2022-02-01 14:42:17', '2022-01-31 23:59:59', 0, 3, 1),
+(13, 'Liburan kuliah', 'Tapi ngga jadi, karna ada sertifikasi. Semangat bro, jangan sia2in kesempatan sama kayak dia nyia2in dirimu XD', '2022-02-01 14:42:17', '2022-01-31 23:59:59', 1, 3, 1),
 (16, 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet,', '2022-02-01 20:11:22', '2022-04-28 23:59:59', 0, 1, 4),
-(17, 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ', '2022-02-01 20:11:49', '2022-02-16 23:59:59', 0, 3, 4),
+(17, 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ', '2022-02-01 20:11:49', '2022-01-16 23:59:59', 1, 3, 1),
 (18, 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2022-02-01 20:12:18', '2022-08-03 23:59:59', 0, 2, 8),
 (19, 'Agustusan', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', '2022-02-01 20:12:55', '2022-08-17 23:59:59', 0, 3, 8),
 (20, 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2022-02-01 20:13:55', '2022-12-15 23:59:59', 0, 1, 12),
@@ -408,7 +598,17 @@ INSERT INTO `plans` (`id_plan`, `plan`, `description`, `created`, `expired`, `st
 (27, 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2022-02-01 20:47:17', '2022-07-21 23:59:59', 1, 2, 7),
 (28, 'Lorem ipsum dolor', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '2022-02-01 20:52:53', '2022-07-21 23:59:59', 0, 3, 7),
 (29, 'Lorem ipsum dolor', 'Lorem ipsum wkwk', '2022-02-02 09:08:18', '2022-06-18 23:59:59', 1, 2, 6),
-(30, 'Lorem ipsum dolor', 'Lorem wkwkwkwk wkwkwk wkw kwk wkwk wkwk wwtfw eeeee eeeee eeeeee eeeee eee eeeee eeee eeeeee ', '2022-02-02 20:16:03', '2022-10-02 23:59:59', 1, 2, 10);
+(30, 'Lorem ipsum dolor', 'Lorem wkwkwkwk wkwkwk wkw kwk wkwk wkwk wwtfw eeeee eeeee eeeeee eeeee eee eeeee eeee eeeeee ', '2022-02-02 20:16:03', '2022-10-02 23:59:59', 1, 2, 10),
+(31, 'Lolos sertifikasi', 'Bismillah, lolos sertifikasi trus bisa dapat kerjaan', '2022-02-05 14:21:59', '2022-02-28 23:59:59', 1, 2, 2),
+(32, 'Lorem ipsum dolor', 'Lorem ipsum kui dolor e sopo', '2022-02-10 10:59:52', '2022-11-18 23:59:59', 1, 1, 11),
+(33, 'Mencari kekurangan & Memperbaiki diri', 'Kumpulkan kekurangan pada diri, dan cari bagaimana cara memperbaikinya. Mantap', '2022-02-12 20:32:42', '2022-03-28 23:59:59', 0, 3, 3),
+(34, 'Benerin sesuatu', 'Benerin apa yang harus dibenerin, jangan mager', '2022-02-12 20:46:45', '2022-02-26 23:59:59', 1, 2, 2),
+(35, 'wkwk', 'kwkwkwkwkwkw', '2022-02-12 21:04:37', '2022-01-12 23:59:59', 0, 2, 1),
+(36, 'Buat perubahan baik', 'Jadikan dirimu sumber perubahan baik bagi lingkunganmu, sip', '2022-02-13 09:02:12', '2022-02-28 23:59:59', 0, 3, 2),
+(37, 'Balajar dari kesalahan', 'Belajar menjadi lebih baik dari kesalahan di masa laluku', '2022-02-13 09:41:17', '2022-02-25 23:59:59', 0, 3, 2),
+(39, 'Mempelajari dan Memahami Python', 'Belajar dari dasar bahasa Python melalui berbagai sumber gratis', '2022-02-20 09:40:59', '2022-03-12 23:59:59', 0, 1, 3),
+(41, 'Mematangkan Kawaki', 'Memastikan Kawaki memasuki tahap akhir', '2022-03-04 21:03:57', '2022-02-17 23:59:59', 1, 2, 2),
+(42, 'Menjadi Guru & Ayah Naturo', 'Mengabdikan diri mengajar dan menjadi sosok ayah bagi Naruto kecil', '2022-03-04 21:05:28', '2022-01-01 23:59:59', 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -448,15 +648,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `email`, `username`, `password`, `avatar`, `joined`) VALUES
-(1, 'minato@konoha.com', 'Minato', '$2y$10$B.ue2SxPBVqYD5o7vfTfvucpe.PQRHskD8kxM5CUtpw7Iz0BCY2vS', 'avatar.png', '2022-01-26 11:10:21'),
-(2, 'madara@uchiha.com', 'Madara', '$2y$10$sze5jzVFMJu1kyJFiY2RC.3UUhxG76VzaH4T2a5wlxpxeznUwXpP2', 'avatar.png', '2022-01-26 11:10:49'),
-(3, 'obito@uchiha.com', 'Obito', '$2y$10$IRF59lMb8apgmlYJ.tFOvuzT3NqoUP0hkjns54LJXhaW7ShMA0JnS', 'avatar.png', '2022-01-26 13:52:54'),
-(4, 'boruto123@uzumaki.com', 'Boruto', '$2y$10$1m2gmItESzJCS4aeid3N1eYZVtcf7hmIMFsSJyhF/UzbtlLD99Thi', 'avatar.png', '2022-01-26 14:00:47'),
-(5, 'shukaku123@kamegakure.com', 'Shukaku', '$2y$10$qO0FDuaAvmHp/.SCP.RJvOdhEzQz2/vRr8Sd7PUNDqlk.CFOXryOC', 'avatar.png', '2022-01-26 14:02:39'),
-(6, 'sarutobi123@konoha.com', 'Sarutobi', '$2y$10$8YGWl6fZhg/ulHruBkMvR.6okC4KyaYrxhDGGR/QqA5XmyZelU1c.', 'avatar.png', '2022-01-26 14:09:17'),
-(7, 'khakasi@hatake.com', 'Khakasi', '$2y$10$V5vIgEQhkNrn/ZNQiAROvu56cdQiIck6LriSvI1Oua/RZRWWepHUm', 'avatar.png', '2022-01-30 08:33:32'),
-(8, 'musk@elon.com', 'elon_musk', '$2y$10$SB.8QtFDK.SGxGYZ8vJWtOk5wVP/sfklvixhRWDKkuswNOzIBVSmm', 'avatar.png', '2022-01-30 20:41:15'),
-(9, 'choji@akimichi.com', 'akimichi_choji', '$2y$10$zHSqUaRrjVRnYznd/eLz0OPISh.bZyE0z9tV0x875wajLt8wLoY/.', 'avatar.png', '2022-01-30 20:47:45');
+(1, 'minato@konoha.com', 'Minato', '$2y$10$B.ue2SxPBVqYD5o7vfTfvucpe.PQRHskD8kxM5CUtpw7Iz0BCY2vS', 'minato_konoha.png', '2022-01-26 11:10:21'),
+(2, 'madara@uchiha.com', 'Madara', '$2y$10$sze5jzVFMJu1kyJFiY2RC.3UUhxG76VzaH4T2a5wlxpxeznUwXpP2', '', '2022-01-26 11:10:49'),
+(3, 'obito@uchiha.com', 'Obito', '$2y$10$IRF59lMb8apgmlYJ.tFOvuzT3NqoUP0hkjns54LJXhaW7ShMA0JnS', '', '2022-01-26 13:52:54'),
+(4, 'boruto123@uzumaki.com', 'Boruto', '$2y$10$1m2gmItESzJCS4aeid3N1eYZVtcf7hmIMFsSJyhF/UzbtlLD99Thi', '', '2022-01-26 14:00:47'),
+(5, 'shukaku123@kamegakure.com', 'Shukaku', '$2y$10$qO0FDuaAvmHp/.SCP.RJvOdhEzQz2/vRr8Sd7PUNDqlk.CFOXryOC', '', '2022-01-26 14:02:39'),
+(6, 'sarutobi123@konoha.com', 'Sarutobi', '$2y$10$8YGWl6fZhg/ulHruBkMvR.6okC4KyaYrxhDGGR/QqA5XmyZelU1c.', '', '2022-01-26 14:09:17'),
+(7, 'khakasi@hatake.com', 'Khakasi', '$2y$10$V5vIgEQhkNrn/ZNQiAROvu56cdQiIck6LriSvI1Oua/RZRWWepHUm', '', '2022-01-30 08:33:32'),
+(8, 'musk@elon.com', 'elon_musk', '$2y$10$SB.8QtFDK.SGxGYZ8vJWtOk5wVP/sfklvixhRWDKkuswNOzIBVSmm', '', '2022-01-30 20:41:15'),
+(9, 'choji@akimichi.com', 'akimichi_choji', '$2y$10$zHSqUaRrjVRnYznd/eLz0OPISh.bZyE0z9tV0x875wajLt8wLoY/.', '', '2022-01-30 20:47:45'),
+(10, 'killer@bee.com', 'Killers Bees', '$2y$10$DhKGyKbDuW/3MKtSrkDoA.VlIGyVjtN8oYl0rfVaQ0UXcx9idsbtq', NULL, '2022-02-10 08:33:50'),
+(11, 'aji@santoso.com', 'Aji Santoso', '$2y$10$5ml9cU7b7zkvO.YN4xCRKe6I0ecdZwnhyGfrUoyalYm/BqdoCSxlq', NULL, '2022-02-23 11:03:53'),
+(12, 'admin@mytyplan.com', 'Admin MTYPlan', '$2y$10$UmXzs3T/5M/bL.7Wm1RPKumvAFu2q7f4U8n.Zi52zvUpsE5z4CK7S', NULL, '2022-02-23 11:20:35'),
+(13, 'eren@singashina.com', 'Eren Yeager', '$2y$10$LeCuMsSb0veLc8TtRazOTugRyVqGwS38aSwN8SyPMwsyQYS5c1Nua', NULL, '2022-02-23 11:22:39'),
+(14, 'paijo@gmail.com', 'Paijoku', '$2y$10$6ZPWLPSBompC2cBGUKp1Jeim/NOdF1AV8xsVJ44I1hgVIiFHxDd/u', 'paijo_ku.png', '2022-02-25 20:20:13'),
+(15, 'jigen@kara.com', 'Jigen', '$2y$10$2WI8PPaVYSy24PB1x3dtou0shSwZU/9JmRJ4/qnnYf/c8uuH0f5PG', NULL, '2022-03-04 20:48:27'),
+(16, 'jiraiya@konoha.com', 'Jiraiya', '$2y$10$p3KZi72WdqXzzsJA8ob4vOiYtQjzTYNbkEcWuEkgq1LT9EODXQ1Y2', NULL, '2022-03-04 20:51:24');
 
 --
 -- Triggers `users`
@@ -464,6 +671,12 @@ INSERT INTO `users` (`id_user`, `email`, `username`, `password`, `avatar`, `join
 DELIMITER $$
 CREATE TRIGGER `user_joined` AFTER INSERT ON `users` FOR EACH ROW BEGIN
 INSERT INTO logs(id_user, action, content, times, activity) VALUES (NEW.id_user, "JOINED", NEW.username, NOW(), "User has been joined to My This Year Plans");
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `user_updated` AFTER UPDATE ON `users` FOR EACH ROW BEGIN
+INSERT INTO logs(id_user, action, content, times, activity) VALUES (OLD.id_user, "UPDATE PROFILE", NEW.username, NOW(), "User has updated profile data");
 END
 $$
 DELIMITER ;
@@ -578,7 +791,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `labels`
@@ -590,7 +803,7 @@ ALTER TABLE `labels`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
 
 --
 -- AUTO_INCREMENT for table `months`
@@ -602,13 +815,13 @@ ALTER TABLE `months`
 -- AUTO_INCREMENT for table `plans`
 --
 ALTER TABLE `plans`
-  MODIFY `id_plan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_plan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
