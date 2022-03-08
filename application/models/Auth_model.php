@@ -165,6 +165,7 @@ class Auth_model extends CI_Model
     /**
      * Processing change password
      * @access public
+     * @param mixed $id_user and $new_pass
      * @return mixed
      */
     public function change_pass($id_user, $new_pass)

@@ -38,17 +38,31 @@ class Auth extends CI_Controller
 		$test_run = $this->unit->run($test, $expected, $test_name);
 		# Show result
 		echo $test_run;
+		# Kill next process
 		die;
 	}
 
+	/**
+	 * Running the check role admin process
+	 * @access private
+	 * @param string $email
+	 * @return mixed
+	 */
 	private function _check_role($email)
 	{
+		# IF Statement to add session userdata 'role' => 'admin' 
 		if ($email == 'admin@mytyplan.com') {
 			$data['role'] = "admin";
 			return $this->session->set_userdata($data);
 		}
 	}
 
+	/**
+	 * Running process to delete avatar images
+	 * @access private
+	 * @param string $file
+	 * @return array|false
+	 */
 	private function _del_avatar($file)
 	{
 		return array_map('unlink', glob(FCPATH . "assets/img/user/$file.*"));
@@ -69,7 +83,7 @@ class Auth extends CI_Controller
 		# Initialize login rules with login_rules()
 		$validation->set_rules($amodel->login_rules());
 
-		# IF condition to check if there is a stored 'email' session
+		# IF statement to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
 			# If TRUE, add an wrong password alert message to session
 			$this->session->set_flashdata(
@@ -89,7 +103,7 @@ class Auth extends CI_Controller
 			'title' => 'Login'
 		];
 
-		# IF condition to check form_validation not running
+		# IF statement to check form_validation not running
 		if ($validation->run() == FALSE) {
 			# If TRUE, it will be load login page
 			$this->load->view('auth/header', $data);
@@ -129,9 +143,9 @@ class Auth extends CI_Controller
 		// var_dump($user);
 		// die;
 
-		# IF condition to check if user data exists
+		# IF statement to check if user data exists
 		if ($user) {
-			# IF condition to check whether entered password matches user data
+			# IF statement to check whether entered password matches user data
 			if (password_verify($data['password'], $user['password'])) {
 				# call _check_role() for role admin
 				$this->_check_role($user['email']);
@@ -194,7 +208,7 @@ class Auth extends CI_Controller
 		# Initialize registration rules with reg_rules()
 		$validation->set_rules($amodel->reg_rules());
 
-		# IF condition to check if there is a stored 'email' session
+		# IF statement to check if there is a stored 'email' session
 		if ($this->session->userdata('email')) {
 			# If TRUE, add an alert message to session
 			$this->session->set_flashdata(
@@ -214,7 +228,7 @@ class Auth extends CI_Controller
 			'title' => 'Register'
 		];
 
-		# IF condition to check form_validation not running
+		# IF statement to check form_validation not running
 		if ($validation->run() == FALSE) {
 			$this->load->view('auth/header', $data);
 			$this->load->view('auth/register', $data);
@@ -266,18 +280,21 @@ class Auth extends CI_Controller
 		$validation = $this->form_validation;
 		# Initialize registration rules with reg_rules()
 		$validation->set_rules($amodel->change_pass_rules());
-		
+
+		# IF statement while form_validation not run
 		if ($validation->run() == FALSE) {
+			# Send validation error message with session flashdata
 			$sessions->set_flashdata(
 				'message',
 				'<div class="alert alert-danger alert-dismissible fade show" role="alert">'
-				. validation_errors() .
-				'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					. validation_errors() .
+					'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
 		} else {
 			# $user variable returns user row array data value as per email in the stored session
 			$user = $amodel->get_user_by_email($sessions->userdata('email'));
+			# $input variable to store value of form change password
 			$input = [
 				'id_user' => $this->input->post('id_user'),
 				'curr_password' => $this->input->post('curr_password'),
@@ -285,8 +302,11 @@ class Auth extends CI_Controller
 				'renew_password' => $this->input->post('renew_password')
 			];
 
+			# IF statement to check whether entered password matches user data
 			if (password_verify($input['curr_password'], $user['password'])) {
+				# IF statement to check the new password match with the current password
 				if ($input['new_password'] == $input['curr_password']) {
+					# Send error message with session flashdata
 					$sessions->set_flashdata(
 						'message',
 						'<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -295,18 +315,22 @@ class Auth extends CI_Controller
 						</div>'
 					);
 				} else {
+					# $new_pass variable to store result value of hashing new password
 					$new_pass = password_hash($input['new_password'], PASSWORD_DEFAULT);
+					# Passing $data['id_user'] and $new_pass as a parameter of change_pass() function to update data on database
 					$amodel->change_pass($user['id_user'], $new_pass);
 
+					# Send error message with session flashdata
 					$sessions->set_flashdata(
 						'message',
 						'<div class="alert alert-success alert-dismissible fade show" role="alert">
-							Password has ben changed!
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						Password has ben changed!
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 						</div>'
 					);
 				}
 			} else {
+				# Send error message with session flashdata
 				$sessions->set_flashdata(
 					'message',
 					'<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -317,6 +341,7 @@ class Auth extends CI_Controller
 			}
 		}
 
+		# IF statement to specify page redirect with check session userdata 'role'
 		if ($this->session->userdata('role')) {
 			redirect('admin_profile');
 		} else {
@@ -327,7 +352,6 @@ class Auth extends CI_Controller
 	/**
 	 * Navigate an admin profile page
 	 * @access public
-	 * @description Show admin profile page
 	 * @return void
 	 */
 	public function admin_profile()
@@ -351,9 +375,9 @@ class Auth extends CI_Controller
 		// var_dump($data);
 		// die;
 
-		# IF condition to check if no 'email' session is stored
+		# IF statement to check if no 'email' session is stored
 		if (!$this->session->userdata('email')) {
-			# If TRUE, add an alert message to session
+			# Send error message with session flashdata
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -368,37 +392,60 @@ class Auth extends CI_Controller
 		$this->load->view('admin/main', $data);
 	}
 
+	/**
+	 * Processing edit_profile
+	 * @access public
+	 * @return void
+	 */
 	public function edit_profile()
 	{
+		# $email to getting email from session
 		$email = $this->session->userdata('email');
+		# $user variable returns user row array data value as per email in the stored session
 		$user = $this->amodel->get_user_by_email($email);
-		# $file_name variable to store string email without dot
+		# $file_name variable to store string email without '@' and '.com'
 		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
-		# $config variable to store upload library settings
+		/**
+		 * $config variable to store settings of upload library
+		 * upload_path		=> Location to save file
+		 * allowed_types	=> Uploadable file extension
+		 * file_name		=> Saved upload file naming
+		 * overwrite		=> Allow to overwrite the same file name
+		 * max_size			=> Maximal file size on KB
+		 * max_width		=> Maximal width of file on px
+		 * max_height		=> Maximal height of file on px
+		 */
 		$config = [
 			'upload_path' => FCPATH . 'assets/img/user/',
 			'allowed_types' => 'gif|jpg|jpeg|png',
 			'file_name' => $file_name,
 			'overwrite' => true,
-			'max_size' => 1024, # Ukuran maksimal 1MB
-			'max_width' => 1000, # Lebar maksimal dalam px
-			'max_height' => 1000 # Tinggi maksimal dalam px
+			'max_size' => 1024,
+			'max_width' => 1000,
+			'max_height' => 1000
 		];
 
+		# Initialize upload library
 		$this->load->library('upload', $config);
 
+		# $old_data variable to store old user data
 		$old_data = [
 			'avatar' => $user['avatar'],
 			'username' => $user['username']
 		];
+		# $new_data variable to save value of id_user & username from user
 		$new_data = [
 			'id_user' => $this->input->post('id_user'),
 			'username' => $this->input->post('username')
 		];
 
+		# IF statement to check field name on avatar arrays
 		if (!empty($_FILES['avatar']['name'])) {
+			# IF failed to upload avatar
 			if (!$this->upload->do_upload('avatar')) {
+				# $error variable to store value of error message from upload library
 				$error = $this->upload->display_errors();
+				# Send error message with session flashdata
 				$this->session->set_flashdata(
 					'message',
 					'<div class="alert alert-danger alert-dismissible fade show" role="alert">'
@@ -406,31 +453,42 @@ class Auth extends CI_Controller
 						'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>'
 				);
-			} elseif (!is_null($new_data['id_user'])) {
+			}
+			# ELSEIF statement to check id_user is not null
+			elseif (!is_null($new_data['id_user'])) {
+				# $uploaded_data variable to store process upload data
 				$uploaded_data = $this->upload->data();
+				# $data variable to store data to be passed to the model
 				$data = [
 					'id_user' => $new_data['id_user'],
 					'avatar' => $uploaded_data['file_name'],
 					'username' => $new_data['username']
 				];
 
+				# Passing $data as a parameter of update_user() function to update data on database
 				$this->amodel->update_user($data);
+				# Send success message with session flashdata
 				$this->session->set_flashdata(
 					'message',
 					'<div class="alert alert-success alert-dismissible fade show" role="alert">
-					Your profile was updated!
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						Your profile was updated!
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>'
 				);
 			}
-		} elseif (!is_null($new_data['id_user']) && $old_data['username'] != $new_data['username']) {
+		}
+		# ELSEIF statement to check id_user is not null AND current username is not same with new username
+		elseif (!is_null($new_data['id_user']) && $old_data['username'] != $new_data['username']) {
+			# $data variable to store data to be passed to the model
 			$data = [
 				'id_user' => $new_data['id_user'],
 				'avatar' => $old_data['avatar'],
 				'username' => $new_data['username'],
 			];
 
+			# Passing $data as a parameter of update_user() function to update data on database
 			$this->amodel->update_user($data);
+			# Send success message with session flashdata
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -439,15 +497,17 @@ class Auth extends CI_Controller
 				</div>'
 			);
 		} else {
+			# Send info message with session flashdata
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-secondary alert-dismissible fade show" role="alert">
-				Nothing changes!
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					Nothing changes!
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>'
 			);
 		}
 
+		# IF statement to specify page redirect with check session userdata 'role'
 		if ($this->session->userdata('role')) {
 			redirect('admin_profile');
 		} else {
@@ -455,21 +515,31 @@ class Auth extends CI_Controller
 		}
 	}
 
+	/**
+	 * Processing to set default avatar
+	 * @access public
+	 * @return void
+	 */
 	public function default_avatar()
 	{
+		# $email to getting email from session
 		$email = $this->session->userdata('email');
+		# $user variable returns user row array data value as per email in the stored session
 		$user = $this->amodel->get_user_by_email($email);
-
+		# $file_name variable to store string email without '@' and '.com'
 		$file_name = str_replace(['@', '.com'], ['_', ''], $email);
+		# Passing $file_name as a parameter of _del_avatar() function
 		$this->_del_avatar($file_name);
-
+		# $data variable to store data to be passed to the model
 		$data = [
 			'id_user' => $this->input->post('id_user'),
 			'avatar' => null,
 			'username' => $user['username']
 		];
 
+		# IF statement to check process update_user()
 		if ($this->amodel->update_user($data)) {
+			# Send error message with session flashdata
 			$this->session->set_flashdata(
 				'message',
 				'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -479,6 +549,7 @@ class Auth extends CI_Controller
 			);
 		}
 
+		# IF statement to specify page redirect with check session userdata 'role'
 		if ($this->session->userdata('role')) {
 			redirect('admin_profile');
 		} else {
@@ -501,7 +572,7 @@ class Auth extends CI_Controller
 		# Unset all from session
 		$this->session->unset_userdata($data);
 
-		# Add an alert message to session if unset_userdata() process is successful
+		# Send success message with session flashdata
 		$this->session->set_flashdata(
 			'message',
 			'<div class="alert alert-info alert-dismissible fade show" role="alert">
